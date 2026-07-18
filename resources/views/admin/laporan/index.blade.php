@@ -161,34 +161,5 @@
     </div>
 </div>
 
-<style>
-    .stat-card {
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important;
-    }
-    @media print {
-        body * {
-            visibility: hidden;
-        }
-        #content-wrapper, #content-wrapper * {
-            visibility: visible;
-        }
-        #content-wrapper {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-        }
-        .btn, .navbar, .sidebar {
-            display: none !important;
-        }
-        .card {
-            border: 1px solid #ddd !important;
-            box-shadow: none !important;
-        }
-    }
-</style>
+
 @endsection

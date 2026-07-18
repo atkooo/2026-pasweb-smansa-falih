@@ -44,55 +44,5 @@
     @endforeach
 </div>
 
-<style>
-    /* Admin Gallery Card Styling */
-    .gallery-card-admin {
-        border-radius: 16px !important;
-        transition: all 0.3s ease;
-        background-color: transparent;
-    }
-    .card-img-wrapper-admin {
-        position: relative;
-        overflow: hidden;
-        background-color: #f3f4f6;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-    }
-    .gallery-card-admin:hover .card-img-wrapper-admin {
-        transform: translateY(-5px);
-        box-shadow: 0 12px 24px rgba(0,0,0,0.1);
-    }
-    .gallery-img-admin {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.5s ease;
-    }
-    .gallery-card-admin:hover .gallery-img-admin {
-        transform: scale(1.05);
-    }
-    .img-overlay-admin {
-        position: absolute;
-        top: 0;
-        right: 0;
-        padding: 12px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-    .gallery-card-admin:hover .img-overlay-admin {
-        opacity: 1;
-    }
-    .btn-action-admin {
-        width: 36px;
-        height: 36px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: none;
-        transition: all 0.2s ease;
-    }
-    .btn-action-admin:hover {
-        transform: scale(1.1);
-    }
-</style>
+
 @endsection

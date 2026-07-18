@@ -478,3 +478,53 @@ box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.
 }
 
 
+/* From admin/index.blade.php */
+.table-custom { border-collapse: separate; border-spacing: 0 0.5rem; }
+.table-custom tr { background-color: white; box-shadow: 0 2px 6px rgba(0,0,0,0.02); border-radius: 0.5rem; transition: transform 0.2s; }
+.table-custom tr:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.table-custom td, .table-custom th { border: none; padding: 1rem 1.2rem; vertical-align: middle; }
+.table-custom th { background: transparent; font-weight: 600; color: #6b7280; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.table-custom td:first-child, .table-custom th:first-child { border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem; }
+.table-custom td:last-child, .table-custom th:last-child { border-top-right-radius: 0.5rem; border-bottom-right-radius: 0.5rem; }
+.badge-role { padding: 0.4rem 0.8rem; border-radius: 50rem; font-weight: 600; font-size: 0.75rem; }
+.badge-admin { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.badge-pengurus { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.badge-calon { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.avatar-circle { width: 40px; height: 40px; border-radius: 50%; background: #f3f4f6; display: flex; align-items: center; justify-content: center; color: #4b5563; font-weight: bold; margin-right: 1rem; }
+body.dark-mode .table-custom tr { background-color: #1f2937; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
+body.dark-mode .table-custom th { color: #9ca3af; }
+body.dark-mode .table-custom td { color: #e5e7eb; }
+body.dark-mode .avatar-circle { background: #374151; color: #e5e7eb; }
+body.dark-mode .modal-content { background-color: #1f2937; color: #f9fafb; border-color: #374151; }
+body.dark-mode .modal-header, body.dark-mode .modal-footer { border-color: #374151; }
+body.dark-mode .form-control { background-color: #374151; border-color: #4b5563; color: #f9fafb; }
+body.dark-mode .form-control:focus { border-color: #ef4444; background-color: #374151; color: #f9fafb; }
+body.dark-mode .close { color: #f9fafb; }
+/* From admin/laporan/index.blade.php */
+.stat-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.stat-card:hover { box-shadow: 0 10px 25px rgba(0,0,0,0.08) !important; }
+@media print {
+    body * { visibility: hidden; }
+    #content-wrapper, #content-wrapper * { visibility: visible; }
+    #content-wrapper { position: absolute; left: 0; top: 0; width: 100%; }
+    .btn, .navbar, .sidebar { display: none !important; }
+    .card { border: 1px solid #ddd !important; box-shadow: none !important; }
+}
+/* From admin/galeri/show.blade.php */
+.gallery-card-admin { border-radius: 16px !important; transition: all 0.3s ease; background-color: transparent; }
+.card-img-wrapper-admin { position: relative; overflow: hidden; background-color: #f3f4f6; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: all 0.3s ease; }
+.gallery-card-admin:hover .card-img-wrapper-admin { box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+.gallery-img-admin { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-card-admin:hover .gallery-img-admin { transform: scale(1.05); }
+.img-overlay-admin { position: absolute; top: 0; right: 0; padding: 12px; opacity: 0; transition: opacity 0.3s ease; }
+.gallery-card-admin:hover .img-overlay-admin { opacity: 1; }
+.btn-action-admin { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: none; transition: all 0.2s ease; }
+.btn-action-admin:hover { transform: scale(1.1); }
+/* From admin/galeri/index.blade.php */
+.upload-zone.dragover { background-color: #c7d2fe !important; border-color: #4f46e5 !important; transform: scale(1.02); }
+.preview-item { position: relative; margin-bottom: 15px; }
+.preview-item img { width: 100%; height: 120px; object-fit: cover; border-radius: 0.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.preview-item .remove-btn { position: absolute; top: -5px; right: 10px; background: #ef4444; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.2); border: 2px solid white; }
+.upload-zone.minimized { padding: 0.75rem !important; }
+.upload-zone.minimized .upload-icon, .upload-zone.minimized h6, .upload-zone.minimized .d-flex { display: none !important; }
+.upload-zone.minimized .btn-primary { margin-top: 0 !important; font-size: 0.85rem !important; }

@@ -99,10 +99,25 @@
                         </li>
 
                         @if(auth()->user()->role === 'admin')
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Data Utama</li>
                             <li class="nav-item">
                                 <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Kelola Pengguna</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-info-circle"></i>
+                                    <p>Profil Website</p>
+                                </a>
+                            </li>
+                            
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Penerimaan Anggota</li>
+                            <li class="nav-item">
+                                <a href="{{ route('kriteria.index') }}" class="nav-link {{ request()->routeIs('kriteria.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-cogs"></i>
+                                    <p>Set Kriteria Seleksi</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -117,32 +132,8 @@
                                     <p>Hasil Seleksi</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('kriteria.index') }}" class="nav-link {{ request()->routeIs('kriteria.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-cogs"></i>
-                                    <p>Set Seleksi</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('profil.index') }}" class="nav-link {{ request()->routeIs('profil.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-info-circle"></i>
-                                    <p>Profil Website</p>
-                                </a>
-                            </li>
                             
-                            <!-- <li class="nav-header">KONTEN KEGIATAN</li> -->
-                            <li class="nav-item">
-                                <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-bullhorn"></i>
-                                    <p>Kelola Pengumuman</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('galeri.index') }}" class="nav-link {{ request()->routeIs('galeri.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-images"></i>
-                                    <p>Galeri</p>
-                                </a>
-                            </li>
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Konten & Informasi</li>
                             <li class="nav-item">
                                 <a href="{{ route('berita.index') }}" class="nav-link {{ request()->routeIs('berita.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-newspaper"></i>
@@ -150,13 +141,25 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="{{ route('pengumuman.index') }}" class="nav-link {{ request()->routeIs('pengumuman.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-bullhorn"></i>
+                                    <p>Pengumuman</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ route('jadwal.index') }}" class="nav-link {{ request()->routeIs('jadwal.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-calendar-alt"></i>
-                                    <p>Jadwal</p>
+                                    <p>Jadwal Kegiatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('galeri.index') }}" class="nav-link {{ request()->routeIs('galeri.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-images"></i>
+                                    <p>Galeri Foto</p>
                                 </a>
                             </li>
                             
-                            <!-- <li class="nav-header">SISTEM</li> -->
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Sistem</li>
                             <li class="nav-item">
                                 <a href="{{ route('laporan.index') }}" class="nav-link {{ request()->routeIs('laporan.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-chart-bar"></i>
@@ -166,13 +169,13 @@
                         @endif
 
                         @if(auth()->user()->role === 'pengurus')
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Penerimaan Anggota</li>
                             <li class="nav-item">
                                 <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.index') || request()->routeIs('admin.pendaftaran.show') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Data Pendaftar</p>
                                 </a>
                             </li>
-
                             <li class="nav-item">
                                 <a href="{{ route('seleksi.index') }}" class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-clipboard-check"></i>
@@ -185,35 +188,36 @@
                                     <p>Pengumuman Hasil</p>
                                 </a>
                             </li>
-
                         @endif
 
                         @if(auth()->user()->role === 'calon_anggota')
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Tahapan Seleksi</li>
                             <li class="nav-item">
                                 <a href="{{ route('pendaftaran.index') }}" class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-file-alt"></i>
-                                    <p>Formulir</p>
+                                    <p>Formulir Pendaftaran</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('status-seleksi.index') }}" class="nav-link {{ request()->routeIs('status-seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-check-circle"></i>
-                                    <p>Status Seleksi</p>
+                                    <p>Status Kelulusan</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('data-pendaftar.index') }}" class="nav-link {{ request()->routeIs('data-pendaftar.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>Data Pendaftar</p>
-                                </a>
-                            </li>
+                            
+                            <li class="nav-header text-uppercase font-weight-bold" style="color: #adb5bd; font-size: 0.75rem; letter-spacing: 0.5px;">Informasi Lainnya</li>
                             <li class="nav-item">
                                 <a href="{{ route('pengumuman-seleksi.index') }}" class="nav-link {{ request()->routeIs('pengumuman-seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-bullhorn"></i>
                                     <p>Pengumuman</p>
                                 </a>
                             </li>
-
+                            <li class="nav-item">
+                                <a href="{{ route('data-pendaftar.index') }}" class="nav-link {{ request()->routeIs('data-pendaftar.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-users"></i>
+                                    <p>Daftar Peserta</p>
+                                </a>
+                            </li>
                         @endif
 
                         <li class="nav-item mt-4">
