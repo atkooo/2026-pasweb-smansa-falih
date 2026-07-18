@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Calon;
 
 use App\Http\Controllers\Controller;
-
-use Illuminate\Http\Request;
 use App\Models\FormulirPendaftaran;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class FormulirController extends Controller
 {
@@ -15,7 +13,8 @@ class FormulirController extends Controller
         $formulir = auth()->user()->formulirPendaftaran;
 
         if ($formulir) {
-            return redirect()->route('dashboard')->with('info', 'Anda sudah mengisi formulir pendaftaran.');
+            $pendaftaran = $formulir;
+            return view('calon.formulir.show', compact('pendaftaran'));
         }
 
         return view('calon.formulir.create');

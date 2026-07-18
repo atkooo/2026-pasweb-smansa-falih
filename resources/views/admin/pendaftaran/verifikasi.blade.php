@@ -29,7 +29,7 @@
 <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">MENUNGGU VERIFIKASI</h6>
-        <form action="{{ route('pendaftaran.verifikasi') }}" method="GET" class="form-inline">
+        <form action="{{ route('admin.pendaftaran.verifikasi') }}" method="GET" class="form-inline">
             <div class="input-group input-group-sm">
                 <input type="text" name="search" class="form-control" placeholder="Cari nama/NISN..." value="{{ request('search') }}" style="border-radius: 20px 0 0 20px;">
                 <div class="input-group-append">

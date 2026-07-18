@@ -3,32 +3,45 @@
 namespace App\Http\Controllers\Calon;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Kriteria;
 use Illuminate\Http\Request;
 
 class StatusSeleksiController extends Controller
 {
-    private function getMockStages()
+    private function getStages()
     {
-        return [
-            1 => ['title' => 'VERIFIKASI ADMINISTRASI', 'date' => '-', 'status' => null, 'score' => null],
-            2 => ['title' => 'HASIL SELEKSI FISIK', 'date' => '-', 'status' => null, 'score' => null],
-            3 => ['title' => 'BARIS BERBARIS', 'date' => '-', 'status' => null, 'score' => null],
-            4 => ['title' => 'WAWANCARA', 'date' => '-', 'status' => null, 'score' => null],
-            5 => ['title' => 'KESEHATAN', 'date' => '-', 'status' => null, 'score' => null],
-            6 => ['title' => 'PENETAPAN HASIL SELEKSI', 'date' => '-', 'status' => null, 'score' => null],
-        ];
+        $kriterias = Kriteria::orderBy('id', 'asc')->get();
+        $formulir = auth()->user()->formulirPendaftaran;
+        
+        $stages = [];
+        
+        foreach ($kriterias as $kriteria) {
+            $hasil = null;
+            if ($formulir && $formulir->hasilSeleksi) {
+                $hasil = $formulir->hasilSeleksi->where('jenis_seleksi', $kriteria->nama)->first();
+            }
+            
+            $stages[$kriteria->id] = [
+                'title' => strtoupper($kriteria->nama),
+                'date' => $hasil ? $hasil->created_at->format('d M Y') : '-',
+                'status' => $hasil ? strtoupper($hasil->status_lulus) : null,
+                'score' => $hasil ? floatval($hasil->nilai) : null,
+                'keterangan' => $hasil ? $hasil->keterangan : null,
+            ];
+        }
+
+        return $stages;
     }
 
     public function index()
     {
-        $stages = $this->getMockStages();
+        $stages = $this->getStages();
         return view('calon.status_seleksi.index', compact('stages'));
     }
 
     public function show($id)
     {
-        $stages = $this->getMockStages();
+        $stages = $this->getStages();
         
         if (!isset($stages[$id])) {
             abort(404);

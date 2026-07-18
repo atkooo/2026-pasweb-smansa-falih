@@ -72,8 +72,8 @@
             </div>
             <div class="col-md-6 mb-4">
                 <div class="p-4 rounded" style="background-color: #f8f9fa;">
-                    <p class="text-muted mb-1 small">Wilayah</p>
-                    <h6 class="font-weight-bold text-dark mb-0">Provinsi</h6>
+                    <p class="text-muted mb-1 small">Keterangan</p>
+                    <h6 class="font-weight-bold text-dark mb-0">{{ $stage['keterangan'] ?? '-' }}</h6>
                 </div>
             </div>
         </div>

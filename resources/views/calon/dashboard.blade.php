@@ -79,7 +79,11 @@
                 <div class="card-body p-5 text-center">
                     <i class="fas fa-clipboard-check text-success mb-3" style="font-size: 6rem; opacity: 0.7;"></i>
                     <h3 class="font-weight-bold text-dark mb-2">Selamat Datang di Portal Calon Anggota</h3>
-                    <p class="text-muted" style="font-size: 1.1rem;">Lengkapi formulir pendaftaran Anda dan pantau status kelulusan melalui menu di sebelah kiri.</p>
+                    @if(auth()->user()->formulirPendaftaran)
+                        <p class="text-muted" style="font-size: 1.1rem;">Terima kasih, Anda telah mengisi formulir pendaftaran. Anda dapat melihat detail form Anda melalui menu "Formulir" di sebelah kiri.</p>
+                    @else
+                        <p class="text-muted" style="font-size: 1.1rem;">Lengkapi formulir pendaftaran Anda dan pantau status kelulusan melalui menu di sebelah kiri.</p>
+                    @endif
                 </div>
             </div>
         </div>
