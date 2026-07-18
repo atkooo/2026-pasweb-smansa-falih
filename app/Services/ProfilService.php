@@ -31,6 +31,7 @@ class ProfilService
             'doc1_judul', 'doc2_judul', 'doc3_judul', 'doc4_judul',
             'sejarah_singkat', 'sejarah_p1', 'sejarah_p2',
             'sejarah_umum_p1', 'sejarah_umum_p2', 'sejarah_umum_p3', 'sejarah_umum_p4',
+            'pendaftaran_status', 'pendaftaran_tahun_aktif',
         ];
 
         foreach ($fields as $field) {

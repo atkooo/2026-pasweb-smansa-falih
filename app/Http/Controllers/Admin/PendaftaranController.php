@@ -19,14 +19,26 @@ class PendaftaranController extends Controller
 
     public function index(Request $request)
     {
+        // Get active year from Informasi
+        $informasi = \App\Models\Informasi::whereIn('jenis_info', ['pendaftaran_tahun_aktif'])->pluck('konten', 'jenis_info');
+        $tahunAktif = $informasi['pendaftaran_tahun_aktif'] ?? date('Y');
+
         $filters = [
             'status' => $request->status,
             'search' => $request->search,
+            'tahun_periode' => $request->has('tahun_periode') ? $request->tahun_periode : $tahunAktif,
         ];
         
         $pendaftarans = $this->pendaftaranService->getPendaftarans($filters);
+        $availableTahun = $this->pendaftaranService->getAvailableTahun();
         
-        return view('admin.pendaftaran.index', compact('pendaftarans'));
+        // Add current active year if it's not in the list yet
+        if (!$availableTahun->contains($tahunAktif)) {
+            $availableTahun->push($tahunAktif);
+            $availableTahun = $availableTahun->sortDesc();
+        }
+        
+        return view('admin.pendaftaran.index', compact('pendaftarans', 'availableTahun', 'filters'));
     }
 
     public function show($id)

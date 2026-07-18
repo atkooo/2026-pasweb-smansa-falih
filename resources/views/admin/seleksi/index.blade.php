@@ -28,6 +28,13 @@
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">DATA SELEKSI AKHIR</h6>
         <form action="{{ route('seleksi.index') }}" method="GET" class="form-inline">
+            <div class="input-group input-group-sm mr-2">
+                <select name="tahun_periode" class="form-control" style="border-radius: 20px; outline: none; box-shadow: none;" onchange="this.form.submit()">
+                    @foreach($availableTahun as $tahun)
+                        <option value="{{ $tahun }}" {{ $filters['tahun_periode'] == $tahun ? 'selected' : '' }}>Tahun {{ $tahun }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="input-group input-group-sm">
                 <input type="text" name="search" class="form-control" placeholder="Cari nama/NISN..." value="{{ request('search') }}" style="border-radius: 20px 0 0 20px;">
                 <div class="input-group-append">

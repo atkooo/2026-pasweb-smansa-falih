@@ -9,31 +9,11 @@
             
             <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <div class="card-header d-flex p-0 bg-white border-bottom" style="border-radius: 1rem 1rem 0 0;">
-                    <div class="p-3 pt-4">
-                        <h4 class="card-title font-weight-bold mb-0" style="color: #111827; letter-spacing: -0.5px;">Profil Website</h4>
-                        <p class="text-muted mb-0 mt-1 d-none d-sm-block" style="font-size: 0.9rem;">Kelola konten yang tampil di halaman publik.</p>
-                    </div>
-                    <ul class="nav nav-pills ml-auto p-3 pt-4" id="profil-tabs" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active font-weight-bold" id="tab-beranda-tab" data-toggle="pill" href="#tab-beranda" role="tab" aria-controls="tab-beranda" aria-selected="true" style="border-radius: 0.5rem;">Beranda & Unduhan</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link font-weight-bold mx-1" id="tab-sejarah-tab" data-toggle="pill" href="#tab-sejarah" role="tab" aria-controls="tab-sejarah" aria-selected="false" style="border-radius: 0.5rem;">Sejarah, Visi & Misi</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link font-weight-bold" id="tab-struktur-tab" data-toggle="pill" href="#tab-struktur" role="tab" aria-controls="tab-struktur" aria-selected="false" style="border-radius: 0.5rem;">Struktur Organisasi</a>
-                        </li>
-                    </ul>
+                <input type="hidden" name="tab" value="{{ $activeTab }}">
+                <div class="card-header bg-white border-bottom p-4" style="border-radius: 1rem 1rem 0 0;">
+                    <h4 class="font-weight-bold mb-1" style="color: #111827; letter-spacing: -0.5px;">Profil Website</h4>
+                    <p class="text-muted mb-0" style="font-size: 0.95rem;">Kelola konten yang tampil di halaman publik.</p>
                 </div>
-
-                @if(session('success'))
-                    <div class="px-4 pt-4 pb-0">
-                        <x-alert type="success">
-                            {{ session('success') }}
-                        </x-alert>
-                    </div>
-                @endif
 
                 @if ($errors->any())
                     <div class="px-4 pt-4 pb-0">
@@ -51,7 +31,7 @@
                     <div class="tab-content" id="profil-tabsContent">
                         
                         <!-- TAB BERANDA -->
-                        <div class="tab-pane fade show active" id="tab-beranda" role="tabpanel" aria-labelledby="tab-beranda-tab">
+                        <div class="tab-pane {{ $activeTab === 'beranda' ? 'show active' : 'd-none' }}" id="tab-beranda">
                             <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Pengaturan Halaman Beranda</h5>
                             
                             <div class="row mb-4">
@@ -108,9 +88,9 @@
                             </div>
                         </div>
 
-                        <!-- TAB SEJARAH -->
-                        <div class="tab-pane fade" id="tab-sejarah" role="tabpanel" aria-labelledby="tab-sejarah-tab">
-                            <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Bagian Sejarah Paskibra SMA N 1</h5>
+                        <!-- TAB SEJARAH, VISI & MISI -->
+                        <div class="tab-pane {{ $activeTab === 'sejarah' ? 'show active' : 'd-none' }}" id="tab-sejarah">
+                            <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Sejarah, Visi & Misi</h5>
                             
                             <div class="form-group mb-4">
                                 <label class="font-weight-600 text-muted small text-uppercase">Gambar Sejarah</label>
@@ -194,8 +174,8 @@
                             </div>
                         </div>
 
-                        <!-- TAB STRUKTUR -->
-                        <div class="tab-pane fade" id="tab-struktur" role="tabpanel" aria-labelledby="tab-struktur-tab">
+                        <!-- TAB STRUKTUR ORGANISASI -->
+                        <div class="tab-pane {{ $activeTab === 'struktur' ? 'show active' : 'd-none' }}" id="tab-struktur">
                             <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Susunan Kepengurusan & Organisasi</h5>
                             
                             @php
@@ -250,6 +230,34 @@
                                     </div>
                                 </div>
                                 @endforeach
+                            </div>
+                        </div>
+
+                        <!-- TAB PENGATURAN PENDAFTARAN -->
+                        <div class="tab-pane {{ $activeTab === 'pendaftaran' ? 'show active' : 'd-none' }}" id="tab-pendaftaran">
+                            <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;"><i class="fas fa-cog mr-2 text-danger"></i>Pengaturan Sistem Pendaftaran</h5>
+                            <div class="alert alert-info border-0 shadow-sm mb-4" style="border-radius: 0.75rem;">
+                                <i class="fas fa-info-circle mr-2"></i> Gunakan pengaturan ini untuk mengelola apakah pendaftaran calon anggota baru saat ini dibuka atau ditutup, dan mengatur tahun periode aktif.
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label class="font-weight-600 text-dark">Status Pendaftaran Paskibra</label>
+                                        <select name="pendaftaran_status" class="form-control" style="border-radius: 0.5rem; height: calc(2.25rem + 10px);">
+                                            <option value="buka" {{ (old('pendaftaran_status', $informasi['pendaftaran_status'] ?? '') == 'buka') ? 'selected' : '' }}>BUKA - Terima Calon Anggota Baru</option>
+                                            <option value="tutup" {{ (old('pendaftaran_status', $informasi['pendaftaran_status'] ?? '') == 'tutup') ? 'selected' : '' }}>TUTUP - Pendaftaran Non-aktif</option>
+                                        </select>
+                                        <small class="text-muted d-block mt-2">Jika ditutup, tombol dan akses ke formulir pendaftaran akan diblokir.</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-group">
+                                        <label class="font-weight-600 text-dark">Tahun Periode Pendaftaran Aktif</label>
+                                        <input type="number" name="pendaftaran_tahun_aktif" class="form-control" style="border-radius: 0.5rem; height: calc(2.25rem + 10px);" placeholder="Contoh: 2026" value="{{ old('pendaftaran_tahun_aktif', $informasi['pendaftaran_tahun_aktif'] ?? date('Y')) }}">
+                                        <small class="text-muted d-block mt-2">Tahun ini akan menjadi label periode bagi pendaftar baru yang masuk.</small>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

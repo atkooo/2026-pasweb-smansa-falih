@@ -17,12 +17,24 @@ class FormulirController extends Controller
             return view('calon.formulir.show', compact('pendaftaran'));
         }
 
+        // Check if registration is open
+        $statusInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_status')->first();
+        if ($statusInfo && $statusInfo->konten === 'tutup') {
+            return redirect()->route('dashboard')->with('error', 'Mohon maaf, pendaftaran calon anggota baru saat ini sedang ditutup.');
+        }
+
         return view('calon.formulir.create');
     }
 
     public function store(Request $request)
     {
         $user = auth()->user();
+
+        // Check if registration is open
+        $statusInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_status')->first();
+        if ($statusInfo && $statusInfo->konten === 'tutup') {
+            return redirect()->route('dashboard')->with('error', 'Mohon maaf, pendaftaran telah ditutup.');
+        }
 
         // Cek jika sudah punya
         if ($user->formulirPendaftaran) {
@@ -63,9 +75,14 @@ class FormulirController extends Controller
         $skd = $request->file('upload_skd')->store('berkas/skd', 'public');
         $kk = $request->file('upload_kk')->store('berkas/kk', 'public');
 
+        // Get tahun_aktif
+        $tahunInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_tahun_aktif')->first();
+        $tahunAktif = $tahunInfo ? $tahunInfo->konten : date('Y');
+
         // Simpan ke DB
         FormulirPendaftaran::create([
             'user_id' => $user->id,
+            'tahun_periode' => $tahunAktif,
             'nama_panggilan' => $validated['nama_panggilan'],
             'tempat_lahir' => $validated['tempat_lahir'],
             'tanggal_lahir' => $validated['tanggal_lahir'],

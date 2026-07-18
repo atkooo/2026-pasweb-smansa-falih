@@ -19,10 +19,24 @@ class SeleksiController extends Controller
 
     public function index(Request $request)
     {
-        $kriterias = $this->seleksiService->getAllKriteria();
-        $pesertas = $this->seleksiService->getPesertaWithScores($request->search);
+        $informasi = \App\Models\Informasi::whereIn('jenis_info', ['pendaftaran_tahun_aktif'])->pluck('konten', 'jenis_info');
+        $tahunAktif = $informasi['pendaftaran_tahun_aktif'] ?? date('Y');
 
-        return view('admin.seleksi.index', compact('pesertas', 'kriterias'));
+        $filters = [
+            'search' => $request->search,
+            'tahun_periode' => $request->has('tahun_periode') ? $request->tahun_periode : $tahunAktif,
+        ];
+
+        $kriterias = $this->seleksiService->getAllKriteria();
+        $pesertas = $this->seleksiService->getPesertaWithScores($filters);
+        
+        $availableTahun = $this->seleksiService->getAvailableTahun();
+        if (!$availableTahun->contains($tahunAktif)) {
+            $availableTahun->push($tahunAktif);
+            $availableTahun = $availableTahun->sortDesc();
+        }
+
+        return view('admin.seleksi.index', compact('pesertas', 'kriterias', 'availableTahun', 'filters'));
     }
 
     public function show($id)

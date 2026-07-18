@@ -20,10 +20,11 @@ class ProfilController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $informasi = $this->profilService->getAllInformasi();
-        return view('admin.profil.index', compact('informasi'));
+        $activeTab = $request->query('tab', 'beranda');
+        return view('admin.profil.index', compact('informasi', 'activeTab'));
     }
 
     /**
@@ -40,6 +41,6 @@ class ProfilController extends Controller
         // Document fields are processed
         $this->profilService->updateDocumentFields($request);
 
-        return redirect()->route('profil.index')->with('success', 'Profil website berhasil diperbarui.');
+        return redirect()->route('profil.index', ['tab' => $request->input('tab', 'beranda')])->with('success', 'Profil website berhasil diperbarui.');
     }
 }

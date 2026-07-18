@@ -28,7 +28,23 @@ class PendaftaranService
             });
         }
 
+        if (!empty($filters['tahun_periode'])) {
+            $query->where('tahun_periode', $filters['tahun_periode']);
+        }
+
         return $query->paginate($perPage);
+    }
+
+    /**
+     * Get all distinct tahun_periode from pendaftarans.
+     */
+    public function getAvailableTahun()
+    {
+        return FormulirPendaftaran::select('tahun_periode')
+            ->whereNotNull('tahun_periode')
+            ->distinct()
+            ->orderBy('tahun_periode', 'desc')
+            ->pluck('tahun_periode');
     }
 
     /**

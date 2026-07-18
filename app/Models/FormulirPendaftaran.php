@@ -20,6 +20,7 @@ class FormulirPendaftaran extends Model
      */
     protected $fillable = [
         'user_id',
+        'tahun_periode',
         'nama_panggilan',
         'tempat_lahir',
         'tanggal_lahir',

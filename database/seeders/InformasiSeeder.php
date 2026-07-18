@@ -47,6 +47,10 @@ class InformasiSeeder extends Seeder
 
             ['jenis_info' => 'org_ketua_nama', 'konten' => 'Ahmad Fauzi', 'tanggal_update' => now()],
             ['jenis_info' => 'org_ketua_kelas', 'konten' => 'XI MIPA 2', 'tanggal_update' => now()],
+            
+            // Pengaturan Pendaftaran
+            ['jenis_info' => 'pendaftaran_status', 'konten' => 'tutup', 'tanggal_update' => now()],
+            ['jenis_info' => 'pendaftaran_tahun_aktif', 'konten' => date('Y'), 'tanggal_update' => now()],
         ];
 
         foreach ($defaultInformasi as $info) {

@@ -19,7 +19,7 @@ class SeleksiService
     /**
      * Get paginated participants with their final scores calculated.
      */
-    public function getPesertaWithScores($search = null, $perPage = 10)
+    public function getPesertaWithScores($filters = [], $perPage = 10)
     {
         $kriterias = $this->getAllKriteria();
 
@@ -27,7 +27,8 @@ class SeleksiService
                     ->where('status_pendaftaran', 'approved')
                     ->orderBy('created_at', 'desc');
 
-        if (!empty($search)) {
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
             $query->where(function($q) use ($search) {
                 $q->where('nama_panggilan', 'like', "%{$search}%")
                   ->orWhereHas('user', function($uq) use ($search) {
@@ -35,6 +36,10 @@ class SeleksiService
                          ->orWhere('nisn', 'like', "%{$search}%");
                   });
             });
+        }
+        
+        if (!empty($filters['tahun_periode'])) {
+            $query->where('tahun_periode', $filters['tahun_periode']);
         }
 
         $pesertas = $query->paginate($perPage);
@@ -62,6 +67,18 @@ class SeleksiService
         });
 
         return $pesertas;
+    }
+
+    /**
+     * Get all distinct tahun_periode from pendaftarans.
+     */
+    public function getAvailableTahun()
+    {
+        return FormulirPendaftaran::select('tahun_periode')
+            ->whereNotNull('tahun_periode')
+            ->distinct()
+            ->orderBy('tahun_periode', 'desc')
+            ->pluck('tahun_periode');
     }
 
     /**

@@ -26,19 +26,19 @@
 
 <ul class="nav nav-tabs mb-4 border-0">
     <li class="nav-item">
-        <a class="nav-link font-weight-bold {{ request('status') == '' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index') }}" style="{{ request('status') == '' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Semua Data</a>
+        <a class="nav-link font-weight-bold {{ request('status') == '' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['tahun_periode' => $filters['tahun_periode']]) }}" style="{{ request('status') == '' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Semua Data</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link font-weight-bold {{ request('status') == 'pending' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'pending']) }}" style="{{ request('status') == 'pending' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Menunggu Verifikasi</a>
+        <a class="nav-link font-weight-bold {{ request('status') == 'pending' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'pending', 'tahun_periode' => $filters['tahun_periode']]) }}" style="{{ request('status') == 'pending' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Menunggu Verifikasi</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link font-weight-bold {{ request('status') == 'revision' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'revision']) }}" style="{{ request('status') == 'revision' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Revisi Berkas</a>
+        <a class="nav-link font-weight-bold {{ request('status') == 'revision' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'revision', 'tahun_periode' => $filters['tahun_periode']]) }}" style="{{ request('status') == 'revision' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Revisi Berkas</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link font-weight-bold {{ request('status') == 'approved' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'approved']) }}" style="{{ request('status') == 'approved' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Disetujui</a>
+        <a class="nav-link font-weight-bold {{ request('status') == 'approved' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'approved', 'tahun_periode' => $filters['tahun_periode']]) }}" style="{{ request('status') == 'approved' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Disetujui</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link font-weight-bold {{ request('status') == 'rejected' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'rejected']) }}" style="{{ request('status') == 'rejected' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Ditolak</a>
+        <a class="nav-link font-weight-bold {{ request('status') == 'rejected' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'rejected', 'tahun_periode' => $filters['tahun_periode']]) }}" style="{{ request('status') == 'rejected' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Ditolak</a>
     </li>
 </ul>
 
@@ -46,6 +46,16 @@
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">DAFTAR CALON ANGGOTA</h6>
         <form action="{{ route('admin.pendaftaran.index') }}" method="GET" class="form-inline">
+            @if(request('status'))
+                <input type="hidden" name="status" value="{{ request('status') }}">
+            @endif
+            <div class="input-group input-group-sm mr-2">
+                <select name="tahun_periode" class="form-control" style="border-radius: 20px; outline: none; box-shadow: none;" onchange="this.form.submit()">
+                    @foreach($availableTahun as $tahun)
+                        <option value="{{ $tahun }}" {{ $filters['tahun_periode'] == $tahun ? 'selected' : '' }}>Tahun {{ $tahun }}</option>
+                    @endforeach
+                </select>
+            </div>
             <div class="input-group input-group-sm">
                 <input type="text" name="search" class="form-control" placeholder="Cari nama/NISN..." value="{{ request('search') }}" style="border-radius: 20px 0 0 20px;">
                 <div class="input-group-append">
