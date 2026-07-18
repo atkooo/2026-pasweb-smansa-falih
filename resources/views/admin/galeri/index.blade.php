@@ -14,17 +14,14 @@
 </div>
 
 @if($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+    <x-alert type="danger">
         <i class="fas fa-exclamation-triangle mr-2"></i> <strong>Gagal Mengunggah Foto!</strong>
         <ul class="mb-0 mt-1 pl-4">
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    </x-alert>
 @endif
 
 <!-- Grid Foto -->
@@ -64,40 +61,25 @@
         </div>
 
         <!-- Modal Edit Album -->
-        <div class="modal fade" id="editAlbumModal{{ Str::slug($album->judul_foto) }}" tabindex="-1" role="dialog" aria-labelledby="editAlbumModalLabel{{ Str::slug($album->judul_foto) }}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
-                    <div class="modal-header bg-light border-0 py-3" style="border-radius: 1rem 1rem 0 0;">
-                        <h5 class="modal-title font-weight-bold text-dark" id="editAlbumModalLabel{{ Str::slug($album->judul_foto) }}">Edit Detail Album</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <form action="{{ route('galeri.album.update', urlencode($album->judul_foto)) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="modal-body px-4 py-4">
-                            <div class="text-center mb-3">
-                                <img src="{{ asset('storage/' . $album->cover_photo) }}" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 150px; object-fit: cover;">
-                            </div>
-                            <div class="form-group mb-4">
-                                <label class="font-weight-600 text-muted small text-uppercase">Judul / Keterangan Album <span class="text-danger">*</span></label>
-                                <input type="text" name="judul_foto" class="form-control" value="{{ $album->judul_foto }}" required style="border-radius: 0.5rem;">
-                            </div>
-                            
-                            <div class="form-group mb-0">
-                                <label class="font-weight-600 text-muted small text-uppercase">Tanggal Pelaksanaan Kegiatan <span class="text-danger">*</span></label>
-                                <input type="date" name="tanggal_pelaksanaan" class="form-control" value="{{ $album->tanggal_pelaksanaan }}" required style="border-radius: 0.5rem;">
-                            </div>
-                        </div>
-                        <div class="modal-footer border-0 bg-light py-3" style="border-radius: 0 0 1rem 1rem;">
-                            <button type="button" class="btn btn-secondary font-weight-bold px-4" data-dismiss="modal" style="border-radius: 0.5rem;">Batal</button>
-                            <button type="submit" class="btn btn-primary font-weight-bold px-4" style="border-radius: 0.5rem; background-color: #4f46e5; border-color: #4f46e5;"><i class="fas fa-save mr-2"></i> Simpan Perubahan</button>
-                        </div>
-                    </form>
-                </div>
+        <x-modal 
+            id="editAlbumModal{{ Str::slug($album->judul_foto) }}" 
+            title="Edit Detail Album" 
+            formAction="{{ route('galeri.album.update', urlencode($album->judul_foto)) }}" 
+            formMethod="PUT"
+        >
+            <div class="text-center mb-3">
+                <img src="{{ asset('storage/' . $album->cover_photo) }}" alt="Preview" class="img-fluid rounded shadow-sm" style="max-height: 150px; object-fit: cover;">
             </div>
-        </div>
+            <div class="form-group mb-4">
+                <label class="font-weight-600 text-muted small text-uppercase">Judul / Keterangan Album <span class="text-danger">*</span></label>
+                <input type="text" name="judul_foto" class="form-control" value="{{ $album->judul_foto }}" required style="border-radius: 0.5rem;">
+            </div>
+            
+            <div class="form-group mb-0">
+                <label class="font-weight-600 text-muted small text-uppercase">Tanggal Pelaksanaan Kegiatan <span class="text-danger">*</span></label>
+                <input type="date" name="tanggal_pelaksanaan" class="form-control" value="{{ $album->tanggal_pelaksanaan }}" required style="border-radius: 0.5rem;">
+            </div>
+        </x-modal>
     @empty
         <div class="col-12">
             <div class="card shadow-sm border-0" style="border-radius: 1rem;">
@@ -120,69 +102,58 @@
 </div>
 
 <!-- Modal Tambah Foto -->
-<div class="modal fade" id="addFotoModal" tabindex="-1" role="dialog" aria-labelledby="addFotoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 1rem;">
-            <div class="modal-header bg-light border-0 py-3" style="border-radius: 1rem 1rem 0 0;">
-                <h5 class="modal-title font-weight-bold text-dark" id="addFotoModalLabel">Unggah Foto Baru</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="formTambahFoto" action="{{ route('galeri.store') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-body px-4 py-4">
-                    <div class="form-group mb-4">
-                        <label class="font-weight-600 text-muted small text-uppercase">Judul / Keterangan Foto <span class="text-danger">*</span></label>
-                        <input type="text" name="judul_foto" class="form-control" required style="border-radius: 0.5rem;" placeholder="Misal: Kegiatan LDKS 2026">
-                    </div>
-                    
-                    <div class="form-group mb-4">
-                        <label class="font-weight-600 text-muted small text-uppercase">Tanggal Pelaksanaan Kegiatan <span class="text-danger">*</span></label>
-                        <input type="date" name="tanggal_pelaksanaan" class="form-control" required style="border-radius: 0.5rem;">
-                    </div>
-                    
-                    <div class="form-group mb-0">
-                        <label class="font-weight-600 text-muted small text-uppercase">Pilih File Foto <span class="text-danger">*</span></label>
-                        
-                        <!-- Drag and Drop Zone -->
-                        <label class="upload-zone text-center p-3 mb-2 d-block" id="drop-zone" for="file_foto" style="border: 2px dashed #a5b4fc; border-radius: 1rem; background-color: #e0e7ff; transition: all 0.3s ease; position: relative; cursor: pointer;">
-                            <input type="file" name="file_foto[]" id="file_foto" style="opacity: 0; position: absolute; z-index: -1; width: 1px; height: 1px;" accept="image/jpeg,image/png,image/jpg,image/gif" multiple>
-                            
-                            <div class="upload-icon mb-2">
-                                <i class="fas fa-folder-open" style="font-size: 3rem; color: #4f46e5;"></i>
-                            </div>
-                            <h6 class="text-dark font-weight-bold mb-1" style="font-size: 0.95rem;">Click here or drag files to upload</h6>
-                            
-                            <div class="d-flex align-items-center justify-content-center my-2">
-                                <hr class="flex-grow-1" style="border-color: #cbd5e1; max-width: 80px;">
-                                <span class="mx-3 text-muted font-weight-bold small">OR</span>
-                                <hr class="flex-grow-1" style="border-color: #cbd5e1; max-width: 80px;">
-                            </div>
-                            
-                            <span class="btn btn-primary px-4 py-1 font-weight-bold mt-1" style="border-radius: 0.5rem; background-color: #4f46e5; border-color: #4f46e5; font-size: 0.9rem;">
-                                Choose File
-                            </span>
-                        </label>
-
-                        <!-- Previews Container -->
-                        <div class="row d-none" id="preview-container">
-                            <!-- Previews will be injected here via JS -->
-                        </div>
-
-                        <small class="form-text text-muted mt-2 text-center">
-                            <i class="fas fa-info-circle mr-1"></i> Format: JPG, JPEG, PNG, GIF. Maksimal ukuran file <strong>10 MB</strong> per foto. Anda bisa memilih lebih dari 1 foto.
-                        </small>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 bg-light py-3" style="border-radius: 0 0 1rem 1rem;">
-                    <button type="button" class="btn btn-secondary font-weight-bold px-4" data-dismiss="modal" style="border-radius: 0.5rem;">Batal</button>
-                    <button type="submit" id="btnSubmit" class="btn btn-primary font-weight-bold px-4" style="border-radius: 0.5rem; background-color: #4f46e5; border-color: #4f46e5;"><i class="fas fa-upload mr-2"></i> Unggah Sekarang</button>
-                </div>
-            </form>
-        </div>
+<x-modal 
+    id="addFotoModal" 
+    title="Unggah Foto Baru" 
+    formAction="{{ route('galeri.store') }}" 
+    enctype="multipart/form-data" 
+    submitLabel="Unggah Sekarang" 
+    submitIcon="fas fa-upload"
+    formId="formTambahFoto"
+>
+    <div class="form-group mb-4">
+        <label class="font-weight-600 text-muted small text-uppercase">Judul / Keterangan Foto <span class="text-danger">*</span></label>
+        <input type="text" name="judul_foto" class="form-control" required style="border-radius: 0.5rem;" placeholder="Misal: Kegiatan LDKS 2026">
     </div>
-</div>
+    
+    <div class="form-group mb-4">
+        <label class="font-weight-600 text-muted small text-uppercase">Tanggal Pelaksanaan Kegiatan <span class="text-danger">*</span></label>
+        <input type="date" name="tanggal_pelaksanaan" class="form-control" required style="border-radius: 0.5rem;">
+    </div>
+    
+    <div class="form-group mb-0">
+        <label class="font-weight-600 text-muted small text-uppercase">Pilih File Foto <span class="text-danger">*</span></label>
+        
+        <!-- Drag and Drop Zone -->
+        <label class="upload-zone text-center p-3 mb-2 d-block" id="drop-zone" for="file_foto" style="border: 2px dashed #a5b4fc; border-radius: 1rem; background-color: #e0e7ff; transition: all 0.3s ease; position: relative; cursor: pointer;">
+            <input type="file" name="file_foto[]" id="file_foto" style="opacity: 0; position: absolute; z-index: -1; width: 1px; height: 1px;" accept="image/jpeg,image/png,image/jpg,image/gif" multiple>
+            
+            <div class="upload-icon mb-2">
+                <i class="fas fa-folder-open" style="font-size: 3rem; color: #4f46e5;"></i>
+            </div>
+            <h6 class="text-dark font-weight-bold mb-1" style="font-size: 0.95rem;">Click here or drag files to upload</h6>
+            
+            <div class="d-flex align-items-center justify-content-center my-2">
+                <hr class="flex-grow-1" style="border-color: #cbd5e1; max-width: 80px;">
+                <span class="mx-3 text-muted font-weight-bold small">OR</span>
+                <hr class="flex-grow-1" style="border-color: #cbd5e1; max-width: 80px;">
+            </div>
+            
+            <span class="btn btn-primary px-4 py-1 font-weight-bold mt-1" style="border-radius: 0.5rem; background-color: #4f46e5; border-color: #4f46e5; font-size: 0.9rem;">
+                Choose File
+            </span>
+        </label>
+
+        <!-- Previews Container -->
+        <div class="row d-none" id="preview-container">
+            <!-- Previews will be injected here via JS -->
+        </div>
+
+        <small class="form-text text-muted mt-2 text-center">
+            <i class="fas fa-info-circle mr-1"></i> Format: JPG, JPEG, PNG, GIF. Maksimal ukuran file <strong>10 MB</strong> per foto. Anda bisa memilih lebih dari 1 foto.
+        </small>
+    </div>
+</x-modal>
 
 <style>
     /* Admin Gallery Card Styling */

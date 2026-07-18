@@ -13,6 +13,22 @@
     </a>
 </div>
 
+@if(session('success'))
+    <x-alert type="success">
+        {{ session('success') }}
+    </x-alert>
+@endif
+
+@if($errors->any())
+    <x-alert type="danger">
+        <ul class="mb-0 pl-4">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </x-alert>
+@endif
+
 <div class="row">
     <!-- Formulir Input Nilai -->
     <div class="col-lg-5 col-md-12 mb-4">

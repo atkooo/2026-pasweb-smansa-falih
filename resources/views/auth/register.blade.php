@@ -3,149 +3,13 @@
 @section('title', 'Daftar Calon Anggota - Paskibra Ganesha')
 
 @section('content')
-<style>
-    .auth-wrapper {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 3rem 1rem;
-    }
-
-    .auth-card {
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-        overflow: hidden;
-        width: 100%;
-        max-width: 900px;
-        display: flex;
-        flex-direction: row;
-        max-height: 90vh;
-    }
-
-    .auth-image-side {
-        width: 45%;
-        background: url('{{ asset("images/fotosejarah1.png") }}') center center / cover no-repeat;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        padding: 2rem;
-        color: white;
-    }
-
-    .auth-image-side::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(209, 0, 0, 0.85));
-        z-index: 1;
-    }
-
-    .auth-image-content {
-        position: relative;
-        z-index: 2;
-    }
-
-    .auth-form-side {
-        width: 55%;
-        padding: 2rem 2.5rem;
-        background-color: #ffffff;
-        overflow-y: auto;
-    }
-
-    .auth-title {
-        font-size: 1.6rem;
-        font-weight: 800;
-        color: #1a1a1a;
-        margin-bottom: 0.1rem;
-    }
-
-    .auth-subtitle {
-        color: #6c757d;
-        margin-bottom: 1rem;
-        font-size: 0.85rem;
-    }
-
-    .form-control-custom {
-        border: 2px solid #eee;
-        border-radius: 10px;
-        padding: 0.5rem 1rem 0.5rem 2.8rem;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        background-color: #fafbfc;
-    }
-
-    .form-control-custom:focus {
-        border-color: #d10000;
-        box-shadow: 0 0 0 4px rgba(209, 0, 0, 0.1);
-        background-color: #fff;
-    }
-
-    .input-icon {
-        position: absolute;
-        left: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #a0a0a0;
-        transition: color 0.3s ease;
-    }
-
-    .form-group:focus-within .input-icon {
-        color: #d10000;
-    }
-
-    .btn-auth {
-        background-color: #d10000;
-        border: none;
-        border-radius: 10px;
-        padding: 0.6rem;
-        font-weight: 700;
-        letter-spacing: 1px;
-        transition: all 0.3s ease;
-        font-size: 0.95rem;
-    }
-
-    .btn-auth:hover {
-        background-color: #a30000;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(209, 0, 0, 0.2);
-    }
-
-    .role-badge {
-        font-size: 0.75rem;
-        padding: 0.3em 0.8em;
-        background-color: #fff;
-        color: #d10000;
-        border-radius: 20px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-    }
-
-    @media (max-width: 768px) {
-        .auth-card {
-            flex-direction: column;
-        }
-        .auth-image-side {
-            width: 100%;
-            padding: 2rem;
-            min-height: 200px;
-        }
-        .auth-form-side {
-            width: 100%;
-            padding: 2.5rem 1.5rem;
-        }
-    }
-</style>
-
 <div class="auth-wrapper">
     <div class="auth-card">
         
         <!-- Image Side -->
-        <div class="auth-image-side">
+        <div class="auth-image-side auth-bg-register">
             <div class="auth-image-content">
-                <span class="role-badge mb-2 d-inline-block">PENERIMAAN ANGGOTA</span>
+                <span class="role-badge role-badge-white mb-2 d-inline-block">PENERIMAAN ANGGOTA</span>
                 <h3 class="fw-bold mb-2">Langkah Awal Anda!</h3>
                 <p class="mb-0 text-light" style="font-size: 0.95rem; opacity: 0.9;">
                     Bergabunglah bersama keluarga besar Paskibra SMA Negeri 1 Pontianak dan ukir sejarah prestasi Anda.
@@ -280,3 +144,4 @@
     </div>
 </div>
 @endsection
+

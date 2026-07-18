@@ -8,6 +8,22 @@
     <p class="text-muted" style="font-size: 0.95rem;">Masukkan nilai dan status kelulusan peserta yang telah disetujui.</p>
 </div>
 
+@if(session('success'))
+    <x-alert type="success">
+        {{ session('success') }}
+    </x-alert>
+@endif
+
+@if($errors->any())
+    <x-alert type="danger">
+        <ul class="mb-0 pl-4">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </x-alert>
+@endif
+
 <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">DATA SELEKSI AKHIR</h6>

@@ -13,13 +13,23 @@
             
             <form action="{{ route('profil.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if(session('success'))
+                    <div class="px-4 pt-4 pb-0">
+                        <x-alert type="success">
+                            {{ session('success') }}
+                        </x-alert>
+                    </div>
+                @endif
+
                 @if ($errors->any())
-                    <div class="alert alert-danger mx-4 mt-4 mb-0">
-                        <ul class="mb-0">
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="px-4 pt-4 pb-0">
+                        <x-alert type="danger">
+                            <ul class="mb-0 pl-4">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </x-alert>
                     </div>
                 @endif
                 <div class="card-body px-4 py-4">

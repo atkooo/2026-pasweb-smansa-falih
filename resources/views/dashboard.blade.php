@@ -8,8 +8,8 @@
     
     <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
         <div>
-            <h3 class="font-weight-bold" style="color: #111827; letter-spacing: -0.5px; margin-bottom: 0.2rem;">Dashboard</h3>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">Paskibra Management</p>
+            <h3 class="font-weight-bold dashboard-title" >Dashboard</h3>
+            <p class="text-muted mb-0 dashboard-subtitle" >Paskibra Management</p>
         </div>
         <div class="d-none d-md-flex align-items-center gap-3" style="gap: 1rem;">
             <!-- Removed local toggle. The global toggle is now in the top navbar -->
@@ -53,20 +53,20 @@
         <div class="col-lg-4 col-md-12 mb-4">
             <div class="card h-100">
                 <div class="card-header">
-                    <h3 class="m-0" style="font-weight: 700; font-size: 1.1rem; color: #111827;">Akses Cepat</h3>
+                    <h3 class="m-0 card-title-modern" >Akses Cepat</h3>
                 </div>
                 <div class="card-body d-flex flex-column pt-3">
                     <button class="btn-soft btn-soft-primary">
                         <span><i class="fas fa-user-plus mr-2"></i> Tambah Pengguna</span>
-                        <i class="fas fa-chevron-right text-muted" style="font-size: 0.85rem;"></i>
+                        <i class="fas fa-chevron-right text-muted" ></i>
                     </button>
                     <button class="btn-soft btn-soft-primary">
                         <span><i class="fas fa-calendar-alt mr-2"></i> Kelola Jadwal</span>
-                        <i class="fas fa-chevron-right text-muted" style="font-size: 0.85rem;"></i>
+                        <i class="fas fa-chevron-right text-muted" ></i>
                     </button>
                     <button class="btn-soft btn-soft-primary mb-0">
                         <span><i class="fas fa-chart-pie mr-2"></i> Laporan Aktivitas</span>
-                        <i class="fas fa-chevron-right text-muted" style="font-size: 0.85rem;"></i>
+                        <i class="fas fa-chevron-right text-muted" ></i>
                     </button>
                 </div>
             </div>
@@ -76,7 +76,7 @@
         <div class="col-lg-8 col-md-12 mb-4">
             <div class="card h-100">
                 <div class="card-header d-flex justify-content-between align-items-center">
-                    <h3 class="m-0" style="font-weight: 700; font-size: 1.1rem; color: #111827;">Aktivitas Terbaru</h3>
+                    <h3 class="m-0 card-title-modern" >Aktivitas Terbaru</h3>
                     <button class="btn btn-sm btn-light rounded-pill px-3 border text-muted" style="margin-left: auto;">Lihat semua <i class="fas fa-chevron-right ml-1" style="font-size:0.7rem;"></i></button>
                 </div>
                 <div class="card-body">
@@ -103,8 +103,8 @@
     <!-- PENGURUS DASHBOARD -->
     <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
         <div>
-            <h4 class="font-weight-bold" style="color: #111827; letter-spacing: -0.5px;">Halo, {{ explode(' ', auth()->user()->nama_lengkap)[0] }}!</h4>
-            <p class="text-muted mb-0" style="font-size: 0.95rem;">Berikut adalah rekap pendaftaran calon anggota terbaru.</p>
+            <h4 class="font-weight-bold dashboard-title" >Halo, {{ explode(' ', auth()->user()->nama_lengkap)[0] }}!</h4>
+            <p class="text-muted mb-0 dashboard-subtitle" >Berikut adalah rekap pendaftaran calon anggota terbaru.</p>
         </div>
     </div>
 
@@ -238,13 +238,7 @@
 
 
                         
-                        <style>
-                            .action-card:hover {
-                                transform: translateY(-5px);
-                                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
-                                background-color: #ffffff !important;
-                            }
-                        </style>
+                        
 
                     </div>
                 </div>
@@ -263,34 +257,34 @@
                         <div class="col-md-8 d-flex align-items-center mb-4 mb-md-0">
                             <!-- Avatar -->
                             <div class="position-relative mr-4 mr-md-5">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white font-weight-bold" 
-                                     style="width: 130px; height: 130px; background-color: #ff0000; font-size: 3.5rem; border: 4px solid #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white font-weight-bold calon-avatar" 
+                                     >
                                     {{ strtoupper(substr(auth()->user()->nama_lengkap, 0, 1)) }}
                                 </div>
-                                <div class="position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center shadow" 
-                                     style="width: 32px; height: 32px; bottom: 8px; right: 8px; cursor: pointer; border: 1px solid #eaeaea;">
-                                    <i class="fas fa-plus text-secondary" style="font-size: 0.85rem;"></i>
+                                <div class="position-absolute bg-white rounded-circle d-flex align-items-center justify-content-center shadow calon-avatar-badge" 
+                                     >
+                                    <i class="fas fa-plus text-secondary" ></i>
                                 </div>
                             </div>
                             
                             <!-- Profile Data -->
                             <div>
-                                <h3 class="font-weight-bold mb-1" style="color: #0b1c3f; letter-spacing: -0.5px; text-transform: uppercase;">
+                                <h3 class="font-weight-bold mb-1 calon-name" >
                                     {{ auth()->user()->nama_lengkap }}
                                 </h3>
-                                <h6 class="mb-4" style="color: #ff0000; font-weight: 600;">Calon Anggota Paskibra SMA Negeri 1 Pontianak</h6>
+                                <h6 class="mb-4 calon-role-title" >Calon Anggota Paskibra SMA Negeri 1 Pontianak</h6>
                                 
                                 <div class="d-flex align-items-start mb-3">
-                                    <i class="fas fa-user mt-1 mr-3 text-danger" style="width: 18px; text-align: center;"></i>
+                                    <i class="fas fa-user mt-1 mr-3 text-danger info-icon" ></i>
                                     <div>
-                                        <p class="text-muted mb-0" style="font-size: 0.85rem;">NISN / NIK</p>
+                                        <p class="text-muted mb-0 dashboard-subtitle" >NISN / NIK</p>
                                         <p class="font-weight-bold mb-0 text-dark">{{ auth()->user()->username ?? '-' }}</p>
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-start mb-3">
-                                    <i class="fas fa-map-marker-alt mt-1 mr-3 text-danger" style="width: 18px; text-align: center;"></i>
+                                    <i class="fas fa-map-marker-alt mt-1 mr-3 text-danger info-icon" ></i>
                                     <div>
-                                        <p class="text-muted mb-0" style="font-size: 0.85rem;">Alamat</p>
+                                        <p class="text-muted mb-0 dashboard-subtitle" >Alamat</p>
                                         <p class="font-weight-bold mb-0 text-dark">
                                             @php
                                                 $formulir = auth()->user()->formulirPendaftaran;
@@ -300,9 +294,9 @@
                                     </div>
                                 </div>
                                 <div class="d-flex align-items-start">
-                                    <i class="fas fa-phone mt-1 mr-3 text-danger" style="width: 18px; text-align: center;"></i>
+                                    <i class="fas fa-phone mt-1 mr-3 text-danger info-icon" ></i>
                                     <div>
-                                        <p class="text-muted mb-0" style="font-size: 0.85rem;">Phone</p>
+                                        <p class="text-muted mb-0 dashboard-subtitle" >Phone</p>
                                         <p class="font-weight-bold mb-0 text-dark">{{ auth()->user()->no_hp ?? 'Belum diisi' }}</p>
                                     </div>
                                 </div>
@@ -336,3 +330,4 @@
     </div>
 @endif
 @endsection
+

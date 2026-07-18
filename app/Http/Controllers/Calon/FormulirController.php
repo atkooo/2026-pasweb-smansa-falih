@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Calon;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use App\Models\FormulirPendaftaran;
 use Illuminate\Support\Facades\Storage;
 
-class UserFormulirController extends Controller
+class FormulirController extends Controller
 {
     public function index()
     {

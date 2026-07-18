@@ -1,50 +1,31 @@
 <?php
 
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\BeritaController;
-use App\Http\Controllers\JadwalController;
-use App\Http\Controllers\GaleriController;
-use App\Http\Controllers\LaporanController;
-use App\Http\Controllers\PendaftaranController;
-use App\Http\Controllers\SeleksiController;
-use App\Http\Controllers\UserFormulirController;
-use App\Http\Controllers\NotifikasiController;
-use App\Http\Controllers\KriteriaController;
-use App\Http\Controllers\ProfilController;
-use App\Http\Controllers\PengumumanController;
-use App\Http\Controllers\PengaturanController;
-use App\Http\Controllers\CalonStatusController;
-use App\Http\Controllers\CalonPesertaController;
-use App\Http\Controllers\CalonPengumumanController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+// ==========================================
+// 1. FRONTEND ROUTES (Publik)
+// ==========================================
+use App\Http\Controllers\Frontend\PageController;
+use App\Http\Controllers\Frontend\BeritaController as FrontendBeritaController;
+use App\Http\Controllers\Frontend\JadwalController as FrontendJadwalController;
+use App\Http\Controllers\Frontend\GaleriController as FrontendGaleriController;
 
-Route::get('/sejarah', function () {
-    $informasi = \App\Models\Informasi::all()->pluck('konten', 'jenis_info')->toArray();
-    return view('sejarah', compact('informasi'));
-})->name('sejarah');
+Route::get('/', [PageController::class, 'home'])->name('home');
+Route::get('/sejarah', [PageController::class, 'sejarah'])->name('sejarah');
+Route::get('/visi-misi', [PageController::class, 'visiMisi'])->name('visi-misi');
+Route::get('/struktur-organisasi', [PageController::class, 'strukturOrganisasi'])->name('struktur-organisasi');
 
-Route::get('/visi-misi', function () {
-    $informasi = \App\Models\Informasi::all()->pluck('konten', 'jenis_info')->toArray();
-    return view('visi-misi', compact('informasi'));
-})->name('visi-misi');
+Route::get('/berita', [FrontendBeritaController::class, 'publicIndex'])->name('berita');
+Route::get('/berita/{slug}', [FrontendBeritaController::class, 'publicShow'])->name('berita.show');
 
-Route::get('/struktur-organisasi', function () {
-    return view('struktur-organisasi');
-})->name('struktur-organisasi');
+Route::get('/jadwal', [FrontendJadwalController::class, 'publicIndex'])->name('jadwal');
+Route::get('/galeri', [FrontendGaleriController::class, 'publicIndex'])->name('galeri');
+Route::get('/galeri/{judul}', [FrontendGaleriController::class, 'publicShow'])->name('galeri.show')->where('judul', '.*');
 
-// Removed static galeri route
-
-Route::get('/berita', [BeritaController::class, 'publicIndex'])->name('berita');
-Route::get('/berita/{slug}', [BeritaController::class, 'publicShow'])->name('berita.show');
-
-Route::get('/jadwal', [JadwalController::class, 'publicIndex'])->name('jadwal');
-Route::get('/galeri', [GaleriController::class, 'publicIndex'])->name('galeri');
-Route::get('/galeri/{judul}', [GaleriController::class, 'publicShow'])->name('galeri.show')->where('judul', '.*');
+// ==========================================
+// 2. AUTHENTICATION ROUTES
+// ==========================================
+use App\Http\Controllers\Auth\AuthController;
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])
@@ -57,37 +38,60 @@ Route::post('/register', [AuthController::class, 'register'])
     ->withoutMiddleware([\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class])
     ->name('register.post');
 
+// ==========================================
+// 3. CALON ANGGOTA ROUTES (Dashboard Member)
+// ==========================================
+use App\Http\Controllers\Calon\FormulirController;
+use App\Http\Controllers\Calon\NotifikasiController;
+use App\Http\Controllers\Calon\StatusSeleksiController;
+use App\Http\Controllers\Calon\PesertaController;
+use App\Http\Controllers\Calon\PengumumanController as CalonPengumumanController;
+use App\Http\Controllers\Calon\PengaturanController;
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/pendaftaran', [UserFormulirController::class, 'index'])->name('pendaftaran.index');
-    Route::post('/pendaftaran', [UserFormulirController::class, 'store'])->name('pendaftaran.store');
+    Route::get('/pendaftaran', [FormulirController::class, 'index'])->name('pendaftaran.index');
+    Route::post('/pendaftaran', [FormulirController::class, 'store'])->name('pendaftaran.store');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi.index');
 
-    // Tambahan Route Calon Anggota
-    Route::get('/status-seleksi', [CalonStatusController::class, 'index'])->name('status-seleksi.index');
-    Route::get('/status-seleksi/detail/{id}', [CalonStatusController::class, 'show'])->name('status-seleksi.show');
-    Route::get('/data-pendaftar', [CalonPesertaController::class, 'index'])->name('data-pendaftar.index');
+    Route::get('/status-seleksi', [StatusSeleksiController::class, 'index'])->name('status-seleksi.index');
+    Route::get('/status-seleksi/detail/{id}', [StatusSeleksiController::class, 'show'])->name('status-seleksi.show');
+    Route::get('/data-pendaftar', [PesertaController::class, 'index'])->name('data-pendaftar.index');
     Route::get('/pengumuman-seleksi', [CalonPengumumanController::class, 'index'])->name('pengumuman-seleksi.index');
 
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
     Route::post('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
 });
 
+// ==========================================
+// 4. ADMIN & PENGURUS ROUTES
+// ==========================================
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\BeritaController as AdminBeritaController;
+use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
+use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
+use App\Http\Controllers\Admin\LaporanController;
+use App\Http\Controllers\Admin\KriteriaController;
+use App\Http\Controllers\Admin\ProfilController;
+use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\Admin\SeleksiController;
+use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController;
+
 Route::prefix('admin')->middleware('auth')->group(function () {
     
     // Hanya Admin
     Route::middleware('admin')->group(function () {
         Route::resource('users', UserController::class)->except(['create', 'edit', 'show']);
-        Route::resource('berita', BeritaController::class);
-        Route::resource('jadwal', JadwalController::class)->except(['create', 'show', 'edit']);
-        Route::get('galeri/album/{judul}', [GaleriController::class, 'adminShow'])->name('galeri.album.show')->where('judul', '.*');
-        Route::put('galeri/album/{judul}', [GaleriController::class, 'updateAlbum'])->name('galeri.album.update')->where('judul', '.*');
-        Route::delete('galeri/album/{judul}', [GaleriController::class, 'destroyAlbum'])->name('galeri.album.destroy')->where('judul', '.*');
-        Route::resource('galeri', GaleriController::class)->except(['create', 'show', 'edit', 'update']);
+        Route::resource('berita', AdminBeritaController::class);
+        Route::resource('jadwal', AdminJadwalController::class)->except(['create', 'show', 'edit']);
+        Route::get('galeri/album/{judul}', [AdminGaleriController::class, 'adminShow'])->name('galeri.album.show')->where('judul', '.*');
+        Route::put('galeri/album/{judul}', [AdminGaleriController::class, 'updateAlbum'])->name('galeri.album.update')->where('judul', '.*');
+        Route::delete('galeri/album/{judul}', [AdminGaleriController::class, 'destroyAlbum'])->name('galeri.album.destroy')->where('judul', '.*');
+        Route::resource('galeri', AdminGaleriController::class)->except(['create', 'show', 'edit', 'update']);
         Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
         
         Route::resource('kriteria', KriteriaController::class);
@@ -109,6 +113,6 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::delete('seleksi/hasil/{id}', [SeleksiController::class, 'destroy'])->name('seleksi.destroy');
 
         // Pengumuman Routes
-        Route::resource('pengumuman', PengumumanController::class);
+        Route::resource('pengumuman', AdminPengumumanController::class);
     });
 });

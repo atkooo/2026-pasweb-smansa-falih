@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Calon;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class CalonPengumumanController extends Controller
+class PengumumanController extends Controller
 {
     public function index()
     {

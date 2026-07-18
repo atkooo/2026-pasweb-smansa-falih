@@ -10,6 +10,22 @@
     <p class="text-muted" style="font-size: 0.95rem;">Periksa kelengkapan dan validasi berkas calon anggota.</p>
 </div>
 
+@if(session('success'))
+    <x-alert type="success">
+        {{ session('success') }}
+    </x-alert>
+@endif
+
+@if($errors->any())
+    <x-alert type="danger">
+        <ul class="mb-0 pl-4">
+            @foreach($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </x-alert>
+@endif
+
 <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">MENUNGGU VERIFIKASI</h6>
@@ -54,8 +70,19 @@
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right">
-                            <button class="btn btn-sm btn-success rounded-pill px-3 font-weight-bold mr-1"><i class="fas fa-check"></i> Terima</button>
-                            <button class="btn btn-sm btn-danger rounded-pill px-3 font-weight-bold"><i class="fas fa-times"></i> Tolak</button>
+                            <form action="{{ route('admin.pendaftaran.updateStatus', $p->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menerima peserta ini?');">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status_pendaftaran" value="approved">
+                                <button type="submit" class="btn btn-sm btn-success rounded-pill px-3 font-weight-bold mr-1"><i class="fas fa-check"></i> Terima</button>
+                            </form>
+                            
+                            <form action="{{ route('admin.pendaftaran.updateStatus', $p->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Apakah Anda yakin ingin menolak peserta ini?');">
+                                @csrf
+                                @method('PATCH')
+                                <input type="hidden" name="status_pendaftaran" value="rejected">
+                                <button type="submit" class="btn btn-sm btn-danger rounded-pill px-3 font-weight-bold"><i class="fas fa-times"></i> Tolak</button>
+                            </form>
                         </td>
                     </tr>
                     @empty

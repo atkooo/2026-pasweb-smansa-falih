@@ -12,17 +12,14 @@
 </div>
 
 @if($errors->any())
-    <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert" style="border-radius: 0.5rem;">
+    <x-alert type="danger">
         <i class="fas fa-exclamation-triangle mr-2"></i> <strong>Peringatan!</strong>
         <ul class="mb-0 mt-1 pl-4">
             @foreach($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
         </ul>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
+    </x-alert>
 @endif
 
 <!-- Grid Foto -->

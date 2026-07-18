@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Frontend;
+
+use App\Http\Controllers\Controller;
 
 use App\Models\Jadwal;
 use Illuminate\Http\Request;
@@ -11,10 +13,11 @@ class JadwalController extends Controller
     public function publicIndex()
     {
         $jadwals = Jadwal::orderBy('tanggal_kegiatan', 'asc')->orderBy('waktu', 'asc')->get();
-        return view('jadwal', compact('jadwals'));
+        return view('frontend.jadwal', compact('jadwals'));
     }
 
-    // === ADMIN METHODS ===
+    }
+
     public function index()
     {
         $jadwals = Jadwal::orderBy('tanggal_kegiatan', 'desc')->paginate(10);

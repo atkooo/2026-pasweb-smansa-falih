@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Calon;
+
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-class CalonStatusController extends Controller
+class StatusSeleksiController extends Controller
 {
     private function getMockStages()
     {
