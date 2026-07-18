@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             UserSeeder::class,
             KriteriaSeeder::class,
+            InformasiSeeder::class,
+            KontenSeeder::class,
         ]);
     }
 }
