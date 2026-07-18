@@ -10,6 +10,7 @@ class PengumumanController extends Controller
 {
     public function index()
     {
-        return view('calon.pengumuman.index');
+        $pengumumans = \App\Models\Pengumuman::orderBy('created_at', 'desc')->get();
+        return view('calon.pengumuman.index', compact('pengumumans'));
     }
 }
