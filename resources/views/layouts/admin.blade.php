@@ -57,10 +57,10 @@
                         <i class="fas fa-user-circle"></i> {{ auth()->user()->nama_lengkap }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('profil-pengguna.index') }}">
                             <i class="fas fa-user"></i> Profil
                         </a>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{ route('pengaturan.index') }}">
                             <i class="fas fa-cog"></i> Pengaturan
                         </a>
                         <div class="dropdown-divider"></div>

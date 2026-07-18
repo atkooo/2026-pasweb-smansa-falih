@@ -63,6 +63,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/data-pendaftar', [PesertaController::class, 'index'])->name('data-pendaftar.index');
     Route::get('/pengumuman-seleksi', [CalonPengumumanController::class, 'index'])->name('pengumuman-seleksi.index');
 
+    Route::get('/profil-pengguna', [PengaturanController::class, 'profil'])->name('profil-pengguna.index');
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
     Route::post('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
 });
