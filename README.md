@@ -1,4 +1,4 @@
-# 🇮🇩 Sistem Informasi Pendaftaran & Seleksi Anggota Paskibra (Tugas Akhir)
+# Sistem Informasi Pendaftaran & Seleksi Anggota Paskibra (Tugas Akhir)
 
 Sistem Informasi berbasis web untuk mengelola pendaftaran dan seleksi calon anggota baru Paskibra. Aplikasi ini dikembangkan menggunakan **Laravel 12**, **Tailwind CSS v4**, dan **Vite**, serta dilengkapi dengan fitur perhitungan nilai seleksi berdasarkan kriteria berbobot untuk membantu pengurus menentukan kelulusan peserta secara objektif.
 
@@ -6,30 +6,30 @@ Sistem ini dirancang khusus untuk memenuhi kebutuhan proyek Tugas Akhir (TA Web)
 
 ---
 
-## 🚀 Fitur Utama
+## Fitur Utama
 
 Aplikasi ini memiliki sistem otorisasi multi-role yang membagi akses ke dalam 3 jenis akun:
 
-### 1. 🌐 Fitur Publik (Pengunjung)
+### 1. Fitur Publik (Pengunjung)
 * **Landing Page**: Halaman utama yang interaktif menampilkan profil singkat Paskibra.
 * **Profil Organisasi**: Halaman sejarah, visi & misi, serta struktur organisasi.
 * **Berita & Pengumuman**: Artikel berita terbaru seputar kegiatan Paskibra dengan slug dinamis.
 * **Jadwal Kegiatan**: Kalender/daftar kegiatan Paskibra yang sedang berjalan atau akan datang.
 * **Galeri Foto**: Dokumentasi album kegiatan Paskibra berdasarkan tanggal pelaksanaan.
 
-### 2. 👤 Dashboard Calon Anggota (Pendaftar)
+### 2. Dashboard Calon Anggota (Pendaftar)
 * **Formulir Pendaftaran**: Mengisi data diri lengkap, data orang tua/wali, serta unggahan berkas persyaratan secara terintegrasi.
 * **Status Seleksi**: Memantau perkembangan status verifikasi formulir dan kelulusan secara real-time.
 * **Notifikasi Sistem**: Menerima pembaruan langsung terkait status pendaftaran dan penilaian.
 * **Pengaturan Akun**: Mengelola profil pribadi dan kata sandi.
 
-### 3. 👥 Dashboard Pengurus (Verifikator & Penilai)
+### 3. Dashboard Pengurus (Verifikator & Penilai)
 * **Verifikasi Pendaftaran**: Memeriksa berkas calon anggota serta melakukan persetujuan (*Approve*) atau penolakan (*Reject*) pendaftaran.
 * **Penilaian Seleksi**: Menginput nilai seleksi peserta berdasarkan kriteria yang telah ditentukan.
 * **Perhitungan Nilai Akhir**: Sistem secara otomatis menghitung nilai akhir calon anggota menggunakan metode bobot persentase dari kriteria yang tersedia.
 * **Pengumuman**: Mengelola dan menyiarkan pengumuman resmi ke dashboard calon anggota.
 
-### 4. 🔑 Dashboard Administrator (Super User)
+### 4. Dashboard Administrator (Super User)
 * **Manajemen Pengguna**: Mengelola seluruh akun di dalam sistem (Admin, Pengurus, Calon Anggota).
 * **Manajemen Konten Publik**: Mengelola berita (CRUD Berita), jadwal kegiatan (CRUD Jadwal), dan dokumentasi galeri (CRUD Galeri/Album).
 * **Manajemen Kriteria**: Menentukan kriteria seleksi beserta bobot persentasenya secara dinamis.
@@ -38,7 +38,7 @@ Aplikasi ini memiliki sistem otorisasi multi-role yang membagi akses ke dalam 3 
 
 ---
 
-## 🛠️ Tech Stack & Dependensi
+## Tech Stack & Dependensi
 
 * **Backend Framework**: [Laravel 12.x](https://laravel.com) (PHP >= 8.2)
 * **Frontend Build Tool**: [Vite](https://vite.dev)
@@ -48,7 +48,7 @@ Aplikasi ini memiliki sistem otorisasi multi-role yang membagi akses ke dalam 3 
 
 ---
 
-## 📦 Panduan Instalasi & Setup
+## Panduan Instalasi & Setup
 
 Ikuti langkah-langkah di bawah ini untuk menjalankan project di lingkungan lokal Anda:
 
@@ -103,7 +103,7 @@ php artisan db:seed
 
 ---
 
-## 🏃‍♂️ Cara Menjalankan Project
+## Cara Menjalankan Project
 
 Untuk menjalankan server Laravel, queue runner, logs viewer (Laravel Pail), dan Vite dev server secara bersamaan dengan satu perintah, jalankan:
 
@@ -119,7 +119,7 @@ Skrip di atas menggunakan `concurrently` untuk menghemat terminal Anda dan menja
 
 ---
 
-## 🔑 Akun Demo Pengujian
+## Akun Demo Pengujian
 
 Setelah menjalankan `db:seed`, Anda dapat masuk menggunakan akun demo berikut:
 
@@ -131,7 +131,7 @@ Setelah menjalankan `db:seed`, Anda dapat masuk menggunakan akun demo berikut:
 
 ---
 
-## 📐 Perhitungan Kelulusan Seleksi
+## Perhitungan Kelulusan Seleksi
 
 Sistem ini melakukan seleksi berdasarkan **Kriteria Berbobot** yang diinputkan oleh Administrator. 
 
