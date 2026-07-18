@@ -46,6 +46,7 @@ use App\Http\Controllers\Calon\PengaturanController;
 use App\Http\Controllers\Calon\PengumumanController as CalonPengumumanController;
 use App\Http\Controllers\Calon\PesertaController;
 use App\Http\Controllers\Calon\StatusSeleksiController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -77,7 +78,6 @@ use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\SeleksiController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 
 Route::prefix('admin')->middleware('auth')->group(function () {

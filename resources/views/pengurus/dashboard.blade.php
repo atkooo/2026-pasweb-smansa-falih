@@ -80,7 +80,7 @@
                         <!-- 1. Melihat Data Pendaftar -->
                         <div class="col-md-4 mb-4">
                             <a href="#" class="text-decoration-none">
-                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; transition: transform 0.2s;">
+                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body text-center p-4">
                                         <div style="width: 60px; height: 60px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
                                             <i class="fas fa-users text-primary" style="font-size: 1.5rem;"></i>
@@ -95,7 +95,7 @@
                         <!-- 2. Melakukan Verifikasi Berkas -->
                         <div class="col-md-4 mb-4">
                             <a href="#" class="text-decoration-none">
-                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; transition: transform 0.2s;">
+                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body text-center p-4">
                                         <div style="width: 60px; height: 60px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
                                             <i class="fas fa-file-signature text-warning" style="font-size: 1.5rem;"></i>
@@ -110,7 +110,7 @@
                         <!-- 3. Menginput Hasil Seleksi -->
                         <div class="col-md-4 mb-4">
                             <a href="#" class="text-decoration-none">
-                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; transition: transform 0.2s;">
+                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body text-center p-4">
                                         <div style="width: 60px; height: 60px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
                                             <i class="fas fa-clipboard-check text-success" style="font-size: 1.5rem;"></i>
@@ -125,7 +125,7 @@
                         <!-- 4. Mengelola Pengumuman Hasil -->
                         <div class="col-md-4 mb-4">
                             <a href="#" class="text-decoration-none">
-                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; transition: transform 0.2s;">
+                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body d-flex align-items-center p-4">
                                         <div style="width: 50px; height: 50px; background: rgba(139, 92, 246, 0.1); border-radius: 50%;" class="d-flex align-items-center justify-content-center mr-3">
                                             <i class="fas fa-bullhorn text-purple" style="color: #8b5cf6; font-size: 1.25rem;"></i>
@@ -145,3 +145,4 @@
         </div>
     </div>
 @endsection
+

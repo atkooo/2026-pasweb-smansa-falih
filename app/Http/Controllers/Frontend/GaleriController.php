@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Galeri;
-use App\Services\GaleriService;
 use App\Http\Requests\StoreGaleriRequest;
 use App\Http\Requests\UpdateGaleriRequest;
-use Illuminate\Http\Request;
+use App\Models\Galeri;
+use App\Services\GaleriService;
 
 class GaleriController extends Controller
 {
@@ -23,6 +21,7 @@ class GaleriController extends Controller
     public function publicIndex()
     {
         $albums = $this->galeriService->getAlbums();
+
         return view('frontend.galeri.index', compact('albums'));
     }
 
@@ -30,17 +29,18 @@ class GaleriController extends Controller
     {
         $judul = urldecode($judul);
         $photos = $this->galeriService->getPhotosByAlbum($judul);
-        
-        if($photos->isEmpty()) abort(404);
-        
-        return view('frontend.galeri.album', compact('judul', 'photos'));
-    }
 
+        if ($photos->isEmpty()) {
+            abort(404);
+        }
+
+        return view('frontend.galeri.album', compact('judul', 'photos'));
     }
 
     public function index()
     {
         $albums = $this->galeriService->getAlbums();
+
         return view('admin.galeri.index', compact('albums'));
     }
 
@@ -48,7 +48,7 @@ class GaleriController extends Controller
     {
         if ($request->hasFile('file_foto')) {
             $this->galeriService->storePhotos(
-                $request->validated(), 
+                $request->validated(),
                 $request->file('file_foto')
             );
         }
@@ -61,19 +61,19 @@ class GaleriController extends Controller
     {
         $judul = urldecode($judul);
         $photos = $this->galeriService->getPhotosByAlbum($judul);
-        
-        if($photos->isEmpty()) {
+
+        if ($photos->isEmpty()) {
             return redirect()->route('galeri.index')
                 ->with('success', 'Album kosong. Anda telah dialihkan kembali ke daftar galeri.');
         }
-        
+
         return view('admin.galeri.show', compact('judul', 'photos'));
     }
 
     public function updateAlbum(UpdateGaleriRequest $request, $judul)
     {
         $judul = urldecode($judul);
-        
+
         $this->galeriService->updateAlbum($judul, $request->validated());
 
         return redirect()->route('galeri.index')
@@ -83,7 +83,7 @@ class GaleriController extends Controller
     public function destroyAlbum($judul)
     {
         $judul = urldecode($judul);
-        
+
         $this->galeriService->deleteAlbum($judul);
 
         return redirect()->route('galeri.index')
@@ -93,7 +93,7 @@ class GaleriController extends Controller
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);
-        
+
         $this->galeriService->deletePhoto($galeri);
 
         return redirect()->back()

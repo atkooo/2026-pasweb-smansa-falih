@@ -16,8 +16,6 @@ class JadwalController extends Controller
         return view('frontend.jadwal', compact('jadwals'));
     }
 
-    }
-
     public function index()
     {
         $jadwals = Jadwal::orderBy('tanggal_kegiatan', 'desc')->paginate(10);
@@ -62,3 +60,4 @@ class JadwalController extends Controller
         return redirect()->route('jadwal.index')->with('success', 'Jadwal kegiatan berhasil dihapus');
     }
 }
+

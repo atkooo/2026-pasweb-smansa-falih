@@ -189,7 +189,7 @@ body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-link > img {
     border: none;
     box-shadow: 0 10px 40px rgba(0,0,0,0.03);
     background: #ffffff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: box-shadow 0.3s ease;
     margin-bottom: 1.5rem;
 }
 
@@ -235,9 +235,9 @@ body.sidebar-mini.sidebar-collapse .main-sidebar:hover .brand-link > img {
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    transition: transform 0.3s ease;
+    transition: box-shadow 0.3s ease;
 }
-.stat-card-gradient:hover { transform: translateY(-5px); }
+
 
 .stat-card-gradient .stat-info {
     display: flex;
@@ -473,7 +473,8 @@ body.dark-mode .dropdown-item:hover {
 }
 
 .action-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
     background-color: #ffffff !important;
 }
+
+

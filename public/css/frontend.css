@@ -138,7 +138,6 @@ footer {
 }
 .social-link:hover {
     color: #d10000 !important;
-    transform: translateX(5px);
 }
 
 /* Alerts */
@@ -160,8 +159,7 @@ footer {
 .btn-primary:hover {
     background-color: #c82333;
     border-color: #c82333;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
+box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3);
 }
 
 /* Cards */
@@ -174,7 +172,6 @@ footer {
 
 .card:hover {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    transform: translateY(-4px);
 }
 
 /* Section Titles */
@@ -210,11 +207,10 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     border-radius: 1.25rem !important;
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.3s ease;
 }
 .glass-card:hover {
-    transform: translateY(20%) scale(1.02) !important;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+box-shadow: 0 25px 50px rgba(0,0,0,0.3);
 }
 .hero-title {
     font-size: clamp(2.5rem, 6vw, 6.5rem);
@@ -238,8 +234,7 @@ body {
 }
 .doc-card:hover {
     background-color: #fff;
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(220, 53, 69, 0.1);
+box-shadow: 0 15px 30px rgba(220, 53, 69, 0.1);
 }
 .doc-icon-wrapper {
     width: 80px;
@@ -250,12 +245,11 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.2rem auto;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
     box-shadow: 0 8px 16px rgba(220,53,69,0.1);
 }
 .doc-card:hover .doc-icon-wrapper {
-    transform: scale(1.1) rotate(5deg);
-    background: linear-gradient(135deg, #ffe0e0, #ffc7c7);
+background: linear-gradient(135deg, #ffe0e0, #ffc7c7);
 }
 .doc-line {
     width: 40%;
@@ -272,21 +266,19 @@ body {
     border: none !important;
     border-radius: 1.2rem !important;
     box-shadow: 0 15px 35px rgba(0,0,0,0.06);
-    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    transition: all 0.3s ease;
 }
 .sejarah-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 45px rgba(209, 0, 0, 0.1);
+box-shadow: 0 20px 45px rgba(209, 0, 0, 0.1);
 }
 .sejarah-img-wrapper {
     border: none !important;
     border-radius: 1.2rem !important;
     overflow: hidden;
     box-shadow: 0 15px 35px rgba(0,0,0,0.08);
-    transition: transform 0.5s ease;
+    transition: all 0.3s ease;
 }
 .sejarah-img-wrapper:hover {
-    transform: scale(1.03);
 }
 .step-card {
     border-radius: 1.2rem !important;
@@ -308,8 +300,7 @@ body {
     transition: opacity 0.4s ease;
 }
 .step-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(209, 0, 0, 0.12) !important;
+box-shadow: 0 20px 40px rgba(209, 0, 0, 0.12) !important;
     border-color: rgba(209, 0, 0, 0.1) !important;
 }
 .step-card:hover::before {
@@ -318,11 +309,10 @@ body {
 .step-icon-bg {
     background: linear-gradient(135deg, #ffeeee, #ffc7c7);
     border-radius: 0.8rem;
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: all 0.3s ease;
 }
 .step-card:hover .step-icon-bg {
-    transform: scale(1.1) rotate(-5deg);
-    background: linear-gradient(135deg, #d10000, #ff4d4d);
+background: linear-gradient(135deg, #d10000, #ff4d4d);
 }
 .step-card:hover .step-icon-bg i {
     color: #ffffff !important;
@@ -333,3 +323,5 @@ body {
 .step-card:hover .step-number {
     color: rgba(209, 0, 0, 0.3) !important;
 }
+
+
