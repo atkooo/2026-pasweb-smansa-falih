@@ -150,7 +150,7 @@
                             <label class="form-label font-weight-bold text-muted small">Surat Izin Orang Tua/Wali</label>
                             @if(isset($formulir) && $formulir->upload_surat_izin)
                                 <div class="mb-2">
-                                    <a href="{{ asset('storage/' . $formulir->upload_surat_izin) }}" target="_blank" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</a>
+                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_surat_izin) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
                                 </div>
                             @endif
                             <input type="file" name="upload_surat_izin" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
@@ -160,7 +160,7 @@
                             <label class="form-label font-weight-bold text-muted small">Kartu Keluarga (KK)</label>
                             @if(isset($formulir) && $formulir->upload_kk)
                                 <div class="mb-2">
-                                    <a href="{{ asset('storage/' . $formulir->upload_kk) }}" target="_blank" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</a>
+                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_kk) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
                                 </div>
                             @endif
                             <input type="file" name="upload_kk" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
@@ -170,7 +170,7 @@
                             <label class="form-label font-weight-bold text-muted small">Surat Keterangan Dokter</label>
                             @if(isset($formulir) && $formulir->upload_skd)
                                 <div class="mb-2">
-                                    <a href="{{ asset('storage/' . $formulir->upload_skd) }}" target="_blank" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</a>
+                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_skd) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
                                 </div>
                             @endif
                             <input type="file" name="upload_skd" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
@@ -227,4 +227,30 @@
         </form>
     </div>
 </div>
+
+<!-- Modal Preview Berkas -->
+<div class="modal fade" id="previewModal" tabindex="-1" role="dialog" aria-labelledby="previewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content" style="border-radius: 0.75rem;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title font-weight-bold text-dark" id="previewModalLabel">Pratinjau Berkas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center pt-2 pb-4">
+                <iframe id="previewFrame" src="" style="width: 100%; height: 60vh; border: none; border-radius: 0.5rem; box-shadow: inset 0 2px 4px 0 rgba(0,0,0,0.06);" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('extra-js')
+<script>
+    function showPreview(url) {
+        document.getElementById('previewFrame').src = url;
+        $('#previewModal').modal('show');
+    }
+</script>
 @endsection

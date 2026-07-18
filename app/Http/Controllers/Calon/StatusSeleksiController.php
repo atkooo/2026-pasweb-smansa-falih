@@ -14,6 +14,22 @@ class StatusSeleksiController extends Controller
         $formulir = auth()->user()->formulirPendaftaran;
         
         $stages = [];
+
+        // 1. Verifikasi Administrasi (Tahap Awal)
+        $adminStatus = null;
+        if ($formulir) {
+            if ($formulir->status_pendaftaran === 'approved') $adminStatus = 'SELESAI';
+            elseif ($formulir->status_pendaftaran === 'rejected') $adminStatus = 'DITOLAK';
+            elseif ($formulir->status_pendaftaran === 'revision') $adminStatus = 'REVISI';
+        }
+        $stages['admin'] = [
+            'title' => 'VERIFIKASI ADMINISTRASI',
+            'date' => $formulir && $formulir->updated_at ? $formulir->updated_at->format('d M Y') : '-',
+            'status' => $adminStatus,
+            'score' => null,
+            'keterangan' => $formulir && $formulir->catatan_verifikasi ? $formulir->catatan_verifikasi : 'Pengecekan kelengkapan berkas.',
+            'is_scoring' => false,
+        ];
         
         foreach ($kriterias as $kriteria) {
             $hasil = null;
@@ -27,8 +43,19 @@ class StatusSeleksiController extends Controller
                 'status' => $hasil ? strtoupper($hasil->status_lulus) : null,
                 'score' => $hasil ? floatval($hasil->nilai) : null,
                 'keterangan' => $hasil ? $hasil->keterangan : null,
+                'is_scoring' => true,
             ];
         }
+
+        // Akhir: Penetapan Hasil Seleksi
+        $stages['final'] = [
+            'title' => 'PENETAPAN HASIL SELEKSI',
+            'date' => $formulir && $formulir->status_kelulusan ? $formulir->updated_at->format('d M Y') : '-',
+            'status' => $formulir ? $formulir->status_kelulusan : null,
+            'score' => null,
+            'keterangan' => 'Pengumuman akhir hasil seleksi.',
+            'is_scoring' => false,
+        ];
 
         return $stages;
     }

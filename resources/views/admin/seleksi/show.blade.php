@@ -52,12 +52,12 @@
                         <label class="font-weight-600 text-muted small text-uppercase">Nilai</label>
                         <input type="number" name="nilai" class="form-control" required style="border-radius: 8px;" placeholder="0 - 100" min="0" max="100" step="0.01">
                     </div>
-                    <div class="form-group">
-                        <label class="font-weight-600 text-muted small text-uppercase">Status Lulus Kriteria Ini</label>
-                        <select name="status_lulus" class="form-control" required style="border-radius: 8px;">
-                            <option value="1">Lulus</option>
-                            <option value="0">Tidak Lulus</option>
-                        </select>
+                    <div class="form-group mb-2">
+                        <label class="font-weight-600 text-muted small text-uppercase">Status Kelulusan</label>
+                        <div class="d-flex align-items-center bg-light p-2" style="border-radius: 8px; border: 1px solid #e9ecef;">
+                            <i class="fas fa-magic text-primary mr-2"></i>
+                            <small class="text-muted mb-0">Status lulus akan dihitung <strong>otomatis</strong> berdasarkan batas nilai kriteria.</small>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="font-weight-600 text-muted small text-uppercase">Keterangan (Opsional)</label>
@@ -116,6 +116,49 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Penetapan Hasil Akhir -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
+            <div class="card-header bg-white border-bottom pt-4 pb-3">
+                <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">PENETAPAN KELULUSAN AKHIR</h6>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('seleksi.kelulusan', $pendaftaran->id) }}" method="POST">
+                    @csrf
+                    <div class="row align-items-center">
+                        <div class="col-md-8 mb-3 mb-md-0">
+                            <p class="text-muted mb-2">Tentukan apakah peserta ini lulus seleksi akhir Paskibra atau tidak. Keputusan ini akan ditampilkan di halaman status seleksi milik calon peserta.</p>
+                            <div class="d-flex align-items-center">
+                                <label class="mr-3 font-weight-bold mb-0">Status Saat Ini:</label>
+                                @if($pendaftaran->status_kelulusan === 'LOLOS')
+                                    <span class="badge badge-success px-3 py-2" style="font-size: 0.9rem;">LOLOS</span>
+                                @elseif($pendaftaran->status_kelulusan === 'TIDAK LOLOS')
+                                    <span class="badge badge-danger px-3 py-2" style="font-size: 0.9rem;">TIDAK LOLOS</span>
+                                @else
+                                    <span class="badge badge-secondary px-3 py-2" style="font-size: 0.9rem;">MENUNGGU</span>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="input-group">
+                                <select name="status_kelulusan" class="form-control font-weight-bold" required style="border-radius: 8px 0 0 8px;">
+                                    <option value="Menunggu" {{ is_null($pendaftaran->status_kelulusan) ? 'selected' : '' }}>Menunggu</option>
+                                    <option value="LOLOS" {{ $pendaftaran->status_kelulusan === 'LOLOS' ? 'selected' : '' }}>LOLOS</option>
+                                    <option value="TIDAK LOLOS" {{ $pendaftaran->status_kelulusan === 'TIDAK LOLOS' ? 'selected' : '' }}>TIDAK LOLOS</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary font-weight-bold" type="submit" style="border-radius: 0 8px 8px 0;">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

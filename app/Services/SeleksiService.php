@@ -40,8 +40,8 @@ class SeleksiService
         $pesertas = $query->paginate($perPage);
         
         $pesertas->getCollection()->transform(function($p) use ($kriterias) {
-            $p->nilai_kriteria = [];
             $nilai_akhir = 0;
+            $temp_nilai = [];
 
             foreach ($kriterias as $k) {
                 // Get the score for this specific criteria
@@ -49,13 +49,14 @@ class SeleksiService
                 $nilai = floatval($hasil->nilai ?? 0);
                 
                 // Store in array for view rendering
-                $p->nilai_kriteria[$k->id] = $nilai;
+                $temp_nilai[$k->id] = $nilai;
 
                 // Calculate final score using weight
                 $nilai_akhir += ($nilai * ($k->bobot / 100));
             }
             
-            $p->nilai_akhir = $nilai_akhir;
+            $p->setAttribute('nilai_kriteria', $temp_nilai);
+            $p->setAttribute('nilai_akhir', $nilai_akhir);
             
             return $p;
         });
@@ -79,14 +80,24 @@ class SeleksiService
     public function storeScore($pendaftaranId, array $data)
     {
         $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
+        
+        $kriteria = Kriteria::where('nama', $data['jenis_seleksi'])->first();
+        $statusLulus = 0;
+        if ($kriteria && floatval($data['nilai']) >= $kriteria->nilai_minimal_lulus) {
+            $statusLulus = 1;
+        }
 
-        return HasilSeleksi::create([
-            'formulir_pendaftaran_id' => $pendaftaran->id,
-            'jenis_seleksi' => $data['jenis_seleksi'],
-            'nilai' => $data['nilai'],
-            'status_lulus' => $data['status_lulus'],
-            'keterangan' => $data['keterangan'] ?? null,
-        ]);
+        return HasilSeleksi::updateOrCreate(
+            [
+                'formulir_pendaftaran_id' => $pendaftaran->id,
+                'jenis_seleksi' => $data['jenis_seleksi'],
+            ],
+            [
+                'nilai' => $data['nilai'],
+                'status_lulus' => $statusLulus,
+                'keterangan' => $data['keterangan'] ?? null,
+            ]
+        );
     }
 
     /**
@@ -96,5 +107,15 @@ class SeleksiService
     {
         $hasil = HasilSeleksi::findOrFail($id);
         return $hasil->delete();
+    }
+
+    /**
+     * Set final graduation status.
+     */
+    public function setKelulusan($pendaftaranId, $status)
+    {
+        $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
+        $pendaftaran->status_kelulusan = $status;
+        return $pendaftaran->save();
     }
 }

@@ -24,6 +24,7 @@
                     <tr>
                         <th class="border-top-0 border-bottom-0 text-muted px-4" style="font-size: 0.85rem; font-weight: 600;">NO</th>
                         <th class="border-top-0 border-bottom-0 text-muted" style="font-size: 0.85rem; font-weight: 600;">NAMA KRITERIA</th>
+                        <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600;">MIN. LULUS</th>
                         <th class="border-top-0 border-bottom-0 text-muted text-center" style="font-size: 0.85rem; font-weight: 600;">BOBOT (%)</th>
                         <th class="border-top-0 border-bottom-0 text-muted text-right px-4" style="font-size: 0.85rem; font-weight: 600;">AKSI</th>
                     </tr>
@@ -35,6 +36,9 @@
                     <tr>
                         <td class="px-4 py-3 align-middle">{{ $index + 1 }}</td>
                         <td class="py-3 align-middle font-weight-bold text-dark">{{ $k->nama }}</td>
+                        <td class="py-3 align-middle text-center">
+                            <span class="badge badge-warning px-3 py-2 rounded-pill text-dark">{{ $k->nilai_minimal_lulus }}</span>
+                        </td>
                         <td class="py-3 align-middle text-center">
                             <span class="badge badge-info px-3 py-2 rounded-pill text-white">{{ $k->bobot }} %</span>
                         </td>
@@ -74,6 +78,11 @@
                                             <label class="font-weight-600 text-muted small text-uppercase">Bobot (%)</label>
                                             <input type="number" name="bobot" class="form-control" value="{{ $k->bobot }}" min="0" max="100" required style="border-radius: 8px;">
                                             <small class="text-muted mt-1 d-block">Angka dari 0 hingga 100.</small>
+                                        </div>
+                                        <div class="form-group mt-3 mb-0">
+                                            <label class="font-weight-600 text-muted small text-uppercase">Nilai Minimal Lulus</label>
+                                            <input type="number" step="0.01" name="nilai_minimal_lulus" class="form-control" value="{{ $k->nilai_minimal_lulus }}" min="0" max="100" required style="border-radius: 8px;">
+                                            <small class="text-muted mt-1 d-block">Batas nilai agar otomatis lolos.</small>
                                         </div>
                                     </div>
                                     <div class="modal-footer border-top-0 pt-0">
@@ -129,6 +138,10 @@
                     <div class="form-group mb-0">
                         <label class="font-weight-600 text-muted small text-uppercase">Bobot (%)</label>
                         <input type="number" name="bobot" class="form-control" required style="border-radius: 8px;" placeholder="Contoh: 20" min="0" max="100">
+                    </div>
+                    <div class="form-group mt-3 mb-0">
+                        <label class="font-weight-600 text-muted small text-uppercase">Nilai Minimal Lulus</label>
+                        <input type="number" step="0.01" name="nilai_minimal_lulus" class="form-control" required style="border-radius: 8px;" placeholder="Contoh: 75" min="0" max="100">
                     </div>
                 </div>
                 <div class="modal-footer border-top-0 pt-0">

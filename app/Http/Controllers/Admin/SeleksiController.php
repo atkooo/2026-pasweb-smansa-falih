@@ -46,4 +46,17 @@ class SeleksiController extends Controller
 
         return redirect()->back()->with('success', 'Nilai seleksi berhasil dihapus.');
     }
+
+    public function setKelulusan(Request $request, $id)
+    {
+        $request->validate([
+            'status_kelulusan' => 'required|in:LOLOS,TIDAK LOLOS,Menunggu'
+        ]);
+
+        $status = $request->status_kelulusan === 'Menunggu' ? null : $request->status_kelulusan;
+        
+        $this->seleksiService->setKelulusan($id, $status);
+
+        return redirect()->back()->with('success', 'Status kelulusan akhir berhasil diperbarui.');
+    }
 }

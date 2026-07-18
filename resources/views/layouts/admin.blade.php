@@ -324,7 +324,6 @@
             // Force disable AdminLTE's hover expand feature
             setTimeout(function() {
                 $('.main-sidebar').off('mouseenter mouseleave');
-                $('[data-widget="pushmenu"]').PushMenu('expandSidebarHover', false);
             }, 500);
         });
     </script>

@@ -2,7 +2,7 @@
 
 @section('title', 'Status Seleksi - Paskibra')
 
-@section('page-title', 'Hasil Seleksi')
+
 
 @section('content')
 <div class="mb-4 mt-2">
@@ -29,10 +29,16 @@
                                     {{ $stage['date'] }}
                                 </td>
                                 <td class="px-4 py-4 border-bottom-0 border-top text-center" style="border-color: #f3f4f6 !important; width: 15%;">
-                                    @if($stage['status'] === 'LOLOS')
-                                        <span class="font-weight-bold text-success" style="font-size: 0.9rem;">LOLOS</span>
-                                    @elseif($stage['score'])
+                                    @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI')
+                                        <span class="font-weight-bold text-success" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
+                                    @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK')
+                                        <span class="font-weight-bold text-danger" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
+                                    @elseif($stage['status'] === 'REVISI')
+                                        <span class="font-weight-bold text-warning" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
+                                    @elseif(isset($stage['score']) && $stage['score'] !== null)
                                         <span class="font-weight-bold" style="font-size: 0.9rem; color: #ea580c !important;">{{ $stage['score'] }}</span>
+                                    @elseif(!$stage['is_scoring'] && !$stage['status'])
+                                        <span class="font-weight-bold text-muted" style="font-size: 0.9rem;">Menunggu</span>
                                     @else
                                         <span class="font-weight-bold text-muted" style="font-size: 0.9rem;">-</span>
                                     @endif

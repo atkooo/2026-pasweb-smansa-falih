@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSeleksiRequest extends FormRequest
@@ -17,18 +18,17 @@ class StoreSeleksiRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'jenis_seleksi' => 'required|string|max:255',
             'nilai' => 'required|numeric|min:0|max:100', // Better to restrict numeric and range
-            'status_lulus' => 'required|in:1,0',
             'keterangan' => 'nullable|string',
         ];
     }
-    
+
     public function messages(): array
     {
         return [
@@ -37,8 +37,6 @@ class StoreSeleksiRequest extends FormRequest
             'nilai.numeric' => 'Nilai harus berupa angka.',
             'nilai.min' => 'Nilai minimal adalah 0.',
             'nilai.max' => 'Nilai maksimal adalah 100.',
-            'status_lulus.required' => 'Status kelulusan harus dipilih.',
-            'status_lulus.in' => 'Status lulus tidak valid.'
         ];
     }
 }

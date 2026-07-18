@@ -48,6 +48,7 @@ class FormulirPendaftaran extends Model
         'no_telp_ortu',
         'status_pendaftaran',
         'catatan_verifikasi',
+        'status_kelulusan',
     ];
 
     public function user(): BelongsTo

@@ -111,6 +111,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::get('seleksi', [SeleksiController::class, 'index'])->name('seleksi.index');
         Route::get('seleksi/{id}', [SeleksiController::class, 'show'])->name('seleksi.show');
         Route::post('seleksi/{id}', [SeleksiController::class, 'store'])->name('seleksi.store');
+        Route::post('seleksi/{id}/kelulusan', [SeleksiController::class, 'setKelulusan'])->name('seleksi.kelulusan');
         Route::delete('seleksi/hasil/{id}', [SeleksiController::class, 'destroy'])->name('seleksi.destroy');
 
         // Pengumuman Routes

@@ -36,17 +36,25 @@
         <h5 class="font-weight-bold text-dark mb-4 text-center" style="letter-spacing: 0.5px;">{{ $stage['title'] }}</h5>
         
         <div class="d-flex justify-content-center mb-5">
-            @if($stage['status'] === 'LOLOS')
+            @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI')
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-success text-center" style="background-color: #dcfce7; min-width: 150px;">
-                    LOLOS
+                    {{ $stage['status'] }}
                 </div>
-            @elseif($stage['score'])
+            @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK')
+                <div class="px-5 py-2 font-weight-bold rounded-pill text-danger text-center" style="background-color: #fee2e2; min-width: 150px;">
+                    {{ $stage['status'] }}
+                </div>
+            @elseif($stage['status'] === 'REVISI')
+                <div class="px-5 py-2 font-weight-bold rounded-pill text-warning text-center" style="background-color: #fef3c7; min-width: 150px;">
+                    {{ $stage['status'] }}
+                </div>
+            @elseif(isset($stage['score']) && $stage['score'] !== null)
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-center" style="background-color: #fff7ed; color: #ea580c; min-width: 150px;">
                     NILAI: {{ $stage['score'] }}
                 </div>
             @else
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-secondary text-center" style="background-color: #f3f4f6; min-width: 150px;">
-                    BELUM DINILAI
+                    BELUM SELESAI
                 </div>
             @endif
         </div>
@@ -64,13 +72,15 @@
                     <h6 class="font-weight-bold text-dark mb-0">Sesi 1</h6>
                 </div>
             </div>
+            @if($stage['is_scoring'])
             <div class="col-md-6 mb-4">
                 <div class="p-4 rounded" style="background-color: #f8f9fa;">
                     <p class="text-muted mb-1 small">Nilai</p>
                     <h6 class="font-weight-bold text-dark mb-0">{{ $stage['score'] ?? '-' }}</h6>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
+            @endif
+            <div class="{{ $stage['is_scoring'] ? 'col-md-6' : 'col-md-12' }} mb-4">
                 <div class="p-4 rounded" style="background-color: #f8f9fa;">
                     <p class="text-muted mb-1 small">Keterangan</p>
                     <h6 class="font-weight-bold text-dark mb-0">{{ $stage['keterangan'] ?? '-' }}</h6>

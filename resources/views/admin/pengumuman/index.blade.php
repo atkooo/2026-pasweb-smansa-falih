@@ -2,7 +2,7 @@
 
 @section('title', 'Kelola Pengumuman - Paskibra')
 
-@section('page-title', 'Pengumuman Hasil')
+
 
 @section('content')
 <div class="mb-4 mt-2">

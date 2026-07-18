@@ -15,18 +15,16 @@ class KriteriaSeeder extends Seeder
     public function run()
     {
         $kriterias = [
-            ['nama' => 'VERIFIKASI ADMINISTRASI', 'bobot' => 0],
-            ['nama' => 'HASIL SELEKSI FISIK', 'bobot' => 25],
-            ['nama' => 'BARIS BERBARIS', 'bobot' => 25],
-            ['nama' => 'WAWANCARA', 'bobot' => 25],
-            ['nama' => 'KESEHATAN', 'bobot' => 25],
-            ['nama' => 'PENETAPAN HASIL SELEKSI', 'bobot' => 0],
+            ['nama' => 'HASIL SELEKSI FISIK', 'bobot' => 25, 'nilai_minimal_lulus' => 75],
+            ['nama' => 'BARIS BERBARIS', 'bobot' => 25, 'nilai_minimal_lulus' => 75],
+            ['nama' => 'WAWANCARA', 'bobot' => 25, 'nilai_minimal_lulus' => 75],
+            ['nama' => 'KESEHATAN', 'bobot' => 25, 'nilai_minimal_lulus' => 75],
         ];
 
         foreach ($kriterias as $kriteria) {
             Kriteria::updateOrCreate(
                 ['nama' => $kriteria['nama']],
-                ['bobot' => $kriteria['bobot']]
+                ['bobot' => $kriteria['bobot'], 'nilai_minimal_lulus' => $kriteria['nilai_minimal_lulus']]
             );
         }
     }

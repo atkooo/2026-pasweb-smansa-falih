@@ -75,7 +75,9 @@
                             <span class="font-weight-bold text-primary" style="font-size: 0.95rem;">{{ number_format($p->nilai_akhir, 2) }}</span>
                         </td>
                         <td class="px-4 py-3 align-middle text-right">
-                            <a href="{{ route('seleksi.show', $p->id) }}" class="btn btn-sm btn-primary rounded-pill px-3 font-weight-bold"><i class="fas fa-edit mr-1"></i> Input Nilai</a>
+                            <a href="{{ route('seleksi.show', $p->id) }}" class="btn btn-sm btn-info text-white" title="Input Nilai">
+                                <i class="fas fa-edit"></i>
+                            </a>
                         </td>
                     </tr>
                     @empty

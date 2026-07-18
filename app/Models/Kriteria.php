@@ -9,5 +9,9 @@ class Kriteria extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'bobot'];
+    protected $fillable = [
+        'nama',
+        'bobot',
+        'nilai_minimal_lulus'
+    ];
 }

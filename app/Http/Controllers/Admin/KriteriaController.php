@@ -22,6 +22,7 @@ class KriteriaController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'bobot' => 'required|integer|min:0|max:100',
+            'nilai_minimal_lulus' => 'required|numeric|min:0|max:100',
         ]);
 
         \App\Models\Kriteria::create($request->all());
@@ -34,6 +35,7 @@ class KriteriaController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'bobot' => 'required|integer|min:0|max:100',
+            'nilai_minimal_lulus' => 'required|numeric|min:0|max:100',
         ]);
 
         $kriteria = \App\Models\Kriteria::findOrFail($id);
