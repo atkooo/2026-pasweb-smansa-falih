@@ -47,6 +47,7 @@ class FormulirPendaftaran extends Model
         'nama_wali',
         'no_telp_ortu',
         'status_pendaftaran',
+        'catatan_verifikasi',
     ];
 
     public function user(): BelongsTo

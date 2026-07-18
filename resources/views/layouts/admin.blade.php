@@ -106,7 +106,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.index') || request()->routeIs('admin.pendaftaran.show') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-file-alt"></i>
                                     <p>Data Pendaftar</p>
                                 </a>
@@ -167,17 +167,12 @@
 
                         @if(auth()->user()->role === 'pengurus')
                             <li class="nav-item">
-                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.*') ? 'active' : '' }}">
+                                <a href="{{ route('admin.pendaftaran.index') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.index') || request()->routeIs('admin.pendaftaran.show') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users"></i>
                                     <p>Data Pendaftar</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('admin.pendaftaran.verifikasi') }}" class="nav-link {{ request()->routeIs('admin.pendaftaran.verifikasi') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-file-signature"></i>
-                                    <p>Verifikasi Berkas</p>
-                                </a>
-                            </li>
+
                             <li class="nav-item">
                                 <a href="{{ route('seleksi.index') }}" class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-clipboard-check"></i>

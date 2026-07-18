@@ -24,6 +24,24 @@
     </x-alert>
 @endif
 
+<ul class="nav nav-tabs mb-4 border-0">
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold {{ request('status') == '' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index') }}" style="{{ request('status') == '' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Semua Data</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold {{ request('status') == 'pending' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'pending']) }}" style="{{ request('status') == 'pending' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Menunggu Verifikasi</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold {{ request('status') == 'revision' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'revision']) }}" style="{{ request('status') == 'revision' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Revisi Berkas</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold {{ request('status') == 'approved' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'approved']) }}" style="{{ request('status') == 'approved' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Disetujui</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link font-weight-bold {{ request('status') == 'rejected' ? 'active text-primary bg-white shadow-sm border-0 rounded-top' : 'text-muted bg-transparent border-0' }}" href="{{ route('admin.pendaftaran.index', ['status' => 'rejected']) }}" style="{{ request('status') == 'rejected' ? 'border-radius: 10px 10px 0 0 !important;' : '' }}">Ditolak</a>
+    </li>
+</ul>
+
 <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
     <div class="card-header bg-white border-bottom pt-4 pb-3 d-flex justify-content-between align-items-center">
         <h6 class="font-weight-bold text-dark mb-0" style="text-transform: uppercase; letter-spacing: 0.5px;">DAFTAR CALON ANGGOTA</h6>
@@ -63,12 +81,14 @@
                                 <span class="badge badge-warning px-3 py-2 rounded-pill text-white">Pending</span>
                             @elseif($p->status_pendaftaran == 'approved')
                                 <span class="badge badge-success px-3 py-2 rounded-pill">Disetujui</span>
+                            @elseif($p->status_pendaftaran == 'revision')
+                                <span class="badge badge-warning px-3 py-2 rounded-pill text-dark" style="background-color: #fde047;">Revisi</span>
                             @else
                                 <span class="badge badge-danger px-3 py-2 rounded-pill">Ditolak</span>
                             @endif
                         </td>
                         <td class="px-4 py-3 text-right">
-                            <button class="btn btn-sm btn-outline-primary rounded-pill px-3 font-weight-bold">Detail</button>
+                            <a href="{{ route('admin.pendaftaran.show', $p->id) }}" class="btn btn-sm btn-outline-primary rounded-pill px-3 font-weight-bold">Detail</a>
                         </td>
                     </tr>
                     @empty

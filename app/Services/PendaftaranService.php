@@ -42,10 +42,11 @@ class PendaftaranService
     /**
      * Update the status of a pendaftaran.
      */
-    public function updateStatus($id, $status)
+    public function updateStatus($id, $status, $catatan = null)
     {
         $pendaftaran = FormulirPendaftaran::findOrFail($id);
         $pendaftaran->status_pendaftaran = $status;
+        $pendaftaran->catatan_verifikasi = $catatan;
         $pendaftaran->save();
         
         return $pendaftaran;

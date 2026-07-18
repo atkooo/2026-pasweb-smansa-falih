@@ -36,22 +36,17 @@ class PendaftaranController extends Controller
         return view('admin.pendaftaran.show', compact('pendaftaran'));
     }
 
-    public function verifikasi(Request $request)
-    {
-        $filters = [
-            'search' => $request->search,
-        ];
-        
-        $pendaftarans = $this->pendaftaranService->getPendaftarans($filters);
-        
-        return view('admin.pendaftaran.verifikasi', compact('pendaftarans'));
-    }
+
 
     public function updateStatus(UpdateStatusPendaftaranRequest $request, $id)
     {
-        $pendaftaran = $this->pendaftaranService->updateStatus($id, $request->status_pendaftaran);
+        $pendaftaran = $this->pendaftaranService->updateStatus($id, $request->status_pendaftaran, $request->catatan_verifikasi);
 
-        $statusMsg = $request->status_pendaftaran == 'approved' ? 'disetujui' : ($request->status_pendaftaran == 'rejected' ? 'ditolak' : 'dikembalikan ke pending');
+        $statusMsg = 'diperbarui';
+        if ($request->status_pendaftaran == 'approved') $statusMsg = 'disetujui';
+        if ($request->status_pendaftaran == 'rejected') $statusMsg = 'ditolak';
+        if ($request->status_pendaftaran == 'revision') $statusMsg = 'diminta untuk update/revisi';
+        if ($request->status_pendaftaran == 'pending') $statusMsg = 'dikembalikan ke pending';
         
         return redirect()->back()->with('success', "Status pendaftaran {$pendaftaran->nama_panggilan} berhasil {$statusMsg}.");
     }

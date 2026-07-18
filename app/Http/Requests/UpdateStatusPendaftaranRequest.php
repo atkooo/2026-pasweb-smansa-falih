@@ -22,7 +22,8 @@ class UpdateStatusPendaftaranRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'status_pendaftaran' => 'required|in:pending,approved,rejected',
+            'status_pendaftaran' => 'required|in:pending,approved,rejected,revision',
+            'catatan_verifikasi' => 'nullable|string',
         ];
     }
     

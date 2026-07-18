@@ -5,8 +5,8 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
     <div>
-        <a href="{{ route('dashboard') }}" class="text-muted text-decoration-none mb-2 d-inline-block"><i class="fas fa-arrow-left mr-1"></i> Kembali ke Dashboard</a>
-        <h3 class="font-weight-bold text-dark mb-0">Detail Formulir Anda</h3>
+        <a href="{{ route('admin.pendaftaran.index') }}" class="text-muted text-decoration-none mb-2 d-inline-block"><i class="fas fa-arrow-left mr-1"></i> Kembali ke Daftar</a>
+        <h3 class="font-weight-bold text-dark mb-0">Detail Pendaftar: {{ $pendaftaran->nama_panggilan }}</h3>
     </div>
     <div>
         @if($pendaftaran->status_pendaftaran == 'pending')
@@ -20,17 +20,6 @@
         @endif
     </div>
 </div>
-
-@if($pendaftaran->status_pendaftaran == 'revision')
-<div class="alert alert-warning shadow-sm border-0 mb-4" style="border-radius: 0.75rem; border-left: 5px solid #f59e0b !important;">
-    <h5 class="font-weight-bold mb-2"><i class="fas fa-exclamation-triangle mr-2"></i> Perhatian: Berkas Perlu Direvisi</h5>
-    <p class="mb-3">Panitia telah memeriksa berkas Anda dan meminta Anda untuk melakukan revisi dengan catatan berikut:</p>
-    <div class="p-3 bg-white rounded mb-3 text-dark">
-        <em>"{{ $pendaftaran->catatan_verifikasi ?? 'Tidak ada catatan khusus.' }}"</em>
-    </div>
-    <a href="{{ route('pendaftaran.edit') }}" class="btn btn-warning font-weight-bold shadow-sm rounded-pill px-4 text-white"><i class="fas fa-edit mr-2"></i> Edit Data Formulir</a>
-</div>
-@endif
 
 <div class="row">
     <!-- Kolom Kiri: Biodata -->
@@ -126,6 +115,44 @@
 
     <!-- Kolom Kanan: Dokumen & Aksi -->
     <div class="col-md-4 mb-4">
+        <!-- Card Tindakan -->
+        <div class="card shadow-sm border-0 mb-4" style="border-radius: 0.75rem;">
+            <div class="card-header bg-white border-bottom pt-4 pb-3">
+                <h5 class="font-weight-bold m-0 text-dark"><i class="fas fa-gavel text-primary mr-2"></i> Tindakan Review</h5>
+            </div>
+            <div class="card-body p-4">
+                <p class="text-muted small mb-4">Pilih tindakan untuk berkas formulir calon anggota ini. Tindakan akan mengubah status seleksi.</p>
+                
+                <form action="{{ route('admin.pendaftaran.updateStatus', $pendaftaran->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    
+                    <div class="form-group mb-3">
+                        <label for="catatan_verifikasi" class="font-weight-bold text-muted small">Catatan (Opsional)</label>
+                        <textarea class="form-control" name="catatan_verifikasi" id="catatan_verifikasi" rows="2" placeholder="Alasan penolakan / revisi">{{ $pendaftaran->catatan_verifikasi }}</textarea>
+                    </div>
+
+                    <button type="submit" name="status_pendaftaran" value="approved" class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ $pendaftaran->status_pendaftaran == 'approved' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'approved' ? 'disabled' : '' }}>
+                        <i class="fas fa-check mr-2"></i> Setujui 
+                    </button>
+                    
+                    <button type="submit" name="status_pendaftaran" value="revision" class="btn btn-warning w-100 font-weight-bold py-2 mb-2 rounded-pill text-white {{ $pendaftaran->status_pendaftaran == 'revision' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'revision' ? 'disabled' : '' }}>
+                        <i class="fas fa-edit mr-2"></i> Minta Update (Revisi)
+                    </button>
+
+                    <button type="submit" name="status_pendaftaran" value="rejected" class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ $pendaftaran->status_pendaftaran == 'rejected' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'rejected' ? 'disabled' : '' }}>
+                        <i class="fas fa-times mr-2"></i> Tolak
+                    </button>
+                    
+                    @if($pendaftaran->status_pendaftaran != 'pending')
+                    <hr>
+                    <button type="submit" name="status_pendaftaran" value="pending" class="btn btn-light border text-muted w-100 font-weight-bold py-2 rounded-pill">
+                        <i class="fas fa-undo mr-2"></i> Kembalikan ke Pending
+                    </button>
+                    @endif
+                </form>
+            </div>
+        </div>
 
         <!-- Card Dokumen Pendukung -->
         <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">

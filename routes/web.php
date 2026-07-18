@@ -53,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pendaftaran', [FormulirController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran', [FormulirController::class, 'store'])->name('pendaftaran.store');
+    Route::get('/pendaftaran/edit', [FormulirController::class, 'edit'])->name('pendaftaran.edit');
+    Route::patch('/pendaftaran/update', [FormulirController::class, 'update'])->name('pendaftaran.update');
 
     Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi.index');
 
@@ -101,7 +103,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::middleware('admin:admin,pengurus')->group(function () {
         // Pendaftaran Routes
         Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran.index');
-        Route::get('pendaftaran/verifikasi', [PendaftaranController::class, 'verifikasi'])->name('admin.pendaftaran.verifikasi');
+
         Route::get('pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('admin.pendaftaran.show');
         Route::patch('pendaftaran/{id}/status', [PendaftaranController::class, 'updateStatus'])->name('admin.pendaftaran.updateStatus');
 
