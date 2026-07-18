@@ -26,7 +26,9 @@ class ProfilService
             'org_ketua_nama', 'org_wakil_nama', 'org_komandan_nama', 'org_sekretaris_nama', 'org_bendahara_nama',
             'org_ketua_kelas', 'org_wakil_kelas', 'org_komandan_kelas', 'org_sekretaris_kelas', 'org_bendahara_kelas',
             'org_div_kesekretariatan_nama', 'org_div_acara_nama', 'org_div_humas_nama', 'org_div_upacara_nama', 'org_div_latihan_nama',
-            'org_div_kesekretariatan_kelas', 'org_div_acara_kelas', 'org_div_humas_kelas', 'org_div_upacara_kelas', 'org_div_latihan_kelas'
+            'org_div_kesekretariatan_kelas', 'org_div_acara_kelas', 'org_div_humas_kelas', 'org_div_upacara_kelas', 'org_div_latihan_kelas',
+            'beranda_judul', 'beranda_subjudul', 'beranda_deskripsi',
+            'doc1_judul', 'doc2_judul', 'doc3_judul', 'doc4_judul'
         ];
 
         foreach ($fields as $field) {
@@ -48,7 +50,7 @@ class ProfilService
      */
     public function updateImageFields($request)
     {
-        $imageFields = ['gambar_visi', 'gambar_sejarah'];
+        $imageFields = ['gambar_visi', 'gambar_sejarah', 'beranda_background'];
         
         $org_roles = [
             'org_kepsek', 'org_pembina', 'org_ketua', 'org_wakil', 'org_komandan', 'org_sekretaris', 'org_bendahara',
@@ -74,6 +76,30 @@ class ProfilService
                     ['jenis_info' => $field], 
                     [
                         'konten' => 'uploads/profil/' . $filename, 
+                        'tanggal_update' => now()->toDateString()
+                    ]
+                );
+            }
+        }
+    }
+
+    /**
+     * Update document fields.
+     */
+    public function updateDocumentFields($request)
+    {
+        $docFields = ['doc1_file', 'doc2_file', 'doc3_file', 'doc4_file'];
+
+        foreach ($docFields as $field) {
+            if ($request->hasFile($field)) {
+                $file = $request->file($field);
+                $filename = time() . '_' . $field . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('uploads/dokumen'), $filename);
+                
+                Informasi::updateOrCreate(
+                    ['jenis_info' => $field], 
+                    [
+                        'konten' => 'uploads/dokumen/' . $filename, 
                         'tanggal_update' => now()->toDateString()
                     ]
                 );

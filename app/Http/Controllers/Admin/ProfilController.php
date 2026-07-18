@@ -37,6 +37,9 @@ class ProfilController extends Controller
         // Image fields are processed
         $this->profilService->updateImageFields($request);
 
+        // Document fields are processed
+        $this->profilService->updateDocumentFields($request);
+
         return redirect()->route('profil.index')->with('success', 'Profil website berhasil diperbarui.');
     }
 }

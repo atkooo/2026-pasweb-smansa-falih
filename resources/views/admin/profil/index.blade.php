@@ -34,6 +34,61 @@
                 @endif
                 <div class="card-body px-4 py-4">
 
+                    <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Bagian Beranda & Unduhan</h5>
+                    
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="font-weight-600 text-muted small text-uppercase">Teks Judul Beranda</label>
+                                <input type="text" name="beranda_judul" class="form-control" placeholder="Contoh: PASKIBRA GANESHA" style="border-radius: 0.5rem;" value="{{ old('beranda_judul', $informasi['beranda_judul'] ?? 'PASKIBRA GANESHA') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="font-weight-600 text-muted small text-uppercase">Teks Subjudul Beranda</label>
+                                <input type="text" name="beranda_subjudul" class="form-control" placeholder="Contoh: SMA NEGERI 1 PONTIANAK" style="border-radius: 0.5rem;" value="{{ old('beranda_subjudul', $informasi['beranda_subjudul'] ?? 'SMA NEGERI 1 PONTIANAK') }}">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="font-weight-600 text-muted small text-uppercase">Deskripsi Sambutan</label>
+                                <textarea name="beranda_deskripsi" class="form-control" rows="3" style="border-radius: 0.5rem;">{{ old('beranda_deskripsi', $informasi['beranda_deskripsi'] ?? 'Website Paskibra Ganesha SMA Negeri 1 Pontianak hadir sebagai media informasi serta sistem informasi seleksi penerimaan anggota...') }}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group mb-3">
+                                <label class="font-weight-600 text-muted small text-uppercase">Gambar Background (Hero Image)</label>
+                                @if(isset($informasi['beranda_background']))
+                                    <div class="mb-2">
+                                        <img src="{{ asset($informasi['beranda_background']) }}" alt="Hero Background" class="img-thumbnail" style="max-height: 150px;">
+                                    </div>
+                                @endif
+                                <input type="file" name="beranda_background" class="form-control-file" accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <h6 class="font-weight-bold text-dark mt-4 mb-3"><i class="fas fa-file-download mr-2 text-danger"></i>Dokumen Unduhan (Beranda)</h6>
+                    <div class="row mb-5">
+                        @for($i = 1; $i <= 4; $i++)
+                        <div class="col-md-6 mb-3">
+                            <div class="p-3 border rounded bg-light">
+                                <div class="form-group mb-2">
+                                    <label class="font-weight-600 text-muted small text-uppercase">Judul Dokumen {{ $i }}</label>
+                                    <input type="text" name="doc{{ $i }}_judul" class="form-control form-control-sm" value="{{ old('doc'.$i.'_judul', $informasi['doc'.$i.'_judul'] ?? '') }}" placeholder="Contoh: Surat Izin Orang Tua">
+                                </div>
+                                <div class="form-group mb-0">
+                                    <label class="font-weight-600 text-muted small text-uppercase">File Dokumen {{ $i }}</label>
+                                    @if(isset($informasi['doc'.$i.'_file']))
+                                        <div class="mb-1"><a href="{{ asset($informasi['doc'.$i.'_file']) }}" target="_blank" class="badge badge-primary"><i class="fas fa-paperclip"></i> File Tersimpan</a></div>
+                                    @endif
+                                    <input type="file" name="doc{{ $i }}_file" class="form-control-file form-control-sm" accept=".pdf,.doc,.docx">
+                                </div>
+                            </div>
+                        </div>
+                        @endfor
+                    </div>
+
                     <h5 class="font-weight-bold text-dark mb-3" style="border-bottom: 2px solid #f3f4f6; padding-bottom: 0.5rem;">Bagian Sejarah Paskibra SMA N 1</h5>
                     
                     <div class="form-group mb-5">

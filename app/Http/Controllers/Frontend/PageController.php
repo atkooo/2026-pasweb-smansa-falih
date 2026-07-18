@@ -9,7 +9,8 @@ class PageController extends Controller
 {
     public function home()
     {
-        return view('frontend.home');
+        $informasi = Informasi::all()->pluck('konten', 'jenis_info')->toArray();
+        return view('frontend.home', compact('informasi'));
     }
 
     public function sejarah()

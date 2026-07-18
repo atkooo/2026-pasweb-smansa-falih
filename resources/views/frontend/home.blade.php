@@ -6,7 +6,7 @@
 
 
 <!-- Hero Section -->
-<section style="position: relative; min-height: 85vh; background-image: url('/images/fotoawal.png'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
+<section style="position: relative; min-height: 85vh; background-image: url('{{ isset($informasi['beranda_background']) ? asset($informasi['beranda_background']) : '/images/fotoawal.png' }}'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
     <!-- Modern Gradient Overlay -->
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); z-index: 1;"></div>
     
@@ -14,8 +14,8 @@
         <div class="row align-items-center justify-content-center mb-5 mt-5 text-center">
             <div class="col-12" style="animation: fadeInDown 1s ease-out;">
                 <h5 class="fw-bold mb-4 text-white" style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.95rem; opacity: 0.9;">Sistem Informasi Seleksi Penerimaan Anggota</h5>
-                <h1 class="hero-title mb-3">PASKIBRA GANESHA</h1>
-                <h4 class="fw-bold text-white mt-2 hero-subtitle">SMA NEGERI 1 PONTIANAK</h4>
+                <h1 class="hero-title mb-3">{{ $informasi['beranda_judul'] ?? 'PASKIBRA GANESHA' }}</h1>
+                <h4 class="fw-bold text-white mt-2 hero-subtitle">{{ $informasi['beranda_subjudul'] ?? 'SMA NEGERI 1 PONTIANAK' }}</h4>
             </div>
         </div>
         
@@ -29,7 +29,7 @@
                             <div style="height: 3px; background: linear-gradient(90deg, transparent, #ffffff, transparent); width: 100%; border-radius: 2px;"></div>
                         </div>
                         <p class="mb-0 text-white" style="font-size: 1.15rem; line-height: 1.8; font-weight: 300; opacity: 0.95;">
-                            Website Paskibra Ganesha SMA Negeri 1 Pontianak hadir sebagai media informasi serta sistem informasi seleksi penerimaan anggota yang bertujuan untuk memudahkan calon anggota dalam memperoleh informasi, melakukan pendaftaran, dan mengikuti proses seleksi secara lebih efektif dan terstruktur.
+                            {{ $informasi['beranda_deskripsi'] ?? 'Website Paskibra Ganesha SMA Negeri 1 Pontianak hadir sebagai media informasi serta sistem informasi seleksi penerimaan anggota yang bertujuan untuk memudahkan calon anggota dalam memperoleh informasi, melakukan pendaftaran, dan mengikuti proses seleksi secara lebih efektif dan terstruktur.' }}
                         </p>
                     </div>
                 </div>
@@ -50,29 +50,24 @@
         <hr style=" border: 0; border-top: 3px solid #dc3545; opacity: 0.15; width: 80%; margin: 0 auto; border-radius: 2px;">
     </div>
     <div class="row justify-content-center text-center g-4">
-        <!-- Doc 1 -->
-        <x-frontend.doc-card 
-            title="Surat Izin Orang Tua" 
-            link="#" 
-        />
-        
-        <!-- Doc 2 -->
-        <x-frontend.doc-card 
-            title="Perpang TNI<br>No. 57 & 58" 
-            link="#" 
-        />
-        
-        <!-- Doc 3 -->
-        <x-frontend.doc-card 
-            title="Buku Teks Utama<br>Pancasila Kelas X" 
-            link="#" 
-        />
-        
-        <!-- Doc 4 -->
-        <x-frontend.doc-card 
-            title="Tabel Penilaian Fisik" 
-            link="#" 
-        />
+        @php
+            $defaultDocs = [
+                1 => 'Surat Izin Orang Tua',
+                2 => "Perpang TNI<br>No. 57 & 58",
+                3 => "Buku Teks Utama<br>Pancasila Kelas X",
+                4 => 'Tabel Penilaian Fisik'
+            ];
+        @endphp
+        @for($i = 1; $i <= 4; $i++)
+            @php
+                $title = !empty($informasi['doc'.$i.'_judul']) ? nl2br(e($informasi['doc'.$i.'_judul'])) : $defaultDocs[$i];
+                $link = isset($informasi['doc'.$i.'_file']) ? asset($informasi['doc'.$i.'_file']) : '#';
+            @endphp
+            <x-frontend.doc-card 
+                title="{!! $title !!}" 
+                link="{{ $link }}" 
+            />
+        @endfor
     </div>
 </section>
 
