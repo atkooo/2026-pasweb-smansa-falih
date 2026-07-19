@@ -94,6 +94,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::put('galeri/album/{judul}', [AdminGaleriController::class, 'updateAlbum'])->name('galeri.album.update')->where('judul', '.*');
         Route::delete('galeri/album/{judul}', [AdminGaleriController::class, 'destroyAlbum'])->name('galeri.album.destroy')->where('judul', '.*');
         Route::resource('galeri', AdminGaleriController::class)->except(['create', 'show', 'edit', 'update']);
+        Route::get('laporan/export', [LaporanController::class, 'export'])->name('laporan.export');
         Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
 
         Route::resource('kriteria', KriteriaController::class);
