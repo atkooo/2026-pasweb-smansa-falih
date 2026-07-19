@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Berita;
 use App\Models\FormulirPendaftaran;
 use App\Models\Jadwal;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Support\Renderable;
 
 class DashboardController extends Controller
 {
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return Renderable
      */
     public function index()
     {
         $role = auth()->user()->role;
-        
+
         if ($role === 'admin') {
             // Metrics
             $totalPengguna = User::count();
@@ -31,9 +32,9 @@ class DashboardController extends Controller
 
             // Timeline: Upcoming schedules
             $jadwalMendatang = Jadwal::where('tanggal_kegiatan', '>=', Carbon::today())
-                                    ->orderBy('tanggal_kegiatan', 'asc')
-                                    ->take(3)
-                                    ->get();
+                ->orderBy('tanggal_kegiatan', 'asc')
+                ->take(3)
+                ->get();
 
             // Chart Data: Pendaftar per hari (Last 7 days)
             $labels = [];
@@ -56,8 +57,19 @@ class DashboardController extends Controller
             ));
         } elseif ($role === 'pengurus') {
             return view('pengurus.dashboard');
+        } elseif ($role === 'anggota') {
+            $jadwalMendatang = Jadwal::where('tanggal_kegiatan', '>=', Carbon::today())
+                ->orderBy('tanggal_kegiatan', 'asc')
+                ->take(3)
+                ->get();
+            $beritaTerbaru = Berita::where('status', 'diterbitkan')
+                ->latest()
+                ->take(5)
+                ->get();
+
+            return view('anggota.dashboard', compact('jadwalMendatang', 'beritaTerbaru'));
         }
-        
+
         return view('calon.dashboard');
     }
 }

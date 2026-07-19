@@ -32,5 +32,15 @@ class UserSeeder extends Seeder
                 'role' => 'pengurus',
             ]
         );
+
+        // Demo User (Anggota Resmi)
+        User::updateOrCreate(
+            ['nisn' => '1122334455'],
+            [
+                'nama_lengkap' => 'Budi Santoso (Anggota)',
+                'password' => Hash::make('password123'),
+                'role' => 'anggota',
+            ]
+        );
     }
 }

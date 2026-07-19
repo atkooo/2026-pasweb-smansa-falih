@@ -133,6 +133,17 @@ class SeleksiService
     {
         $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
         $pendaftaran->status_kelulusan = $status;
-        return $pendaftaran->save();
+        $saved = $pendaftaran->save();
+
+        if ($pendaftaran->user) {
+            if ($status === 'LOLOS') {
+                $pendaftaran->user->role = 'anggota';
+            } else {
+                $pendaftaran->user->role = 'calon_anggota';
+            }
+            $pendaftaran->user->save();
+        }
+
+        return $saved;
     }
 }
