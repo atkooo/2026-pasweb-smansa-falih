@@ -45,7 +45,7 @@ class UserController extends Controller
                     'upload_surat_izin' => '',
                     'upload_skd' => '',
                     'upload_kk' => '',
-                    'status_pendaftaran' => 'approved',
+                    'status_pendaftaran' => 'pending',
                     'status_kelulusan' => 'LOLOS',
                     'is_lengkap' => false,
                     'tahun_periode' => date('Y'),
@@ -90,7 +90,7 @@ class UserController extends Controller
                     'upload_surat_izin' => 'default.pdf',
                     'upload_skd' => 'default.pdf',
                     'upload_kk' => 'default.pdf',
-                    'status_pendaftaran' => 'approved',
+                    'status_pendaftaran' => 'pending',
                     'status_kelulusan' => 'LOLOS',
                     'tahun_periode' => date('Y'),
                 ]

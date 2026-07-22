@@ -69,10 +69,14 @@ class PendaftaranController extends Controller
 
     public function updateStatus(UpdateStatusPendaftaranRequest $request, $id)
     {
-        $pendaftaran = FormulirPendaftaran::findOrFail($id);
+        $pendaftaran = FormulirPendaftaran::with('user')->findOrFail($id);
 
         if (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected'])) {
             return redirect()->back()->with('error', "Status pendaftaran {$pendaftaran->nama_panggilan} sudah " . ($pendaftaran->status_pendaftaran == 'approved' ? 'Disetujui' : 'Ditolak') . " dan tidak dapat diubah kembali.");
+        }
+
+        if ($pendaftaran->user && $pendaftaran->user->role === 'anggota' && $request->status_pendaftaran === 'rejected') {
+            return redirect()->back()->with('error', "Status pendaftaran untuk Anggota Resmi tidak dapat Ditolak. Anda hanya dapat Menyetujui atau meminta Revisi Berkas.");
         }
 
         $pendaftaran->status_pendaftaran = $request->status_pendaftaran;

@@ -138,6 +138,12 @@
                         <textarea class="form-control" name="catatan_verifikasi" id="catatan_verifikasi" rows="2" placeholder="Alasan penolakan / revisi" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>{{ $pendaftaran->catatan_verifikasi }}</textarea>
                     </div>
 
+                    @if($pendaftaran->user && $pendaftaran->user->role === 'anggota')
+                        <div class="mb-3">
+                            <small class="text-muted"><i class="fas fa-info-circle text-info mr-1"></i> User ini adalah <strong>Anggota Resmi</strong>. Tindakan 'Tolak' tidak berlaku.</small>
+                        </div>
+                    @endif
+
                     <button type="submit" name="status_pendaftaran" value="approved" class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled opacity-50' : '' }}" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>
                         <i class="fas fa-check mr-2"></i> Setujui 
                     </button>
@@ -146,7 +152,7 @@
                         <i class="fas fa-edit mr-2"></i> Minta Update (Revisi)
                     </button>
 
-                    <button type="submit" name="status_pendaftaran" value="rejected" class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled opacity-50' : '' }}" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>
+                    <button type="submit" name="status_pendaftaran" value="rejected" class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota')) ? 'disabled opacity-50' : '' }}" {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota')) ? 'disabled' : '' }}>
                         <i class="fas fa-times mr-2"></i> Tolak
                     </button>
                     

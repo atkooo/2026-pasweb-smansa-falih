@@ -187,8 +187,8 @@ class FormulirController extends Controller
         $user = auth()->user();
         $formulir = $user->formulirPendaftaran;
 
-        if ($formulir && $formulir->is_lengkap) {
-            return redirect()->route('dashboard')->with('info', 'Data Anda sudah lengkap.');
+        if ($formulir && $formulir->is_lengkap && $formulir->status_pendaftaran !== 'revision') {
+            return redirect()->route('dashboard')->with('info', 'Data Anda sudah lengkap dan sedang diproses.');
         }
 
         return view('anggota.lengkapi-data', compact('formulir', 'user'));
@@ -244,7 +244,7 @@ class FormulirController extends Controller
 
         $validated['user_id'] = $user->id;
         $validated['is_lengkap'] = true;
-        $validated['status_pendaftaran'] = 'approved';
+        $validated['status_pendaftaran'] = 'pending';
         $validated['status_kelulusan'] = 'LOLOS';
         $validated['tahun_periode'] = $formulir ? $formulir->tahun_periode : date('Y');
 
@@ -254,6 +254,6 @@ class FormulirController extends Controller
             FormulirPendaftaran::create($validated);
         }
 
-        return redirect()->route('dashboard')->with('success', 'Data profil & berkas Anda berhasil dilengkapi! Selamat datang di Dashboard Anggota Paskibra.');
+        return redirect()->route('dashboard')->with('success', 'Data profil & berkas Anda berhasil dilengkapi! Menunggu verifikasi admin.');
     }
 }
