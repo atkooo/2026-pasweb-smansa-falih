@@ -2,12 +2,17 @@
     'id', 
     'title', 
     'formAction' => null, 
-    'formMethod' => 'POST', 
+    'formMethod' => 'POST',
+    'method' => null,
     'enctype' => null, 
     'submitLabel' => 'Simpan Perubahan',
     'submitIcon' => 'fas fa-save',
     'formId' => null
 ])
+
+@php
+    $resolvedMethod = $method ?? $formMethod;
+@endphp
 
 <div class="modal fade" id="{{ $id }}" tabindex="-1" role="dialog" aria-labelledby="{{ $id }}Label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -20,10 +25,10 @@
             </div>
             
             @if($formAction)
-                <form id="{{ $formId ?? 'form'.$id }}" action="{{ $formAction }}" method="{{ strtoupper($formMethod) === 'GET' ? 'GET' : 'POST' }}" {!! $enctype ? 'enctype="'.$enctype.'"' : '' !!}>
+                <form id="{{ $formId ?? 'form'.$id }}" action="{{ $formAction }}" method="{{ strtoupper($resolvedMethod) === 'GET' ? 'GET' : 'POST' }}" {!! $enctype ? 'enctype="'.$enctype.'"' : '' !!}>
                     @csrf
-                    @if(!in_array(strtoupper($formMethod), ['GET', 'POST']))
-                        @method($formMethod)
+                    @if(!in_array(strtoupper($resolvedMethod), ['GET', 'POST']))
+                        @method($resolvedMethod)
                     @endif
                     
                     <div class="modal-body px-4 py-4">

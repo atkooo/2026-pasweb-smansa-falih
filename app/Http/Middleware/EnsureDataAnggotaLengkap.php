@@ -21,11 +21,15 @@ class EnsureDataAnggotaLengkap
             if ($user->role === 'anggota') {
                 $formulir = $user->formulirPendaftaran;
 
-                // Jika belum punya formulir atau is_lengkap == false
                 if (!$formulir || !$formulir->is_lengkap) {
                     if (!$request->routeIs('lengkapi-data.*') && !$request->routeIs('logout')) {
                         return redirect()->route('lengkapi-data.index')
                             ->with('warning', 'Selamat datang! Silakan lengkapi biodata profil & unggah berkas Anda terlebih dahulu untuk dapat mengakses Dashboard Anggota.');
+                    }
+                } elseif (!in_array($formulir->status_pendaftaran, ['approved'])) {
+                    if (!$request->routeIs('pendaftaran.*') && !$request->routeIs('logout')) {
+                        return redirect()->route('pendaftaran.index')
+                            ->with('warning', 'Akun Anda sedang menunggu verifikasi admin. Silakan tunggu konfirmasi sebelum mengakses dashboard anggota.');
                     }
                 }
             }
