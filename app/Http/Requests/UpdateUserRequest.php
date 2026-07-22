@@ -25,7 +25,7 @@ class UpdateUserRequest extends FormRequest
         return [
             'nama_lengkap' => 'required|string|max:255',
             'nisn' => ['required', 'string', 'max:50', Rule::unique('users')->ignore($this->route('user'))],
-            'role' => ['required', Rule::in(['admin', 'pengurus', 'calon_anggota'])],
+            'role' => ['required', Rule::in(['admin', 'pengurus', 'anggota', 'calon_anggota'])],
             'password' => 'nullable|string|min:6',
         ];
     }

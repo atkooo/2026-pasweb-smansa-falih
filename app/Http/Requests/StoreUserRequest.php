@@ -26,7 +26,7 @@ class StoreUserRequest extends FormRequest
             'nama_lengkap' => 'required|string|max:255',
             'nisn' => 'required|string|max:50|unique:users',
             'password' => 'required|string|min:6',
-            'role' => ['required', Rule::in(['admin', 'pengurus', 'calon_anggota'])],
+            'role' => ['required', Rule::in(['admin', 'pengurus', 'anggota', 'calon_anggota'])],
         ];
     }
     

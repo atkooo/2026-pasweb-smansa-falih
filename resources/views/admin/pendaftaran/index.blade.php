@@ -8,11 +8,7 @@
     <p class="text-muted" style="font-size: 0.95rem;">Lihat dan kelola seluruh calon anggota yang telah mendaftar.</p>
 </div>
 
-@if(session('success'))
-    <x-alert type="success">
-        {{ session('success') }}
-    </x-alert>
-@endif
+
 
 @if($errors->any())
     <x-alert type="danger">
