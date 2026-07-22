@@ -61,7 +61,7 @@
 
                         <!-- Right Side: Badge / Logo -->
                         <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center" style="border-left: 1px solid #f0f0f0;">
-                            <img src="{{ asset('images/logo.png') }}" alt="Logo Paskibra" style="width: 160px; height: auto;" class="mb-3">
+                            <img src="{{ asset('images/logo.webp') }}" alt="Logo Paskibra" style="width: 160px; height: auto;" class="mb-3">
                             <h6 class="font-weight-bold text-secondary" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
                                 Paskibra Ganesha<br>SMA Negeri 1 Pontianak
                             </h6>

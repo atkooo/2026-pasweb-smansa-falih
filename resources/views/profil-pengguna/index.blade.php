@@ -312,19 +312,19 @@
                         
                         <!-- Watermark Pattern -->
                         <div class="position-absolute" style="right: -40px; bottom: -40px; opacity: 0.12; pointer-events: none;">
-                            <img src="{{ asset('images/logo.png') }}" style="width: 280px; height: auto;">
+                            <img src="{{ asset('images/logo.webp') }}" style="width: 280px; height: auto;">
                         </div>
 
                         <!-- KTA Header -->
                         <div class="d-flex align-items-center justify-content-between pb-2 mb-3" style="border-bottom: 1px dashed rgba(251, 191, 36, 0.5);">
                             <div class="d-flex align-items-center">
-                                <img src="{{ asset('images/sman1ptk-logo.png') }}" style="height: 40px; width: auto;" class="mr-2">
+                                <img src="{{ asset('images/sman1ptk-logo.webp') }}" style="height: 40px; width: auto;" class="mr-2">
                                 <div>
                                     <h6 class="font-weight-bold mb-0 text-uppercase text-warning" style="font-size: 0.78rem; letter-spacing: 0.8px;">PASKIBRA GANESHA</h6>
                                     <small class="d-block text-light" style="font-size: 0.65rem; opacity: 0.9; letter-spacing: 0.3px;">SMA NEGERI 1 PONTIANAK</small>
                                 </div>
                             </div>
-                            <img src="{{ asset('images/logo.png') }}" style="height: 40px; width: auto;">
+                            <img src="{{ asset('images/logo.webp') }}" style="height: 40px; width: auto;">
                         </div>
 
                         <!-- KTA Body -->

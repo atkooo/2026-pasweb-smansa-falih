@@ -4,7 +4,7 @@
         <div class="row mb-4">
             <div class="col-lg-5 col-md-12 mb-4 mb-lg-0">
                 <div class="d-flex align-items-center mb-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo Paskibra" width="65" height="65" class="me-3">
+                    <img src="{{ asset('images/logo.webp') }}" alt="Logo Paskibra" width="65" height="65" class="me-3">
                     <span class="footer-logo-text fw-black" style="font-weight: 900;">PASKIBRA GANESHA</span>
                 </div>
                 <p style="color: #333; max-width: 350px; font-size: 0.95rem; line-height: 1.6;">Platform Resmi Informasi dan Seleksi Penerimaan Anggota Pasukan Pengibar Bendera</p>

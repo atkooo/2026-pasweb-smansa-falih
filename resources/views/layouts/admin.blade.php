@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>@yield('title', 'Dashboard - Paskibra Ganesha')</title>
     <!-- Google Font: Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -84,9 +85,9 @@
         <aside class="main-sidebar sidebar-light-danger elevation-0" style="border-right: none; box-shadow: none !important;">
             <!-- Brand Logo -->
             <a href="{{ route('dashboard') }}" class="brand-link d-flex justify-content-center align-items-center">
-                <img src="{{ asset('images/sman1ptk-logo.png') }}" alt="SMAN 1 PTK" style="max-height: 45px; width: auto; object-fit: contain;">
+                <img src="{{ asset('images/sman1ptk-logo.webp') }}" alt="SMAN 1 PTK" style="max-height: 45px; width: auto; object-fit: contain;">
                 <span class="brand-text">
-                    <img src="{{ asset('images/logo.png') }}" alt="BRAGAS" style="max-height: 45px; width: auto; object-fit: contain;">
+                    <img src="{{ asset('images/logo.webp') }}" alt="BRAGAS" style="max-height: 45px; width: auto; object-fit: contain;">
                 </span>
             </a>
 

@@ -50,7 +50,7 @@ class BeritaController extends Controller
         $data['slug'] = Str::slug($request->judul) . '-' . time();
 
         if ($request->hasFile('gambar_sampul')) {
-            $path = $request->file('gambar_sampul')->store('berita', 'public');
+            $path = \App\Helpers\ImageHelper::convertToWebp($request->file('gambar_sampul'), 'berita');
             $data['gambar_sampul'] = $path;
         }
 
@@ -85,7 +85,7 @@ class BeritaController extends Controller
             if ($berita->gambar_sampul && Storage::disk('public')->exists($berita->gambar_sampul)) {
                 Storage::disk('public')->delete($berita->gambar_sampul);
             }
-            $path = $request->file('gambar_sampul')->store('berita', 'public');
+            $path = \App\Helpers\ImageHelper::convertToWebp($request->file('gambar_sampul'), 'berita');
             $data['gambar_sampul'] = $path;
         }
 

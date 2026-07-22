@@ -20,7 +20,7 @@
         <!-- Form Side -->
         <div class="auth-form-side">
             <div class="text-center mb-3">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 50px; margin-bottom: 0.5rem;">
+                <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 50px; margin-bottom: 0.5rem;">
                 <h2 class="auth-title">Masuk Akun</h2>
                 <p class="auth-subtitle">Masukkan NISN/NIP dan password Anda</p>
             </div>

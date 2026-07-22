@@ -71,9 +71,9 @@ class FormulirController extends Controller
         ]);
 
         // Simpan File
-        $surat_izin = $request->file('upload_surat_izin')->store('berkas/surat_izin', 'public');
-        $skd = $request->file('upload_skd')->store('berkas/skd', 'public');
-        $kk = $request->file('upload_kk')->store('berkas/kk', 'public');
+        $surat_izin = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_surat_izin'), 'berkas/surat_izin');
+        $skd = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_skd'), 'berkas/skd');
+        $kk = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_kk'), 'berkas/kk');
 
         // Get tahun_aktif
         $tahunInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_tahun_aktif')->first();
@@ -165,13 +165,13 @@ class FormulirController extends Controller
         ]);
 
         if ($request->hasFile('upload_surat_izin')) {
-            $validated['upload_surat_izin'] = $request->file('upload_surat_izin')->store('berkas/surat_izin', 'public');
+            $validated['upload_surat_izin'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_surat_izin'), 'berkas/surat_izin');
         }
         if ($request->hasFile('upload_skd')) {
-            $validated['upload_skd'] = $request->file('upload_skd')->store('berkas/skd', 'public');
+            $validated['upload_skd'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_skd'), 'berkas/skd');
         }
         if ($request->hasFile('upload_kk')) {
-            $validated['upload_kk'] = $request->file('upload_kk')->store('berkas/kk', 'public');
+            $validated['upload_kk'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_kk'), 'berkas/kk');
         }
 
         $validated['status_pendaftaran'] = 'pending';
@@ -233,13 +233,13 @@ class FormulirController extends Controller
         ]);
 
         if ($request->hasFile('upload_surat_izin')) {
-            $validated['upload_surat_izin'] = $request->file('upload_surat_izin')->store('berkas/surat_izin', 'public');
+            $validated['upload_surat_izin'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_surat_izin'), 'berkas/surat_izin');
         }
         if ($request->hasFile('upload_skd')) {
-            $validated['upload_skd'] = $request->file('upload_skd')->store('berkas/skd', 'public');
+            $validated['upload_skd'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_skd'), 'berkas/skd');
         }
         if ($request->hasFile('upload_kk')) {
-            $validated['upload_kk'] = $request->file('upload_kk')->store('berkas/kk', 'public');
+            $validated['upload_kk'] = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_kk'), 'berkas/kk');
         }
 
         $validated['user_id'] = $user->id;

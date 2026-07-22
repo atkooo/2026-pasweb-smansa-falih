@@ -40,7 +40,7 @@ class PengaturanController extends Controller
             if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
             }
-            $user->foto = $request->file('foto')->store('profil_photos', 'public');
+            $user->foto = \App\Helpers\ImageHelper::convertToWebp($request->file('foto'), 'profil_photos');
         }
 
         if ($request->filled('password_lama') && $request->filled('password_baru')) {

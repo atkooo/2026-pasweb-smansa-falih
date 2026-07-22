@@ -33,7 +33,7 @@ class PengumumanController extends Controller
         $data['user_id'] = auth()->id();
 
         if ($request->hasFile('lampiran')) {
-            $path = $request->file('lampiran')->store('pengumuman_lampiran', 'public');
+            $path = \App\Helpers\ImageHelper::convertToWebp($request->file('lampiran'), 'pengumuman_lampiran');
             $data['lampiran'] = $path;
         }
 
@@ -71,7 +71,7 @@ class PengumumanController extends Controller
             if ($pengumuman->lampiran) {
                 Storage::disk('public')->delete($pengumuman->lampiran);
             }
-            $path = $request->file('lampiran')->store('pengumuman_lampiran', 'public');
+            $path = \App\Helpers\ImageHelper::convertToWebp($request->file('lampiran'), 'pengumuman_lampiran');
             $data['lampiran'] = $path;
         }
 

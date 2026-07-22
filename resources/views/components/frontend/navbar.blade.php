@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg fixed-top py-1">
     <div class="container-fluid px-4 px-lg-5">
         <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo Paskibra" width="40" height="40" class="me-2">
+            <img src="{{ asset('images/logo.webp') }}" alt="Logo Paskibra" width="40" height="40" class="me-2">
             <div style="line-height: 1.1;">
                 <div style="font-size: 1.1rem; letter-spacing: 0.5px; font-weight: 900; color: #000;">PASKIBRA GANESHA</div>
                 <div style="font-size: 0.7rem; font-weight: 600; letter-spacing: 0.5px; color: #555;">SMA NEGERI 1 PONTIANAK</div>

@@ -20,7 +20,7 @@
         <!-- Form Side -->
         <div class="auth-form-side">
             <div class="text-center mb-2">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 45px; margin-bottom: 0.3rem;">
+                <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 45px; margin-bottom: 0.3rem;">
                 <h2 class="auth-title">Daftar Akun</h2>
                 <p class="auth-subtitle">Lengkapi formulir di bawah untuk mendaftar</p>
             </div>

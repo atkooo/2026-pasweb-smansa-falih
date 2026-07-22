@@ -42,7 +42,7 @@ class GaleriService
     {
         DB::transaction(function () use ($data, $files) {
             foreach ($files as $file) {
-                $path = $file->store('galeri', 'public');
+                $path = \App\Helpers\ImageHelper::convertToWebp($file, 'galeri');
                 Galeri::create([
                     'judul_foto' => $data['judul_foto'],
                     'tanggal_pelaksanaan' => $data['tanggal_pelaksanaan'],

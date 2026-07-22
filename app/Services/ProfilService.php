@@ -72,13 +72,14 @@ class ProfilService
                 $prefix = str_replace('gambar_', '', $field);
                 $prefix = str_replace('_foto', '', $prefix);
 
-                $filename = time().'_'.$prefix.'.'.$file->getClientOriginalExtension();
-                $file->move(public_path('uploads/profil'), $filename);
+                $savedPath = \App\Helpers\ImageHelper::convertToWebp($file, 'uploads/profil', 'public');
+                // Move or normalize path format if saved via ImageHelper
+                $relativePath = 'uploads/profil/' . basename($savedPath);
 
                 Informasi::updateOrCreate(
                     ['jenis_info' => $field],
                     [
-                        'konten' => 'uploads/profil/'.$filename,
+                        'konten' => $relativePath,
                         'tanggal_update' => now()->toDateString(),
                     ]
                 );
