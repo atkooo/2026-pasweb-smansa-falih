@@ -71,7 +71,7 @@
                             name="nisn" 
                             value="{{ old('nisn') }}" 
                             class="form-control form-control-custom @error('nisn') is-invalid @enderror" 
-                            placeholder="Masukkan NISN Anda"
+                            placeholder="Contoh: 1234567890"
                             required
                         >
                         @error('nisn')

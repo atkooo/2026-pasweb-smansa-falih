@@ -27,16 +27,19 @@
                         </thead>
                         <tbody>
                             @forelse($pesertas as $index => $peserta)
+                                @php
+                                    $isLaki = in_array(strtolower($peserta->jenis_kelamin ?? ''), ['l', 'laki-laki', 'laki-laki (putra)']);
+                                @endphp
                                 <tr>
                                     <td class="pl-4 py-3 text-muted">{{ $index + 1 }}</td>
                                     <td class="py-3">
                                         <div class="d-flex align-items-center">
                                             <div class="mr-3 text-white d-flex align-items-center justify-content-center font-weight-bold" 
-                                                 style="width: 40px; height: 40px; border-radius: 50%; background-color: {{ $peserta->jenis_kelamin == 'L' ? '#4e73df' : '#e83e8c' }};">
-                                                {{ substr($peserta->user->nama_lengkap, 0, 1) }}
+                                                 style="width: 40px; height: 40px; border-radius: 50%; background-color: {{ $isLaki ? '#4e73df' : '#e83e8c' }};">
+                                                {{ substr($peserta->user->nama_lengkap ?? $peserta->nama_panggilan ?? 'P', 0, 1) }}
                                             </div>
                                             <div>
-                                                <h6 class="mb-0 font-weight-bold text-dark">{{ $peserta->user->nama_lengkap }}</h6>
+                                                <h6 class="mb-0 font-weight-bold text-dark">{{ $peserta->user->nama_lengkap ?? '-' }}</h6>
                                                 <small class="text-muted">{{ $peserta->nama_panggilan ? 'Panggilan: ' . $peserta->nama_panggilan : '' }}</small>
                                             </div>
                                         </div>
@@ -45,7 +48,7 @@
                                         <i class="fas fa-school mr-1 text-secondary"></i> {{ $peserta->asal_sekolah }}
                                     </td>
                                     <td class="py-3">
-                                        @if($peserta->jenis_kelamin == 'L')
+                                        @if($isLaki)
                                             <span class="badge badge-primary px-3 py-1 rounded-pill"><i class="fas fa-mars mr-1"></i> Laki-laki</span>
                                         @else
                                             <span class="badge badge-danger px-3 py-1 rounded-pill" style="background-color: #e83e8c;"><i class="fas fa-venus mr-1"></i> Perempuan</span>

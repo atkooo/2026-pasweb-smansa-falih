@@ -125,7 +125,7 @@ Setelah menjalankan `db:seed`, Anda dapat masuk menggunakan akun demo berikut:
 
 | Role | NISN / Username | Password | Deskripsi Akses |
 | :--- | :--- | :--- | :--- |
-| **Administrator** | `199305052023211016` | `admin123` | Akses penuh sistem, kriteria, berita, & manajemen user. |
+| **Administrator** | `9932199312038122` | `admin123` | Akses penuh sistem, kriteria, berita, & manajemen user. |
 | **Pengurus** | `0987654321` | `password123` | Verifikasi pendaftaran, input nilai seleksi, & pengumuman. |
 | **Anggota** | `1122334455` | `password123` | Mengakses dashboard anggota, melihat jadwal & info internal. |
 | **Calon Anggota** | `1234567890` | `password123` | Mengisi formulir, cek hasil seleksi, & lihat notifikasi. |

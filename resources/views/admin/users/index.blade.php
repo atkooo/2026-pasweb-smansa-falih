@@ -202,7 +202,7 @@
     </div>
     <div class="form-group">
         <label class="font-weight-600 text-muted small text-uppercase">NISN / Username Login <span class="text-danger">*</span></label>
-        <input type="text" name="nisn" class="form-control" required style="border-radius: 8px;" placeholder="Masukkan NISN atau ID Login">
+        <input type="text" name="nisn" class="form-control" required style="border-radius: 8px;" placeholder="Contoh: 1234567890">
     </div>
     <div class="form-group">
         <label class="font-weight-600 text-muted small text-uppercase">Role (Hak Akses) <span class="text-danger">*</span></label>

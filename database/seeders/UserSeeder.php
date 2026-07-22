@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\FormulirPendaftaran;
+use App\Models\HasilSeleksi;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +19,7 @@ class UserSeeder extends Seeder
         $user1 = User::updateOrCreate(
             ['nisn' => '1234567890'],
             [
-                'nama_lengkap' => 'Falih Agung (Calon Anggota)',
+                'nama_lengkap' => 'Falih Agung',
                 'password' => Hash::make('password123'),
                 'role' => 'calon_anggota',
             ]
@@ -27,7 +29,7 @@ class UserSeeder extends Seeder
         User::updateOrCreate(
             ['nisn' => '0987654321'],
             [
-                'nama_lengkap' => 'Siti Aminah (Pengurus)',
+                'nama_lengkap' => 'Siti Aminah',
                 'password' => Hash::make('password123'),
                 'role' => 'pengurus',
             ]
@@ -37,14 +39,14 @@ class UserSeeder extends Seeder
         $userAnggota = User::updateOrCreate(
             ['nisn' => '1122334455'],
             [
-                'nama_lengkap' => 'Budi Santoso (Anggota)',
+                'nama_lengkap' => 'Budi Santoso',
                 'password' => Hash::make('password123'),
                 'role' => 'anggota',
             ]
         );
 
         // Formulir & Hasil Seleksi untuk Anggota Resmi
-        $fpAnggota = \App\Models\FormulirPendaftaran::updateOrCreate(
+        $fpAnggota = FormulirPendaftaran::updateOrCreate(
             ['user_id' => $userAnggota->id],
             [
                 'nama_panggilan' => 'Budi',
@@ -67,16 +69,17 @@ class UserSeeder extends Seeder
                 'upload_skd' => 'skd.pdf',
                 'upload_kk' => 'kk.pdf',
                 'tahun_periode' => date('Y'),
+                'status_pendaftaran' => 'approved',
                 'status_kelulusan' => 'LOLOS',
             ]
         );
 
         // Add scores for Anggota Resmi
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fpAnggota->id, 'jenis_seleksi' => 'BARIS BERBARIS'],
             ['nilai' => 88.0, 'status_lulus' => 'lulus', 'keterangan' => 'Gerakan sangat tegas & presisi']
         );
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fpAnggota->id, 'jenis_seleksi' => 'HASIL SELEKSI FISIK'],
             ['nilai' => 85.0, 'status_lulus' => 'lulus', 'keterangan' => 'Fisik prima']
         );
@@ -90,7 +93,7 @@ class UserSeeder extends Seeder
                 'role' => 'anggota',
             ]
         );
-        $fp2 = \App\Models\FormulirPendaftaran::updateOrCreate(
+        $fp2 = FormulirPendaftaran::updateOrCreate(
             ['user_id' => $user2->id],
             [
                 'nama_panggilan' => 'Anisa',
@@ -113,14 +116,15 @@ class UserSeeder extends Seeder
                 'upload_skd' => 'skd.pdf',
                 'upload_kk' => 'kk.pdf',
                 'tahun_periode' => date('Y'),
+                'status_pendaftaran' => 'approved',
                 'status_kelulusan' => 'LOLOS',
             ]
         );
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fp2->id, 'jenis_seleksi' => 'BARIS BERBARIS'],
             ['nilai' => 82.0, 'status_lulus' => 'lulus']
         );
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fp2->id, 'jenis_seleksi' => 'HASIL SELEKSI FISIK'],
             ['nilai' => 80.0, 'status_lulus' => 'lulus']
         );
@@ -134,7 +138,7 @@ class UserSeeder extends Seeder
                 'role' => 'calon_anggota',
             ]
         );
-        $fp3 = \App\Models\FormulirPendaftaran::updateOrCreate(
+        $fp3 = FormulirPendaftaran::updateOrCreate(
             ['user_id' => $user3->id],
             [
                 'nama_panggilan' => 'Rian',
@@ -160,11 +164,11 @@ class UserSeeder extends Seeder
                 'status_kelulusan' => 'TIDAK LOLOS',
             ]
         );
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fp3->id, 'jenis_seleksi' => 'BARIS BERBARIS'],
             ['nilai' => 60.0, 'status_lulus' => 'tidak_lulus']
         );
-        \App\Models\HasilSeleksi::updateOrCreate(
+        HasilSeleksi::updateOrCreate(
             ['formulir_pendaftaran_id' => $fp3->id, 'jenis_seleksi' => 'HASIL SELEKSI FISIK'],
             ['nilai' => 55.0, 'status_lulus' => 'tidak_lulus']
         );

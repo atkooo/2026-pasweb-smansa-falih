@@ -181,4 +181,79 @@ class FormulirController extends Controller
 
         return redirect()->route('dashboard')->with('success', 'Formulir berhasil diperbarui dan dikirim ulang untuk diverifikasi.');
     }
+
+    public function lengkapiData()
+    {
+        $user = auth()->user();
+        $formulir = $user->formulirPendaftaran;
+
+        if ($formulir && $formulir->is_lengkap) {
+            return redirect()->route('dashboard')->with('info', 'Data Anda sudah lengkap.');
+        }
+
+        return view('anggota.lengkapi-data', compact('formulir', 'user'));
+    }
+
+    public function storeLengkapiData(Request $request)
+    {
+        $user = auth()->user();
+        $formulir = $user->formulirPendaftaran;
+
+        $hasExistingSuratIzin = $formulir && !empty($formulir->upload_surat_izin);
+        $hasExistingSkd = $formulir && !empty($formulir->upload_skd);
+        $hasExistingKk = $formulir && !empty($formulir->upload_kk);
+
+        $validated = $request->validate([
+            'nama_panggilan' => 'required|string|max:255',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'agama' => 'required|string|max:50',
+            'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
+            'no_hp' => 'required|string|max:20',
+            'alamat' => 'required|string',
+            'asal_sekolah' => 'required|string|max:255',
+            'tinggi_badan' => 'required|integer|min:100|max:250',
+            'berat_badan' => 'required|integer|min:30|max:200',
+            'riwayat_penyakit' => 'nullable|string',
+            'cita_cita' => 'required|string|max:255',
+            'keterampilan' => 'nullable|string',
+            'ekskul_lain' => 'nullable|string',
+            'motivasi' => 'required|string',
+            'opsi_pilihan' => 'required|string|max:255',
+            'motto_hidup' => 'required|string|max:255',
+            'nama_ayah' => 'required|string|max:255',
+            'pekerjaan_ayah' => 'required|string|max:255',
+            'nama_ibu' => 'required|string|max:255',
+            'pekerjaan_ibu' => 'required|string|max:255',
+            'nama_wali' => 'nullable|string|max:255',
+            'no_telp_ortu' => 'required|string|max:20',
+            'upload_surat_izin' => ($hasExistingSuratIzin ? 'nullable' : 'required') . '|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'upload_skd' => ($hasExistingSkd ? 'nullable' : 'required') . '|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'upload_kk' => ($hasExistingKk ? 'nullable' : 'required') . '|file|mimes:pdf,jpg,jpeg,png|max:2048',
+        ]);
+
+        if ($request->hasFile('upload_surat_izin')) {
+            $validated['upload_surat_izin'] = $request->file('upload_surat_izin')->store('berkas/surat_izin', 'public');
+        }
+        if ($request->hasFile('upload_skd')) {
+            $validated['upload_skd'] = $request->file('upload_skd')->store('berkas/skd', 'public');
+        }
+        if ($request->hasFile('upload_kk')) {
+            $validated['upload_kk'] = $request->file('upload_kk')->store('berkas/kk', 'public');
+        }
+
+        $validated['user_id'] = $user->id;
+        $validated['is_lengkap'] = true;
+        $validated['status_pendaftaran'] = 'approved';
+        $validated['status_kelulusan'] = 'LOLOS';
+        $validated['tahun_periode'] = $formulir ? $formulir->tahun_periode : date('Y');
+
+        if ($formulir) {
+            $formulir->update($validated);
+        } else {
+            FormulirPendaftaran::create($validated);
+        }
+
+        return redirect()->route('dashboard')->with('success', 'Data profil & berkas Anda berhasil dilengkapi! Selamat datang di Dashboard Anggota Paskibra.');
+    }
 }

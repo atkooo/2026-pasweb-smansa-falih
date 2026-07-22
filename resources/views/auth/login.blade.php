@@ -58,7 +58,7 @@
                             name="nisn" 
                             value="{{ old('nisn') }}" 
                             class="form-control form-control-custom @error('nisn') is-invalid @enderror" 
-                            placeholder="Contoh: 199305052023211016"
+                            placeholder="Contoh: 1234567890"
                             required
                         >
                         @error('nisn')

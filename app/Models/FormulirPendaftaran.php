@@ -50,6 +50,7 @@ class FormulirPendaftaran extends Model
         'status_pendaftaran',
         'catatan_verifikasi',
         'status_kelulusan',
+        'is_lengkap',
     ];
 
     public function user(): BelongsTo

@@ -48,8 +48,13 @@ use App\Http\Controllers\Calon\PesertaController;
 use App\Http\Controllers\Calon\StatusSeleksiController;
 use App\Http\Controllers\DashboardController;
 
-Route::middleware('auth')->group(function () {
+use App\Http\Middleware\EnsureDataAnggotaLengkap;
+
+Route::middleware(['auth', EnsureDataAnggotaLengkap::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/lengkapi-data', [FormulirController::class, 'lengkapiData'])->withoutMiddleware([EnsureDataAnggotaLengkap::class])->name('lengkapi-data.index');
+    Route::post('/lengkapi-data', [FormulirController::class, 'storeLengkapiData'])->withoutMiddleware([EnsureDataAnggotaLengkap::class])->name('lengkapi-data.store');
 
     Route::get('/pendaftaran', [FormulirController::class, 'index'])->name('pendaftaran.index');
     Route::post('/pendaftaran', [FormulirController::class, 'store'])->name('pendaftaran.store');

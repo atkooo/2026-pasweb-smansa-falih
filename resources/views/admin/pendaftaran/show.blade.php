@@ -121,7 +121,13 @@
                 <h5 class="font-weight-bold m-0 text-dark"><i class="fas fa-gavel text-primary mr-2"></i> Tindakan Review</h5>
             </div>
             <div class="card-body p-4">
-                <p class="text-muted small mb-4">Pilih tindakan untuk berkas formulir calon anggota ini. Tindakan akan mengubah status seleksi.</p>
+                @if(in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']))
+                    <div class="alert alert-{{ $pendaftaran->status_pendaftaran == 'approved' ? 'success' : 'danger' }} mb-4 p-3 rounded-lg" style="font-size: 0.9rem;">
+                        <i class="fas fa-lock mr-2"></i> Pendaftaran ini telah <strong>{{ $pendaftaran->status_pendaftaran == 'approved' ? 'Disetujui' : 'Ditolak' }}</strong> dan statusnya sudah dikunci.
+                    </div>
+                @else
+                    <p class="text-muted small mb-4">Pilih tindakan untuk berkas formulir calon anggota ini. Tindakan akan mengubah status seleksi.</p>
+                @endif
                 
                 <form action="{{ route('admin.pendaftaran.updateStatus', $pendaftaran->id) }}" method="POST">
                     @csrf
@@ -129,22 +135,22 @@
                     
                     <div class="form-group mb-3">
                         <label for="catatan_verifikasi" class="font-weight-bold text-muted small">Catatan (Opsional)</label>
-                        <textarea class="form-control" name="catatan_verifikasi" id="catatan_verifikasi" rows="2" placeholder="Alasan penolakan / revisi">{{ $pendaftaran->catatan_verifikasi }}</textarea>
+                        <textarea class="form-control" name="catatan_verifikasi" id="catatan_verifikasi" rows="2" placeholder="Alasan penolakan / revisi" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>{{ $pendaftaran->catatan_verifikasi }}</textarea>
                     </div>
 
-                    <button type="submit" name="status_pendaftaran" value="approved" class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ $pendaftaran->status_pendaftaran == 'approved' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'approved' ? 'disabled' : '' }}>
+                    <button type="submit" name="status_pendaftaran" value="approved" class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled opacity-50' : '' }}" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>
                         <i class="fas fa-check mr-2"></i> Setujui 
                     </button>
                     
-                    <button type="submit" name="status_pendaftaran" value="revision" class="btn btn-warning w-100 font-weight-bold py-2 mb-2 rounded-pill text-white {{ $pendaftaran->status_pendaftaran == 'revision' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'revision' ? 'disabled' : '' }}>
+                    <button type="submit" name="status_pendaftaran" value="revision" class="btn btn-warning w-100 font-weight-bold py-2 mb-2 rounded-pill text-white {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) ? 'disabled opacity-50' : '' }}" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) ? 'disabled' : '' }}>
                         <i class="fas fa-edit mr-2"></i> Minta Update (Revisi)
                     </button>
 
-                    <button type="submit" name="status_pendaftaran" value="rejected" class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ $pendaftaran->status_pendaftaran == 'rejected' ? 'disabled opacity-50' : '' }}" {{ $pendaftaran->status_pendaftaran == 'rejected' ? 'disabled' : '' }}>
+                    <button type="submit" name="status_pendaftaran" value="rejected" class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled opacity-50' : '' }}" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>
                         <i class="fas fa-times mr-2"></i> Tolak
                     </button>
                     
-                    @if($pendaftaran->status_pendaftaran != 'pending')
+                    @if(!in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) && $pendaftaran->status_pendaftaran != 'pending')
                     <hr>
                     <button type="submit" name="status_pendaftaran" value="pending" class="btn btn-light border text-muted w-100 font-weight-bold py-2 rounded-pill">
                         <i class="fas fa-undo mr-2"></i> Kembalikan ke Pending

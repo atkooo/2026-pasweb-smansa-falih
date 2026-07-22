@@ -16,9 +16,9 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin default with NIP stored in `nisn` field
+        // Admin default dengan contoh NISN/ID sederhana
         User::updateOrCreate(
-            ['nisn' => '199305052023211016'],
+            ['nisn' => '9932199312038122'],
             [
                 'nama_lengkap' => 'Administrator Paskibra',
                 'password' => Hash::make('admin123'),
