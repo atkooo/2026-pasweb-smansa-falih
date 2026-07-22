@@ -24,12 +24,32 @@
                     </div>
                 @endif
 
-                <form action="{{ route('pengaturan.update') }}" method="POST">
+                <form action="{{ route('pengaturan.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     
+                    <h6 class="font-weight-bold mb-3 text-secondary border-bottom pb-2">Foto Profil & KTA</h6>
+                    <div class="row align-items-center mb-4">
+                        <div class="col-md-3 text-center mb-3 mb-md-0">
+                            @if($user->foto)
+                                <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto Profil" class="rounded-circle shadow border" style="width: 100px; height: 100px; object-fit: cover;">
+                            @else
+                                <div class="rounded-circle bg-light border d-flex align-items-center justify-content-center mx-auto text-primary font-weight-bold" style="width: 100px; height: 100px; font-size: 2.5rem;">
+                                    {{ strtoupper(substr($user->nama_lengkap, 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group mb-1">
+                                <label class="font-weight-600 text-muted small text-uppercase">Unggah Foto Resmi (Untuk KTA & Profile)</label>
+                                <input type="file" name="foto" class="form-control-file" accept="image/*" style="font-size: 0.9rem;">
+                            </div>
+                            <small class="text-muted"><i class="fas fa-info-circle mr-1"></i> Format yang didukung: JPG, JPEG, PNG, WEBP. Maksimal 2MB. Foto ini akan otomatis digunakan pada Kartu Tanda Anggota (KTA).</small>
+                        </div>
+                    </div>
+
                     <h6 class="font-weight-bold mb-3 text-secondary border-bottom pb-2">Informasi Pribadi</h6>
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label class="font-weight-600 text-muted small text-uppercase">Nama Lengkap</label>
                                 <input type="text" name="nama_lengkap" class="form-control" value="{{ old('nama_lengkap', $user->nama_lengkap) }}" required style="border-radius: 8px;">
@@ -37,14 +57,8 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label class="font-weight-600 text-muted small text-uppercase">Username</label>
-                                <input type="text" name="username" class="form-control" value="{{ old('username', $user->username) }}" required style="border-radius: 8px;">
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <div class="form-group">
-                                <label class="font-weight-600 text-muted small text-uppercase">Email</label>
-                                <input type="email" name="email" class="form-control" value="{{ old('email', $user->email) }}" required style="border-radius: 8px;">
+                                <label class="font-weight-600 text-muted small text-uppercase">NISN / NIP / Username Login</label>
+                                <input type="text" name="nisn" class="form-control" value="{{ old('nisn', $user->nisn) }}" required style="border-radius: 8px;">
                             </div>
                         </div>
                     </div>

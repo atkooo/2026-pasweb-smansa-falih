@@ -62,6 +62,8 @@
                                 <span class="badge badge-danger px-3 py-2 rounded-pill">Admin</span>
                             @elseif($user->role === 'pengurus')
                                 <span class="badge badge-primary px-3 py-2 rounded-pill">Pengurus</span>
+                            @elseif($user->role === 'anggota')
+                                <span class="badge badge-success px-3 py-2 rounded-pill">Anggota</span>
                             @else
                                 <span class="badge badge-info px-3 py-2 rounded-pill text-white">Calon Anggota</span>
                             @endif
@@ -75,7 +77,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-light text-danger rounded-circle" title="Hapus">
-                                    <i class="fas fa-trash-alt"></i>
+                                    <i class="fas fa-trash"></i>
                                 </button>
                             </form>
                             @endif
@@ -87,7 +89,9 @@
                         id="modalEdit{{ $user->id }}" 
                         title="Edit Pengguna" 
                         formAction="{{ route('users.update', $user->id) }}" 
-                        formMethod="PUT"
+                        method="PUT"
+                        submitLabel="Simpan Perubahan" 
+                        submitIcon="fas fa-save"
                     >
                         <div class="form-group">
                             <label class="font-weight-600 text-muted small text-uppercase">Nama Lengkap</label>
@@ -101,6 +105,7 @@
                             <label class="font-weight-600 text-muted small text-uppercase">Role (Hak Akses)</label>
                             <select name="role" class="form-control" required style="border-radius: 8px;">
                                 <option value="calon_anggota" {{ $user->role == 'calon_anggota' ? 'selected' : '' }}>Calon Anggota</option>
+                                <option value="anggota" {{ $user->role == 'anggota' ? 'selected' : '' }}>Anggota</option>
                                 <option value="pengurus" {{ $user->role == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
                                 <option value="admin" {{ $user->role == 'admin' ? 'selected' : '' }}>Admin</option>
                             </select>
@@ -142,6 +147,7 @@
         <label class="font-weight-600 text-muted small text-uppercase">Role (Hak Akses) <span class="text-danger">*</span></label>
         <select name="role" class="form-control" required style="border-radius: 8px;">
             <option value="calon_anggota">Calon Anggota</option>
+            <option value="anggota">Anggota</option>
             <option value="pengurus">Pengurus</option>
             <option value="admin">Admin</option>
         </select>

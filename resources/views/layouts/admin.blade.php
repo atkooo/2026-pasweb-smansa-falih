@@ -53,8 +53,13 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
-                        <i class="fas fa-user-circle"></i> {{ auth()->user()->nama_lengkap }}
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+                        @if(auth()->user()->foto)
+                            <img src="{{ asset('storage/' . auth()->user()->foto) }}" alt="{{ auth()->user()->nama_lengkap }}" class="rounded-circle mr-2" style="width: 25px; height: 25px; object-fit: cover;">
+                        @else
+                            <i class="fas fa-user-circle mr-1"></i>
+                        @endif
+                        {{ auth()->user()->nama_lengkap }}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{ route('profil-pengguna.index') }}">

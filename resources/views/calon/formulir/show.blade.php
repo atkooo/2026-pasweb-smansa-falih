@@ -113,8 +113,8 @@
                     <div class="col-sm-8 text-dark">{{ $pendaftaran->motivasi }}</div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-sm-4 text-muted font-weight-bold">Pilihan Pleton/Posisi</div>
-                    <div class="col-sm-8 text-dark">{{ $pendaftaran->opsi_pilihan }}</div>
+                    <div class="col-sm-4 text-muted font-weight-bold">Pengalaman PBB (SMP/MTs)</div>
+                    <div class="col-sm-8 text-dark">{{ $pendaftaran->opsi_pilihan === 'YA' ? 'Pernah (YA)' : 'Belum (TIDAK)' }}</div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-sm-4 text-muted font-weight-bold">Motto Hidup</div>

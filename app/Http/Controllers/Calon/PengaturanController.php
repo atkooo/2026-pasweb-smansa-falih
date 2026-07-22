@@ -10,8 +10,9 @@ class PengaturanController extends Controller
 {
     public function profil()
     {
-        $user = auth()->user();
-        return view('profil-pengguna.index', compact('user'));
+        $user = auth()->user()->load(['formulirPendaftaran.hasilSeleksi']);
+        $kriterias = \App\Models\Kriteria::orderBy('id', 'asc')->get();
+        return view('profil-pengguna.index', compact('user', 'kriterias'));
     }
 
     public function index()
@@ -26,15 +27,21 @@ class PengaturanController extends Controller
 
         $request->validate([
             'nama_lengkap' => 'required|string|max:255',
-            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'nisn' => 'required|string|max:255|unique:users,nisn,' . $user->id,
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:2048',
             'password_lama' => 'nullable|string|min:8',
             'password_baru' => 'nullable|string|min:8|confirmed',
         ]);
 
         $user->nama_lengkap = $request->nama_lengkap;
-        $user->username = $request->username;
-        $user->email = $request->email;
+        $user->nisn = $request->nisn;
+
+        if ($request->hasFile('foto')) {
+            if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
+            }
+            $user->foto = $request->file('foto')->store('profil_photos', 'public');
+        }
 
         if ($request->filled('password_lama') && $request->filled('password_baru')) {
             if (!\Illuminate\Support\Facades\Hash::check($request->password_lama, $user->password)) {

@@ -66,8 +66,10 @@ class DashboardController extends Controller
                 ->latest()
                 ->take(5)
                 ->get();
+            $formulir = auth()->user()->formulirPendaftaran ? auth()->user()->formulirPendaftaran->load('hasilSeleksi') : null;
+            $kriterias = \App\Models\Kriteria::orderBy('id', 'asc')->get();
 
-            return view('anggota.dashboard', compact('jadwalMendatang', 'beritaTerbaru'));
+            return view('anggota.dashboard', compact('jadwalMendatang', 'beritaTerbaru', 'formulir', 'kriterias'));
         }
 
         return view('calon.dashboard');

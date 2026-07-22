@@ -110,14 +110,6 @@
             </div>
         </div>
 
-        {{-- Back button bawah --}}
-        <div class="mt-4 mb-5 text-center">
-            <a href="{{ route('pengumuman-seleksi.index') }}" class="btn btn-light border font-weight-bold px-4"
-                style="border-radius: 8px;">
-                <i class="fas fa-arrow-left mr-2"></i> Kembali ke Daftar Pengumuman
-            </a>
-        </div>
-
     </div>
 </div>
 

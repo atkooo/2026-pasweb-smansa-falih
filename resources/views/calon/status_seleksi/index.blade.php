@@ -29,10 +29,10 @@
                                     {{ $stage['date'] }}
                                 </td>
                                 <td class="px-4 py-4 border-bottom-0 border-top text-center" style="border-color: #f3f4f6 !important; width: 15%;">
-                                    @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI')
-                                        <span class="font-weight-bold text-success" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
-                                    @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK')
-                                        <span class="font-weight-bold text-danger" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
+                                    @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI' || $stage['status'] === 'LULUS')
+                                        <span class="font-weight-bold text-success" style="font-size: 0.9rem;">LULUS</span>
+                                    @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK' || $stage['status'] === 'TIDAK_LULUS' || $stage['status'] === 'TIDAK LULUS')
+                                        <span class="font-weight-bold text-danger" style="font-size: 0.9rem;">TIDAK LULUS</span>
                                     @elseif($stage['status'] === 'REVISI')
                                         <span class="font-weight-bold text-warning" style="font-size: 0.9rem;">{{ $stage['status'] }}</span>
                                     @elseif(isset($stage['score']) && $stage['score'] !== null)

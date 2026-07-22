@@ -36,13 +36,13 @@
         <h5 class="font-weight-bold text-dark mb-4 text-center" style="letter-spacing: 0.5px;">{{ $stage['title'] }}</h5>
         
         <div class="d-flex justify-content-center mb-5">
-            @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI')
+            @if($stage['status'] === 'LOLOS' || $stage['status'] === 'SELESAI' || $stage['status'] === 'LULUS')
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-success text-center" style="background-color: #dcfce7; min-width: 150px;">
-                    {{ $stage['status'] }}
+                    LULUS
                 </div>
-            @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK')
+            @elseif($stage['status'] === 'TIDAK LOLOS' || $stage['status'] === 'DITOLAK' || $stage['status'] === 'TIDAK_LULUS' || $stage['status'] === 'TIDAK LULUS')
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-danger text-center" style="background-color: #fee2e2; min-width: 150px;">
-                    {{ $stage['status'] }}
+                    TIDAK LULUS
                 </div>
             @elseif($stage['status'] === 'REVISI')
                 <div class="px-5 py-2 font-weight-bold rounded-pill text-warning text-center" style="background-color: #fef3c7; min-width: 150px;">

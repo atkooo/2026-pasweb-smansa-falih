@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends(auth()->check() ? 'layouts.admin' : 'layouts.app')
 
 @section('title', 'Berita & Informasi - Paskibra Ganesha')
 
 @section('content')
-<div class="container py-5" style="margin-top: 80px;">
-    <div class="text-center mb-5">
-        <h2 class="font-weight-bold" style="color: #111827; letter-spacing: -1px;">Berita & Informasi</h2>
+<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-5' }}" style="{{ auth()->check() ? '' : 'margin-top: 80px;' }}">
+    <div class="{{ auth()->check() ? 'mb-4' : 'text-center mb-5' }}">
+        <h2 class="font-weight-bold text-dark" style="letter-spacing: -0.5px;">Berita & Informasi</h2>
         <p class="text-muted text-lg">Kabar terbaru, pengumuman, dan kegiatan seputar Paskibra Ganesha.</p>
     </div>
 

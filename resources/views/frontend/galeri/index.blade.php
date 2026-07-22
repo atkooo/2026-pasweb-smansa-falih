@@ -1,12 +1,12 @@
-@extends('layouts.app')
+@extends(auth()->check() ? 'layouts.admin' : 'layouts.app')
 
 @section('title', 'Galeri Paskibra - Paskibra Ganesha')
 
 @section('content')
-<div class="container py-5">
-    <div class="text-center mb-5 mx-auto" style="max-width: 800px;">
-        <h2 class="font-weight-bold mb-3 section-title">GALERI</h2>
-        <p class="text-muted" style="font-size: 1.1rem; line-height: 1.8; font-weight: 400;">Mengabadikan setiap momen perjuangan, kebersamaan, dan prestasi Paskibra sebagai bagian dari perjalanan, dedikasi, dan kebanggaan yang akan selalu dikenang.</p>
+<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-5' }}" style="{{ auth()->check() ? '' : 'margin-top: 80px;' }}">
+    <div class="{{ auth()->check() ? 'mb-4' : 'text-center mb-5 mx-auto' }}" style="{{ auth()->check() ? '' : 'max-width: 800px;' }}">
+        <h2 class="font-weight-bold mb-3 {{ auth()->check() ? 'text-dark' : 'section-title' }}">GALERI FOTO</h2>
+        <p class="text-muted" style="font-size: 1.05rem; line-height: 1.7; font-weight: 400;">Mengabadikan setiap momen perjuangan, kebersamaan, dan prestasi Paskibra sebagai bagian dari perjalanan, dedikasi, dan kebanggaan yang akan selalu dikenang.</p>
     </div>
 
     @if($albums->isEmpty())

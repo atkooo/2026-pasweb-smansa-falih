@@ -98,6 +98,10 @@ class SeleksiService
     {
         $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
         
+        if (in_array($pendaftaran->status_kelulusan, ['LOLOS', 'TIDAK LOLOS'])) {
+            throw new \Exception('Nilai seleksi tidak dapat diubah atau ditambahkan karena penetapan kelulusan akhir sudah ditetapkan.');
+        }
+
         $kriteria = Kriteria::where('nama', $data['jenis_seleksi'])->first();
         $statusLulus = 'tidak_lulus';
         if ($kriteria && floatval($data['nilai']) >= $kriteria->nilai_minimal_lulus) {
@@ -123,6 +127,12 @@ class SeleksiService
     public function deleteScore($id)
     {
         $hasil = HasilSeleksi::findOrFail($id);
+        $pendaftaran = FormulirPendaftaran::find($hasil->formulir_pendaftaran_id);
+        
+        if ($pendaftaran && in_array($pendaftaran->status_kelulusan, ['LOLOS', 'TIDAK LOLOS'])) {
+            throw new \Exception('Nilai seleksi tidak dapat dihapus karena penetapan kelulusan akhir sudah ditetapkan.');
+        }
+
         return $hasil->delete();
     }
 
@@ -132,6 +142,11 @@ class SeleksiService
     public function setKelulusan($pendaftaranId, $status)
     {
         $pendaftaran = FormulirPendaftaran::with('user')->findOrFail($pendaftaranId);
+        
+        if (in_array($pendaftaran->status_kelulusan, ['LOLOS', 'TIDAK LOLOS'])) {
+            throw new \Exception('Status kelulusan akhir peserta ini sudah dikunci dan tidak dapat diubah kembali.');
+        }
+
         $pendaftaran->status_kelulusan = $status;
         $saved = $pendaftaran->save();
 
