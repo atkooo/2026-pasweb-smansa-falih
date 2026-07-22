@@ -77,27 +77,28 @@
     <div style="position: absolute; top: -50px; right: -50px; width: 300px; height: 300px; background: radial-gradient(circle, rgba(209,0,0,0.05) 0%, transparent 70%); border-radius: 50%;"></div>
     <div style="position: absolute; bottom: -50px; left: -50px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(209,0,0,0.03) 0%, transparent 70%); border-radius: 50%;"></div>
 
-    <div class="container-fluid px-4 px-xl-5 position-relative z-1">
-        <div class="mb-3 text-center text-md-start">
-            <span class="d-inline-block text-white fw-bold px-4 py-2 mb-2 shadow-sm" style="background-color: #d10000; font-size: 1rem; letter-spacing: 2px; border-radius: 30px;">SEJARAH</span>
-            <h2 class="fw-black mb-0 mt-2" style="color: #d10000; font-size: 2.5rem; font-weight: 900; letter-spacing: 0.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.05);">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
-        </div>
-        <div class="row align-items-stretch g-4">
-            <div class="col-md-8 col-lg-9">
+    <div class="container position-relative z-1" style="max-width: 1140px;">
+        <div class="row align-items-center g-4">
+            <div class="col-lg-7 col-md-12">
                 <div class="h-100 p-4 p-md-5 bg-white d-flex flex-column sejarah-card">
-                    <p style="font-size: 1.15rem; line-height: 1.9; text-align: justify; color: #444; margin-bottom: 2rem; font-weight: 300;">
+                    <div class="mb-3 text-center text-md-start">
+                        <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2 shadow-sm" style="background-color: #d10000; font-size: 0.85rem; letter-spacing: 2px; border-radius: 30px;">SEJARAH</span>
+                        <h2 class="fw-black mb-0 mt-1" style="color: #d10000; font-size: 2.1rem; font-weight: 900; letter-spacing: 0.5px; text-shadow: 2px 2px 4px rgba(0,0,0,0.05);">PASKIBRA SMA NEGERI 1 PONTIANAK</h2>
+                    </div>
+                    <p style="font-size: 1.05rem; line-height: 1.85; text-align: justify; color: #444; margin-bottom: 1.75rem; font-weight: 300;">
                         {!! nl2br($informasi['sejarah_singkat'] ?? 'Berawal dari keberhasilan Akhdan Wahyu, Dian Astiningsih, dan Nudi Wicaksono yang terpilih sebagai Paskibraka tingkat Provinsi dan Nasional pada tahun 1991-1992, muncul semangat untuk membentuk wadah pembinaan bagi generasi penerus di SMA Negeri 1 Pontianak. Berbekal pengalaman dan dedikasi mereka, <strong style="color: #000; font-weight: 600;">lahirlah Paskibra SMA Negeri 1 Pontianak</strong> sebagai organisasi yang berkomitmen membina karakter, kedisiplinan, jiwa kepemimpinan, serta semangat nasionalisme bagi para siswa.') !!}
                     </p>
-                    <div class="mt-auto pt-2">
-                        <a href="{{ route('sejarah') }}" class="text-decoration-none fw-bold d-inline-block" style="color: #d10000; font-size: 1.1rem; transition: transform 0.3s ease;" onmouseover="this.style.transform='translateX(5px)';" onmouseout="this.style.transform='translateX(0)';">
-                            Lihat Selengkapnya <i class="fas fa-arrow-right ms-2"></i>
+                    <div class="mt-auto text-center text-md-start pt-2">
+                        <a href="{{ route('sejarah') }}" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2" style="border-width: 2px; font-size: 0.95rem; transition: all 0.3s ease;">
+                            <span>Lihat Selengkapnya</span>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 col-lg-3">
+            <div class="col-lg-5 col-md-12">
                 <div class="h-100 bg-white p-2 sejarah-img-wrapper">
-                    <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover" style="border-radius: 1rem;">
+                    <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover shadow-sm" style="border-radius: 1rem; min-height: 280px; max-height: 380px;">
                 </div>
             </div>
         </div>

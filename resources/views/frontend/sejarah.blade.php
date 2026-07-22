@@ -31,11 +31,11 @@
 <div style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-top: -1.5rem; background-color: #f8f9fa;">
 
     <!-- Top Section (Card) -->
-    <div class="px-4 px-md-5 mx-auto" style="max-width: 1200px; padding-top: 3rem;">
+    <div class="px-3 px-md-4 mx-auto" style="max-width: 1040px; padding-top: 3rem;">
         <!-- Main White Card -->
         <div class="card border-0 p-4 p-md-5 mb-5" style="border-radius: 1rem; background-color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
             <div class="mb-4">
-                <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2 shadow-sm" style="background-color: #d10000; font-size: 2rem; letter-spacing: 1px; border-radius: 6px;">SEJARAH</span>
+                <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2 shadow-sm" style="background-color: #d10000; font-size: 0.85rem; letter-spacing: 2px; border-radius: 30px;">SEJARAH</span>
                 <h2 class="fw-black mb-4" style="color: #d10000; font-size: 2.2rem; font-weight: 900; letter-spacing: 0.5px;">Paskibra SMA Negeri 1 Pontianak</h2>
             </div>
 
@@ -58,12 +58,12 @@
 
     <!-- Full width red background -->
     <div style="background-color: #d10000; padding: 4rem 0;">
-        <div class="px-4 px-md-5 mx-auto" style="max-width: 1200px;">
+        <div class="px-3 px-md-4 mx-auto" style="max-width: 1040px;">
             <!-- Sejarah Paskibra (Umum) Section Title moved inside red section -->
             <div class="mb-4">
                 <h2 class="fw-bold d-flex align-items-center flex-wrap gap-2 mb-0" style="color: #ffffff;">
-                    <span style="font-size: 2rem; letter-spacing: 1px;">SEJARAH</span>
-                    <span class="d-inline-block px-3 py-1 shadow-sm" style="background-color: #ffffff; color: #d10000; font-size: 2rem; border-radius: 4px;">PASKIBRA</span>
+                    <span style="font-size: 1.5rem; letter-spacing: 1px;">SEJARAH</span>
+                    <span class="d-inline-block px-3 py-1 shadow-sm" style="background-color: #ffffff; color: #d10000; font-size: 1.5rem; border-radius: 4px;">PASKIBRA</span>
                 </h2>
             </div>
 
