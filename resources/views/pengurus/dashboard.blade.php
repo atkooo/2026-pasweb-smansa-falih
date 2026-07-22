@@ -23,8 +23,7 @@
                     </div>
                     <h2 class="font-weight-bold mb-3 text-dark">{{ \App\Models\FormulirPendaftaran::where('status_pendaftaran', 'pending')->count() ?? 0 }}</h2>
                     <div class="d-flex align-items-center">
-                        <span class="text-success font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-arrow-up mr-1"></i> +{{ rand(5,15) }}%</span> 
-                        <span class="text-muted ml-2" style="font-size: 0.9rem;">vs bulan lalu</span>
+                        <span class="text-primary font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-clock mr-1"></i> Perlu Verifikasi</span> 
                     </div>
                 </div>
             </div>
@@ -41,8 +40,7 @@
                     </div>
                     <h2 class="font-weight-bold mb-3 text-dark">{{ \App\Models\FormulirPendaftaran::where('status_pendaftaran', 'approved')->count() ?? 0 }}</h2>
                     <div class="d-flex align-items-center">
-                        <span class="text-success font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-arrow-up mr-1"></i> +{{ rand(5,15) }}%</span> 
-                        <span class="text-muted ml-2" style="font-size: 0.9rem;">vs bulan lalu</span>
+                        <span class="text-success font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-check-circle mr-1"></i> Berkas Lolos</span> 
                     </div>
                 </div>
             </div>
@@ -59,8 +57,7 @@
                     </div>
                     <h2 class="font-weight-bold mb-3 text-dark">{{ \App\Models\FormulirPendaftaran::where('status_pendaftaran', 'rejected')->count() ?? 0 }}</h2>
                     <div class="d-flex align-items-center">
-                        <span class="text-danger font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-arrow-down mr-1"></i> -{{ rand(2,10) }}%</span> 
-                        <span class="text-muted ml-2" style="font-size: 0.9rem;">vs bulan lalu</span>
+                        <span class="text-danger font-weight-bold" style="font-size: 0.9rem;"><i class="fas fa-times-circle mr-1"></i> Berkas Ditolak</span> 
                     </div>
                 </div>
             </div>

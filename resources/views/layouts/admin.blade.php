@@ -251,6 +251,33 @@
                             </li>
                         @endif
 
+                        @if(auth()->user()->role === 'anggota')
+                            <li class="nav-item">
+                                <a href="{{ route('jadwal') }}" class="nav-link {{ request()->routeIs('jadwal') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-calendar-alt"></i>
+                                    <p>Jadwal Kegiatan</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('berita') }}" class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-newspaper"></i>
+                                    <p>Berita & Informasi</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('galeri') }}" class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-images"></i>
+                                    <p>Galeri Foto</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('profil-pengguna.index') }}" class="nav-link {{ request()->routeIs('profil-pengguna.*') ? 'active' : '' }}">
+                                    <i class="nav-icon fas fa-user-cog"></i>
+                                    <p>Profil Saya</p>
+                                </a>
+                            </li>
+                        @endif
+
                         @if(auth()->user()->role === 'calon_anggota')
                             <li class="nav-item {{ request()->routeIs('pendaftaran.*', 'status-seleksi.*', 'pengumuman-seleksi.*') ? 'menu-is-opening menu-open' : '' }}">
                                 <a href="#" class="nav-link {{ request()->routeIs('pendaftaran.*', 'status-seleksi.*', 'pengumuman-seleksi.*') ? 'active' : '' }}">

@@ -3,24 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-
-use App\Services\PendaftaranService;
+use App\Models\FormulirPendaftaran;
+use App\Models\Informasi;
 use App\Http\Requests\UpdateStatusPendaftaranRequest;
 use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
-    protected $pendaftaranService;
-
-    public function __construct(PendaftaranService $pendaftaranService)
-    {
-        $this->pendaftaranService = $pendaftaranService;
-    }
-
     public function index(Request $request)
     {
         // Get active year from Informasi
-        $informasi = \App\Models\Informasi::whereIn('jenis_info', ['pendaftaran_tahun_aktif'])->pluck('konten', 'jenis_info');
+        $informasi = Informasi::whereIn('jenis_info', ['pendaftaran_tahun_aktif'])->pluck('konten', 'jenis_info');
         $tahunAktif = $informasi['pendaftaran_tahun_aktif'] ?? date('Y');
 
         $filters = [
@@ -29,8 +22,34 @@ class PendaftaranController extends Controller
             'tahun_periode' => $request->has('tahun_periode') ? $request->tahun_periode : $tahunAktif,
         ];
         
-        $pendaftarans = $this->pendaftaranService->getPendaftarans($filters);
-        $availableTahun = $this->pendaftaranService->getAvailableTahun();
+        $query = FormulirPendaftaran::with('user')->orderBy('created_at', 'desc');
+
+        if (!empty($filters['status'])) {
+            $query->where('status_pendaftaran', $filters['status']);
+        }
+
+        if (!empty($filters['search'])) {
+            $search = $filters['search'];
+            $query->where(function($q) use ($search) {
+                $q->where('nama_panggilan', 'like', "%{$search}%")
+                  ->orWhereHas('user', function($uq) use ($search) {
+                      $uq->where('nama_lengkap', 'like', "%{$search}%")
+                         ->orWhere('nisn', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        if (!empty($filters['tahun_periode'])) {
+            $query->where('tahun_periode', $filters['tahun_periode']);
+        }
+
+        $pendaftarans = $query->paginate(10);
+
+        $availableTahun = FormulirPendaftaran::select('tahun_periode')
+            ->whereNotNull('tahun_periode')
+            ->distinct()
+            ->orderBy('tahun_periode', 'desc')
+            ->pluck('tahun_periode');
         
         // Add current active year if it's not in the list yet
         if (!$availableTahun->contains($tahunAktif)) {
@@ -43,16 +62,17 @@ class PendaftaranController extends Controller
 
     public function show($id)
     {
-        $pendaftaran = $this->pendaftaranService->getPendaftaranDetail($id);
+        $pendaftaran = FormulirPendaftaran::with('user')->findOrFail($id);
         
         return view('admin.pendaftaran.show', compact('pendaftaran'));
     }
 
-
-
     public function updateStatus(UpdateStatusPendaftaranRequest $request, $id)
     {
-        $pendaftaran = $this->pendaftaranService->updateStatus($id, $request->status_pendaftaran, $request->catatan_verifikasi);
+        $pendaftaran = FormulirPendaftaran::findOrFail($id);
+        $pendaftaran->status_pendaftaran = $request->status_pendaftaran;
+        $pendaftaran->catatan_verifikasi = $request->catatan_verifikasi;
+        $pendaftaran->save();
 
         $statusMsg = 'diperbarui';
         if ($request->status_pendaftaran == 'approved') $statusMsg = 'disetujui';

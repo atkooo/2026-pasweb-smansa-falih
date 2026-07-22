@@ -20,7 +20,7 @@
             <div class="card-body p-4">
                 @if($formulir)
                     @if($formulir->status_pendaftaran === 'pending')
-                        <div class="alert alert-warning border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: rgba(245, 158, 11, 0.1); color: #b45309;">
+                        <div class="alert alert-warning border-0 shadow-sm d-flex align-items-start p-4 mb-3" style="border-radius: 0.5rem; background: rgba(245, 158, 11, 0.1); color: #b45309;">
                             <i class="fas fa-hourglass-half mt-1 mr-3" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="font-weight-bold mb-1">Berkas Sedang Direview</h6>
@@ -29,20 +29,48 @@
                                 <small class="font-weight-bold"><i class="far fa-clock mr-1"></i> Dikirim: {{ $formulir->created_at->format('d M Y, H:i') }}</small>
                             </div>
                         </div>
-                    @elseif($formulir->status_pendaftaran === 'approved')
-                        <div class="alert alert-success border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: rgba(16, 185, 129, 0.1); color: #047857;">
+                    @elseif($formulir->status_pendaftaran === 'approved' || $formulir->status_pendaftaran === 'terverifikasi')
+                        <div class="alert alert-success border-0 shadow-sm d-flex align-items-start p-4 mb-3" style="border-radius: 0.5rem; background: rgba(16, 185, 129, 0.1); color: #047857;">
                             <i class="fas fa-check-circle mt-1 mr-3" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="font-weight-bold mb-1">Selamat! Berkas Disetujui</h6>
-                                <p class="mb-0 small">Anda telah lolos seleksi administrasi. Persiapkan diri Anda untuk mengikuti tahapan seleksi selanjutnya. Pantau terus Papan Pengumuman untuk jadwal tes fisik dan wawancara.</p>
+                                <p class="mb-0 small">Anda telah lolos seleksi administrasi. Persiapkan diri Anda untuk mengikuti tahapan seleksi selanjutnya.</p>
+                                @if($formulir->catatan_verifikasi)
+                                    <div class="mt-2 p-2 rounded bg-white text-dark small border">
+                                        <strong>Catatan Verifikator:</strong> {{ $formulir->catatan_verifikasi }}
+                                    </div>
+                                @endif
                             </div>
                         </div>
-                    @elseif($formulir->status_pendaftaran === 'rejected')
-                        <div class="alert alert-danger border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: rgba(239, 68, 68, 0.1); color: #b91c1c;">
+                    @elseif($formulir->status_pendaftaran === 'rejected' || $formulir->status_pendaftaran === 'ditolak')
+                        <div class="alert alert-danger border-0 shadow-sm d-flex align-items-start p-4 mb-3" style="border-radius: 0.5rem; background: rgba(239, 68, 68, 0.1); color: #b91c1c;">
                             <i class="fas fa-times-circle mt-1 mr-3" style="font-size: 1.5rem;"></i>
                             <div>
                                 <h6 class="font-weight-bold mb-1">Mohon Maaf</h6>
-                                <p class="mb-0 small">Berkas pendaftaran Anda tidak memenuhi syarat setelah dilakukan verifikasi. Tetap semangat dan jangan menyerah!</p>
+                                <p class="mb-0 small">Berkas pendaftaran Anda belum memenuhi syarat setelah verifikasi.</p>
+                                @if($formulir->catatan_verifikasi)
+                                    <div class="mt-2 p-2 rounded bg-white text-dark small border">
+                                        <strong>Alasan / Catatan:</strong> {{ $formulir->catatan_verifikasi }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+
+                    @if($formulir->status_kelulusan === 'lulus')
+                        <div class="alert alert-success border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: #ecfdf5; color: #065f46; border-left: 4px solid #10b981 !important;">
+                            <i class="fas fa-trophy mt-1 mr-3 text-warning" style="font-size: 1.8rem;"></i>
+                            <div>
+                                <h6 class="font-weight-bold mb-1">Pengumuman Kelulusan: SELAMAT ANDA LULUS!</h6>
+                                <p class="mb-0 small">Berdasarkan hasil akumulasi penilaian seleksi, Anda dinyatakan <strong>LULUS SELEKSI PASKIBRA</strong>. Selamat bergabung menjadi anggota resmi Paskibra!</p>
+                            </div>
+                        </div>
+                    @elseif($formulir->status_kelulusan === 'tidak_lulus')
+                        <div class="alert alert-secondary border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: #f3f4f6; color: #374151;">
+                            <i class="fas fa-info-circle mt-1 mr-3 text-secondary" style="font-size: 1.5rem;"></i>
+                            <div>
+                                <h6 class="font-weight-bold mb-1">Pengumuman Kelulusan Final</h6>
+                                <p class="mb-0 small">Berdasarkan hasil penilaian seleksi akhir, Anda dinyatakan belum lulus pada kesempatan periode ini. Terima kasih atas partisipasi dan perjuangan Anda!</p>
                             </div>
                         </div>
                     @endif
