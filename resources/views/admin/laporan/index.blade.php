@@ -52,24 +52,19 @@
                     <div class="col-md-3 mb-2 mb-md-0">
                         <select name="role" class="form-control form-control-sm">
                             <option value="">Semua Role</option>
-                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Admin</option>
+                            <option value="admin" {{ request('role') == 'admin' ? 'selected' : '' }}>Administrator</option>
                             <option value="pengurus" {{ request('role') == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
+                            <option value="anggota" {{ request('role') == 'anggota' ? 'selected' : '' }}>Anggota Paskibra</option>
                             <option value="calon_anggota" {{ request('role') == 'calon_anggota' ? 'selected' : '' }}>Calon Anggota</option>
                         </select>
                     </div>
                 @elseif($kategori == 'pendaftar')
                     <div class="col-md-3 mb-2 mb-md-0">
-                        <select name="status_pendaftaran" class="form-control form-control-sm">
-                            <option value="">Semua Status Pendaftaran</option>
-                            <option value="terverifikasi" {{ request('status_pendaftaran') == 'terverifikasi' ? 'selected' : '' }}>Terverifikasi</option>
-                            <option value="menunggu" {{ request('status_pendaftaran') == 'menunggu' ? 'selected' : '' }}>Menunggu</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3 mb-2 mb-md-0">
                         <select name="status_kelulusan" class="form-control form-control-sm">
                             <option value="">Semua Status Kelulusan</option>
-                            <option value="lulus" {{ request('status_kelulusan') == 'lulus' ? 'selected' : '' }}>Lulus</option>
-                            <option value="tidak_lulus" {{ request('status_kelulusan') == 'tidak_lulus' ? 'selected' : '' }}>Tidak Lulus</option>
+                            <option value="LOLOS" {{ request('status_kelulusan') == 'LOLOS' ? 'selected' : '' }}>LOLOS</option>
+                            <option value="TIDAK LOLOS" {{ request('status_kelulusan') == 'TIDAK LOLOS' ? 'selected' : '' }}>TIDAK LOLOS</option>
+                            <option value="Menunggu" {{ request('status_kelulusan') == 'Menunggu' ? 'selected' : '' }}>Menunggu</option>
                         </select>
                     </div>
                 @elseif($kategori == 'berita')
@@ -104,7 +99,7 @@
                         @if($kategori == 'pengguna')
                             <th class="border-top-0 border-bottom-0 text-muted px-4">NO</th>
                             <th class="border-top-0 border-bottom-0 text-muted">NAMA LENGKAP</th>
-                            <th class="border-top-0 border-bottom-0 text-muted">EMAIL</th>
+                            <th class="border-top-0 border-bottom-0 text-muted">NISN / USERNAME</th>
                             <th class="border-top-0 border-bottom-0 text-muted">ROLE</th>
                             <th class="border-top-0 border-bottom-0 text-muted">TANGGAL DAFTAR</th>
                         @elseif($kategori == 'pendaftar')
@@ -112,7 +107,7 @@
                             <th class="border-top-0 border-bottom-0 text-muted">NAMA PESERTA</th>
                             <th class="border-top-0 border-bottom-0 text-muted">ASAL SEKOLAH</th>
                             <th class="border-top-0 border-bottom-0 text-muted">JENIS KELAMIN</th>
-                            <th class="border-top-0 border-bottom-0 text-muted">STATUS PENDAFTARAN</th>
+                            <th class="border-top-0 border-bottom-0 text-muted">PERIODE ANGKATAN</th>
                             <th class="border-top-0 border-bottom-0 text-muted">STATUS KELULUSAN</th>
                         @elseif($kategori == 'berita')
                             <th class="border-top-0 border-bottom-0 text-muted px-4">NO</th>
@@ -134,26 +129,32 @@
                         <tr>
                             <td class="px-4 text-muted">{{ $data->firstItem() + $index }}</td>
                             @if($kategori == 'pengguna')
-                                <td class="font-weight-600 text-dark">{{ $item->name }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td><span class="badge badge-secondary">{{ $item->role }}</span></td>
+                                <td class="font-weight-600 text-dark">{{ $item->nama_lengkap }}</td>
+                                <td>{{ $item->nisn ?? '-' }}</td>
+                                <td>
+                                    @if($item->role === 'admin')
+                                        <span class="badge badge-danger px-3 py-1">Administrator</span>
+                                    @elseif($item->role === 'pengurus')
+                                        <span class="badge badge-primary px-3 py-1">Pengurus</span>
+                                    @elseif($item->role === 'anggota')
+                                        <span class="badge badge-success px-3 py-1">Anggota Paskibra</span>
+                                    @else
+                                        <span class="badge badge-info px-3 py-1">Calon Anggota</span>
+                                    @endif
+                                </td>
                                 <td>{{ $item->created_at ? $item->created_at->format('d M Y') : '-' }}</td>
                             @elseif($kategori == 'pendaftar')
-                                <td class="font-weight-600 text-dark">{{ $item->user->name ?? '-' }}</td>
+                                <td class="font-weight-600 text-dark">{{ $item->user->nama_lengkap ?? $item->nama_panggilan ?? '-' }}</td>
                                 <td>{{ $item->asal_sekolah }}</td>
                                 <td>{{ $item->jenis_kelamin }}</td>
+                                <td><span class="badge badge-light border px-2 py-1">Tahun {{ $item->tahun_periode }}</span></td>
                                 <td>
-                                    <span class="badge {{ $item->status_pendaftaran == 'terverifikasi' ? 'badge-success' : 'badge-warning' }}">
-                                        {{ ucfirst($item->status_pendaftaran) }}
-                                    </span>
-                                </td>
-                                <td>
-                                    @if($item->status_kelulusan == 'lulus')
-                                        <span class="badge badge-success">Lulus</span>
-                                    @elseif($item->status_kelulusan == 'tidak_lulus')
-                                        <span class="badge badge-danger">Tidak Lulus</span>
+                                    @if($item->status_kelulusan === 'LOLOS')
+                                        <span class="badge badge-success px-3 py-1">LOLOS</span>
+                                    @elseif($item->status_kelulusan === 'TIDAK LOLOS')
+                                        <span class="badge badge-danger px-3 py-1">TIDAK LOLOS</span>
                                     @else
-                                        <span class="badge badge-secondary">Belum Ditentukan</span>
+                                        <span class="badge badge-secondary px-3 py-1">MENUNGGU</span>
                                     @endif
                                 </td>
                             @elseif($kategori == 'berita')

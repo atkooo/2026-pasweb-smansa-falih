@@ -22,7 +22,10 @@ class LaporanController extends Controller
         if ($kategori === 'pengguna') {
             $query = User::query();
             if ($search) {
-                $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
+                $query->where(function($q) use ($search) {
+                    $q->where('nama_lengkap', 'like', "%{$search}%")
+                      ->orWhere('nisn', 'like', "%{$search}%");
+                });
             }
             if ($request->filled('role')) {
                 $query->where('role', $request->role);
@@ -31,12 +34,14 @@ class LaporanController extends Controller
         } elseif ($kategori === 'pendaftar') {
             $query = \App\Models\FormulirPendaftaran::with('user');
             if ($search) {
-                $query->whereHas('user', function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                })->orWhere('asal_sekolah', 'like', "%{$search}%");
-            }
-            if ($request->filled('status_pendaftaran')) {
-                $query->where('status_pendaftaran', $request->status_pendaftaran);
+                $query->where(function($q) use ($search) {
+                    $q->whereHas('user', function($qu) use ($search) {
+                        $qu->where('nama_lengkap', 'like', "%{$search}%")
+                          ->orWhere('nisn', 'like', "%{$search}%");
+                    })
+                    ->orWhere('asal_sekolah', 'like', "%{$search}%")
+                    ->orWhere('nama_panggilan', 'like', "%{$search}%");
+                });
             }
             if ($request->filled('status_kelulusan')) {
                 $query->where('status_kelulusan', $request->status_kelulusan);
@@ -86,39 +91,46 @@ class LaporanController extends Controller
         $rows = [];
 
         if ($kategori === 'pengguna') {
-            $columns = ['No', 'Nama Lengkap', 'Email', 'Role', 'Tanggal Daftar'];
+            $columns = ['No', 'Nama Lengkap', 'NISN / Username', 'Role', 'Tanggal Daftar'];
             $query = User::query();
-            if ($search) $query->where('name', 'like', "%{$search}%")->orWhere('email', 'like', "%{$search}%");
+            if ($search) {
+                $query->where('nama_lengkap', 'like', "%{$search}%")
+                      ->orWhere('nisn', 'like', "%{$search}%");
+            }
             if ($request->filled('role')) $query->where('role', $request->role);
             $users = $query->get();
             foreach ($users as $index => $user) {
                 $rows[] = [
                     $index + 1,
-                    $user->name,
-                    $user->email,
-                    $user->role,
+                    $user->nama_lengkap,
+                    $user->nisn ?? '-',
+                    strtoupper(str_replace('_', ' ', $user->role)),
                     $user->created_at ? $user->created_at->format('Y-m-d H:i:s') : '-'
                 ];
             }
         } elseif ($kategori === 'pendaftar') {
-            $columns = ['No', 'Nama Peserta', 'Asal Sekolah', 'Jenis Kelamin', 'Status Pendaftaran', 'Status Kelulusan'];
+            $columns = ['No', 'Nama Peserta', 'Asal Sekolah', 'Jenis Kelamin', 'Tahun Periode', 'Status Kelulusan'];
             $query = \App\Models\FormulirPendaftaran::with('user');
             if ($search) {
-                $query->whereHas('user', function($q) use ($search) {
-                    $q->where('name', 'like', "%{$search}%");
-                })->orWhere('asal_sekolah', 'like', "%{$search}%");
+                $query->where(function($q) use ($search) {
+                    $q->whereHas('user', function($qu) use ($search) {
+                        $qu->where('nama_lengkap', 'like', "%{$search}%")
+                          ->orWhere('nisn', 'like', "%{$search}%");
+                    })
+                    ->orWhere('asal_sekolah', 'like', "%{$search}%")
+                    ->orWhere('nama_panggilan', 'like', "%{$search}%");
+                });
             }
-            if ($request->filled('status_pendaftaran')) $query->where('status_pendaftaran', $request->status_pendaftaran);
             if ($request->filled('status_kelulusan')) $query->where('status_kelulusan', $request->status_kelulusan);
             $pendaftars = $query->get();
             foreach ($pendaftars as $index => $pendaftar) {
                 $rows[] = [
                     $index + 1,
-                    $pendaftar->user->name ?? '-',
+                    $pendaftar->user->nama_lengkap ?? $pendaftar->nama_panggilan ?? '-',
                     $pendaftar->asal_sekolah,
                     $pendaftar->jenis_kelamin,
-                    $pendaftar->status_pendaftaran,
-                    $pendaftar->status_kelulusan ?? 'Belum Ditentukan'
+                    $pendaftar->tahun_periode,
+                    $pendaftar->status_kelulusan ?? 'MENUNGGU'
                 ];
             }
         } elseif ($kategori === 'berita') {
@@ -132,7 +144,7 @@ class LaporanController extends Controller
                     $index + 1,
                     $berita->judul,
                     $berita->kategori ?? 'Umum',
-                    $berita->status,
+                    strtoupper($berita->status),
                     $berita->created_at ? $berita->created_at->format('Y-m-d H:i:s') : '-'
                 ];
             }
