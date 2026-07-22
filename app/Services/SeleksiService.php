@@ -99,9 +99,9 @@ class SeleksiService
         $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
         
         $kriteria = Kriteria::where('nama', $data['jenis_seleksi'])->first();
-        $statusLulus = 0;
+        $statusLulus = 'tidak_lulus';
         if ($kriteria && floatval($data['nilai']) >= $kriteria->nilai_minimal_lulus) {
-            $statusLulus = 1;
+            $statusLulus = 'lulus';
         }
 
         return HasilSeleksi::updateOrCreate(
@@ -131,17 +131,17 @@ class SeleksiService
      */
     public function setKelulusan($pendaftaranId, $status)
     {
-        $pendaftaran = FormulirPendaftaran::findOrFail($pendaftaranId);
+        $pendaftaran = FormulirPendaftaran::with('user')->findOrFail($pendaftaranId);
         $pendaftaran->status_kelulusan = $status;
         $saved = $pendaftaran->save();
 
-        if ($pendaftaran->user) {
-            if ($status === 'LOLOS') {
-                $pendaftaran->user->role = 'anggota';
-            } else {
-                $pendaftaran->user->role = 'calon_anggota';
+        // Update role user secara eksplisit via User model langsung
+        if ($pendaftaran->user_id) {
+            $user = \App\Models\User::find($pendaftaran->user_id);
+            if ($user) {
+                $user->role = ($status === 'LOLOS') ? 'anggota' : 'calon_anggota';
+                $user->save();
             }
-            $pendaftaran->user->save();
         }
 
         return $saved;

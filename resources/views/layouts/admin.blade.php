@@ -100,8 +100,8 @@
 
                         @if(auth()->user()->role === 'admin')
                             <!-- SISTEM & PROFIL -->
-                            <li class="nav-item {{ request()->routeIs('users.*', 'profil.*') ? 'menu-is-opening menu-open' : '' }}">
-                                <a href="#" class="nav-link {{ request()->routeIs('users.*', 'profil.*') ? 'active' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('users.*', 'profil.*', 'admin.pengaturan-sistem.*') ? 'menu-is-opening menu-open' : '' }}">
+                                <a href="#" class="nav-link {{ request()->routeIs('users.*', 'profil.*', 'admin.pengaturan-sistem.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-cogs"></i>
                                     <p>
                                         Sistem & Profil
@@ -113,6 +113,12 @@
                                         <a href="{{ route('users.index') }}" class="nav-link {{ request()->routeIs('users.*') ? 'active' : '' }}">
                                             <i class="fas fa-minus nav-icon"></i>
                                             <p>Kelola Pengguna</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.pengaturan-sistem.index') }}" class="nav-link {{ request()->routeIs('admin.pengaturan-sistem.*') ? 'active' : '' }}">
+                                            <i class="fas fa-minus nav-icon"></i>
+                                            <p>Pengaturan Pendaftaran</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">

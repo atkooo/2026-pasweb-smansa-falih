@@ -142,38 +142,53 @@
                     </div>
                     
                     <h6 class="font-weight-bold text-primary mt-5 mb-3 border-bottom pb-2"><i class="fas fa-file-upload mr-2"></i> Unggah Berkas Persyaratan</h6>
-                    <div class="alert alert-info border-0 shadow-sm" style="background: #eff6ff; border-radius: 0.5rem;">
-                        <i class="fas fa-info-circle mr-2 text-primary"></i> <strong>Perhatian:</strong> Ukuran maksimal setiap file adalah <strong>2MB</strong>. Format: <strong>PDF, JPG, JPEG, PNG</strong>.
+                    <div style="background: #fff3cd; border-left: 4px solid #f59e0b; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                        <span style="color: #92400e; font-size: 0.875rem;">
+                            <i class="fas fa-exclamation-triangle mr-2" style="color: #d97706;"></i>
+                            <strong style="color: #78350f;">Perhatian:</strong> Ukuran maksimal setiap file adalah <strong style="color: #78350f;">2MB</strong>. Format yang diterima: <strong style="color: #78350f;">PDF, JPG, JPEG, PNG</strong>.
+                        </span>
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label class="form-label font-weight-bold text-muted small">Surat Izin Orang Tua/Wali</label>
                             @if(isset($formulir) && $formulir->upload_surat_izin)
                                 <div class="mb-2">
-                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_surat_izin) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
+                                    <button type="button" onclick="openPreviewModal('{{ asset('storage/' . $formulir->upload_surat_izin) }}', 'pdf')" class="btn btn-sm btn-outline-secondary rounded-pill">
+                                        <i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini
+                                    </button>
                                 </div>
                             @endif
-                            <input type="file" name="upload_surat_izin" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
+                            <input type="file" id="file_surat_izin" name="upload_surat_izin" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png"
+                                onchange="previewFile(this, 'preview_surat_izin')">
+                            <div id="preview_surat_izin" class="file-preview-box mt-2" style="display:none;"></div>
                             <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah berkas.</small>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label font-weight-bold text-muted small">Kartu Keluarga (KK)</label>
                             @if(isset($formulir) && $formulir->upload_kk)
                                 <div class="mb-2">
-                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_kk) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
+                                    <button type="button" onclick="openPreviewModal('{{ asset('storage/' . $formulir->upload_kk) }}', 'pdf')" class="btn btn-sm btn-outline-secondary rounded-pill">
+                                        <i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini
+                                    </button>
                                 </div>
                             @endif
-                            <input type="file" name="upload_kk" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
+                            <input type="file" id="file_kk" name="upload_kk" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png"
+                                onchange="previewFile(this, 'preview_kk')">
+                            <div id="preview_kk" class="file-preview-box mt-2" style="display:none;"></div>
                             <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah berkas.</small>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label class="form-label font-weight-bold text-muted small">Surat Keterangan Dokter</label>
                             @if(isset($formulir) && $formulir->upload_skd)
                                 <div class="mb-2">
-                                    <button type="button" onclick="showPreview('{{ asset('storage/' . $formulir->upload_skd) }}')" class="btn btn-sm btn-outline-info rounded-pill"><i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini</button>
+                                    <button type="button" onclick="openPreviewModal('{{ asset('storage/' . $formulir->upload_skd) }}', 'pdf')" class="btn btn-sm btn-outline-secondary rounded-pill">
+                                        <i class="fas fa-eye mr-1"></i> Lihat Berkas Saat Ini
+                                    </button>
                                 </div>
                             @endif
-                            <input type="file" name="upload_skd" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png">
+                            <input type="file" id="file_skd" name="upload_skd" class="form-control p-1" accept=".pdf,.jpg,.jpeg,.png"
+                                onchange="previewFile(this, 'preview_skd')">
+                            <div id="preview_skd" class="file-preview-box mt-2" style="display:none;"></div>
                             <small class="text-muted d-block mt-1">Kosongkan jika tidak ingin mengubah berkas.</small>
                         </div>
                     </div>
@@ -248,9 +263,59 @@
 
 @section('extra-js')
 <script>
-    function showPreview(url) {
-        document.getElementById('previewFrame').src = url;
+    function previewFile(input, previewId) {
+        const box = document.getElementById(previewId);
+        box.innerHTML = '';
+        if (!input.files || !input.files[0]) { box.style.display = 'none'; return; }
+
+        const file   = input.files[0];
+        const isImg  = file.type.startsWith('image/');
+        const isPdf  = file.type === 'application/pdf';
+        const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+        const url    = URL.createObjectURL(file);
+
+        if (isImg) {
+            box.innerHTML = `
+                <div style="position:relative; display:inline-block; width:100%;">
+                    <img src="${url}" alt="preview"
+                        style="width:100%; max-height:160px; object-fit:cover; border-radius:0.5rem; border:2px solid #e5e7eb; cursor:pointer;"
+                        onclick="openPreviewModal('${url}', 'img')" title="Klik untuk perbesar">
+                    <div style="background:rgba(0,0,0,0.55); color:#fff; font-size:0.72rem; padding:3px 8px; border-radius:0 0 0.5rem 0.5rem; text-align:center;">
+                        📷 ${file.name} &nbsp;·&nbsp; ${sizeMB} MB &nbsp;
+                        <span style="cursor:pointer; color:#fca5a5;" onclick="clearFile('${input.id}','${previewId}')">✕ Hapus</span>
+                    </div>
+                </div>`;
+        } else if (isPdf) {
+            box.innerHTML = `
+                <div style="background:#f8f9fa; border:2px dashed #6b7280; border-radius:0.5rem; padding:12px 14px; display:flex; align-items:center; gap:10px;">
+                    <i class="fas fa-file-pdf" style="font-size:1.8rem; color:#dc2626;"></i>
+                    <div style="flex:1; min-width:0;">
+                        <p style="margin:0; font-weight:600; font-size:0.85rem; color:#111; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${file.name}</p>
+                        <small style="color:#6b7280;">${sizeMB} MB &nbsp;·&nbsp;
+                            <a href="#" onclick="openPreviewModal('${url}', 'pdf'); return false;" style="color:#3b82f6;">Pratinjau PDF</a>
+                        </small>
+                    </div>
+                    <span onclick="clearFile('${input.id}','${previewId}')" style="cursor:pointer; color:#9ca3af; font-size:1.1rem;" title="Hapus">&times;</span>
+                </div>`;
+        }
+        box.style.display = 'block';
+    }
+
+    function openPreviewModal(url, type) {
+        const body = document.getElementById('previewModalBody');
+        if (type === 'img') {
+            body.innerHTML = `<img src="${url}" style="max-width:100%; max-height:75vh; border-radius:0.5rem; box-shadow:0 4px 6px rgba(0,0,0,0.1);">`;
+        } else {
+            body.innerHTML = `<iframe src="${url}" style="width:100%; height:65vh; border:none; border-radius:0.5rem;"></iframe>`;
+        }
         $('#previewModal').modal('show');
+    }
+
+    function clearFile(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        if (input) input.value = '';
+        const box = document.getElementById(previewId);
+        if (box) { box.innerHTML = ''; box.style.display = 'none'; }
     }
 </script>
 @endsection

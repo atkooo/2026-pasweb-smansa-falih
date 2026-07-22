@@ -91,7 +91,7 @@
                             </p>
                         @else
                             <p class="text-muted" style="font-size: 1.1rem;">Lengkapi formulir pendaftaran Anda dan pantau status kelulusan melalui menu di sebelah kiri.</p>
-                            <a href="{{ route('formulir.index') }}" class="btn btn-primary mt-3 px-4 py-2 font-weight-bold" style="border-radius: 8px;">
+                            <a href="{{ route('pendaftaran.index') }}" class="btn btn-primary mt-3 px-4 py-2 font-weight-bold" style="border-radius: 8px;">
                                 <i class="fas fa-edit mr-2"></i> Isi Formulir Pendaftaran
                             </a>
                         @endif

@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/status-seleksi/detail/{id}', [StatusSeleksiController::class, 'show'])->name('status-seleksi.show');
     Route::get('/data-pendaftar', [PesertaController::class, 'index'])->name('data-pendaftar.index');
     Route::get('/pengumuman-seleksi', [CalonPengumumanController::class, 'index'])->name('pengumuman-seleksi.index');
+    Route::get('/pengumuman-seleksi/{id}', [CalonPengumumanController::class, 'show'])->name('pengumuman-seleksi.show');
 
     Route::get('/profil-pengguna', [PengaturanController::class, 'profil'])->name('profil-pengguna.index');
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
@@ -77,6 +78,7 @@ use App\Http\Controllers\Admin\JadwalController as AdminJadwalController;
 use App\Http\Controllers\Admin\KriteriaController;
 use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\PendaftaranController;
+use App\Http\Controllers\Admin\PengaturanSistemController;
 use App\Http\Controllers\Admin\PengumumanController as AdminPengumumanController;
 use App\Http\Controllers\Admin\ProfilController;
 use App\Http\Controllers\Admin\SeleksiController;
@@ -99,6 +101,11 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::resource('kriteria', KriteriaController::class);
         Route::resource('profil', ProfilController::class);
+
+        // Pengaturan Sistem Pendaftaran
+        Route::get('pengaturan-sistem', [PengaturanSistemController::class, 'index'])->name('admin.pengaturan-sistem.index');
+        Route::post('pengaturan-sistem', [PengaturanSistemController::class, 'update'])->name('admin.pengaturan-sistem.update');
+        Route::post('pengaturan-sistem/toggle', [PengaturanSistemController::class, 'toggleStatus'])->name('admin.pengaturan-sistem.toggle');
     });
 
     // Admin & Pengurus

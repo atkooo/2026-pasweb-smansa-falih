@@ -13,11 +13,6 @@
     </a>
 </div>
 
-@if(session('success'))
-    <x-alert type="success">
-        {{ session('success') }}
-    </x-alert>
-@endif
 
 @if($errors->any())
     <x-alert type="danger">
