@@ -25,48 +25,32 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('galeri') }}" class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}">Galeri</a>
+                    <a href="{{ route('galeri') }}" class="nav-link {{ request()->routeIs('galeri*') ? 'active' : '' }}">Galeri</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('berita') }}" class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}">Berita</a>
+                    <a href="{{ route('berita') }}" class="nav-link {{ request()->routeIs('berita*') ? 'active' : '' }}">Berita</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('jadwal') }}" class="nav-link {{ request()->routeIs('jadwal') ? 'active' : '' }}">Jadwal</a>
+                    <a href="{{ route('jadwal') }}" class="nav-link {{ request()->routeIs('jadwal*') ? 'active' : '' }}">Jadwal</a>
                 </li>
-                <li class="nav-item ms-lg-3 my-2 my-lg-0 d-flex align-items-center">
+                <li class="nav-item ms-lg-3 my-2 my-lg-0 d-flex align-items-center gap-2">
                     @auth
-                    <div class="btn-group shadow-sm">
-                        <a href="{{ route('dashboard') }}" class="btn btn-danger fw-bold d-flex align-items-center" style="background-color: #d10000; border: none; padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 6px 0 0 6px;">
-                            <i class="fas fa-home me-2" style="font-size: 0.9em;"></i> DASHBOARD
+                        <a href="{{ route('dashboard') }}" class="btn btn-danger fw-bold rounded-pill px-3 py-2 text-white" style="background-color: #d10000; border: none; font-size: 0.85rem;">
+                            <i class="fas fa-tachometer-alt me-1"></i> Dashboard
                         </a>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #d10000; border: none; border-left: 1px solid rgba(255,255,255,0.3); border-radius: 0 6px 6px 0; padding: 0.5rem 0.6rem;">
-                            <i class="fas fa-chevron-down" style="font-size: 0.7em;"></i>
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="border-radius: 0.5rem; min-width: 150px;">
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item fw-semibold py-2 text-danger">
-                                        <i class="fas fa-sign-out-alt me-2"></i> Keluar
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger fw-bold rounded-pill px-3 py-2" style="font-size: 0.85rem;">
+                                <i class="fas fa-sign-out-alt me-1"></i> Keluar
+                            </button>
+                        </form>
                     @else
-                    <div class="btn-group shadow-sm">
-                        <a href="{{ route('login') }}" class="btn btn-danger fw-bold d-flex align-items-center" style="background-color: #d10000; border: none; padding: 0.5rem 1rem; font-size: 0.85rem; border-radius: 6px 0 0 6px;">
-                            MASUK
+                        <a href="{{ route('login') }}" class="btn btn-outline-danger fw-bold rounded-pill px-3 py-2 me-1" style="font-size: 0.85rem;">
+                            Masuk
                         </a>
-                        <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split d-flex align-items-center justify-content-center" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #d10000; border: none; border-left: 1px solid rgba(255,255,255,0.3); border-radius: 0 6px 6px 0; padding: 0.5rem 0.6rem;">
-                            <i class="fas fa-chevron-down" style="font-size: 0.7em;"></i>
-                            <span class="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2" style="border-radius: 0.5rem; min-width: 150px;">
-                            <li><a class="dropdown-item fw-semibold py-2" href="{{ route('register') }}">Daftar</a></li>
-                        </ul>
-                    </div>
+                        <a href="{{ route('register') }}" class="btn btn-danger fw-bold rounded-pill px-3 py-2 text-white" style="background-color: #d10000; border: none; font-size: 0.85rem;">
+                            Daftar
+                        </a>
                     @endauth
                 </li>
             </ul>

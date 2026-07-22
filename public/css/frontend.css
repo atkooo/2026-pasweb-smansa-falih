@@ -93,8 +93,7 @@ body {
 }
 
 @media all and (min-width: 992px) {
-    .navbar .nav-item.dropdown:hover .dropdown-menu,
-    .navbar .btn-group:hover .dropdown-menu {
+    .navbar .nav-item.dropdown:hover .dropdown-menu {
         display: block;
         margin-top: 0 !important;
         top: 100%;
