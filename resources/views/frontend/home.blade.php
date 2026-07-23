@@ -6,7 +6,7 @@
 
 
 <!-- Hero Section -->
-<section style="position: relative; min-height: 85vh; background-image: url('{{ isset($informasi['beranda_background']) ? asset($informasi['beranda_background']) : '/images/fotoawal.png' }}'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
+<section style="position: relative; min-height: 85vh; background-image: url('{{ isset($informasi['beranda_background']) ? asset($informasi['beranda_background']) : '/images/fotoawal.webp' }}'); background-size: cover; background-position: center; background-attachment: fixed; display: flex; align-items: center; justify-content: center; padding-top: 4rem;">
     <!-- Modern Gradient Overlay -->
     <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%); z-index: 1;"></div>
     
@@ -98,7 +98,7 @@
             </div>
             <div class="col-lg-5 col-md-12">
                 <div class="h-100 bg-white p-2 sejarah-img-wrapper">
-                    <img src="images/fotosejarah.png" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover shadow-sm" style="border-radius: 1rem; min-height: 280px; max-height: 380px;">
+                    <img src="{{ asset('images/fotosejarah.webp') }}" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover shadow-sm" style="border-radius: 1rem; min-height: 280px; max-height: 380px;">
                 </div>
             </div>
         </div>

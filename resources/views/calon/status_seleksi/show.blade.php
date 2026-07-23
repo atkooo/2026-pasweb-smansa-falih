@@ -24,7 +24,7 @@
             <h6 class="text-white mb-1" style="font-weight: 500; text-transform: uppercase;">
                 {{ auth()->user()->formulirPendaftaran->asal_sekolah ?? 'SMAN 1 PONTIANAK' }}
             </h6>
-            <h6 class="text-white mb-0" style="font-weight: 500; font-size: 0.85rem; opacity: 0.9;">PROVINSI KALIMANTAN BARAT</h6>
+            <h6 class="text-white mb-0" style="font-weight: 500; font-size: 0.85rem; opacity: 0.9;">PASKIBRA GANESHA SMAN 1 PONTIANAK</h6>
         </div>
     </div>
 </div>

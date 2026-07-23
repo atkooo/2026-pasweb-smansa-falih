@@ -139,6 +139,15 @@
                         Review</h5>
                 </div>
                 <div class="card-body p-4">
+                    @if(auth()->user()->role !== 'pengurus')
+                        <div class="alert alert-info border-0 shadow-sm mb-4"
+                            style="border-radius: 0.5rem; background: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6 !important;">
+                            <i class="fas fa-eye text-primary mr-2"></i>
+                            <strong>Mode Lihat (Admin)</strong><br>
+                            <small class="text-muted">Proses verifikasi & persetujuan berkas pendaftaran hanya dapat dilakukan oleh role <strong>Pengurus</strong>.</small>
+                        </div>
+                    @endif
+
                     @if(in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']))
                         <div class="alert alert-{{ $pendaftaran->status_pendaftaran == 'approved' ? 'success' : 'danger' }} mb-4 p-3 rounded-lg"
                             style="font-size: 0.9rem;">
@@ -159,7 +168,7 @@
                             <label for="catatan_verifikasi" class="font-weight-bold text-muted small">Catatan
                                 (Opsional)</label>
                             <textarea class="form-control" name="catatan_verifikasi" id="catatan_verifikasi" rows="2"
-                                placeholder="Alasan penolakan / revisi" {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>{{ $pendaftaran->catatan_verifikasi }}</textarea>
+                                placeholder="Alasan penolakan / revisi" {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || auth()->user()->role !== 'pengurus') ? 'disabled' : '' }}>{{ $pendaftaran->catatan_verifikasi }}</textarea>
                         </div>
 
                         @if($pendaftaran->user && $pendaftaran->user->role === 'anggota')
@@ -170,24 +179,24 @@
                         @endif
 
                         <button type="submit" name="status_pendaftaran" value="approved"
-                            class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled opacity-50' : '' }}"
-                            {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) ? 'disabled' : '' }}>
+                            class="btn btn-success w-100 font-weight-bold py-2 mb-2 rounded-pill {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || auth()->user()->role !== 'pengurus') ? 'disabled opacity-50' : '' }}"
+                            {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || auth()->user()->role !== 'pengurus') ? 'disabled' : '' }}>
                             <i class="fas fa-check mr-2"></i> Setujui
                         </button>
 
                         <button type="submit" name="status_pendaftaran" value="revision"
-                            class="btn btn-warning w-100 font-weight-bold py-2 mb-2 rounded-pill text-white {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) ? 'disabled opacity-50' : '' }}"
-                            {{ in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) ? 'disabled' : '' }}>
+                            class="btn btn-warning w-100 font-weight-bold py-2 mb-2 rounded-pill text-white {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) || auth()->user()->role !== 'pengurus') ? 'disabled opacity-50' : '' }}"
+                            {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected', 'revision']) || auth()->user()->role !== 'pengurus') ? 'disabled' : '' }}>
                             <i class="fas fa-edit mr-2"></i> Minta Update (Revisi)
                         </button>
 
                         <button type="submit" name="status_pendaftaran" value="rejected"
-                            class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota')) ? 'disabled opacity-50' : '' }}"
-                            {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota')) ? 'disabled' : '' }}>
+                            class="btn btn-danger w-100 font-weight-bold py-2 mb-3 rounded-pill {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota') || auth()->user()->role !== 'pengurus') ? 'disabled opacity-50' : '' }}"
+                            {{ (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) || ($pendaftaran->user && $pendaftaran->user->role === 'anggota') || auth()->user()->role !== 'pengurus') ? 'disabled' : '' }}>
                             <i class="fas fa-times mr-2"></i> Tolak
                         </button>
 
-                        @if(!in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) && $pendaftaran->status_pendaftaran != 'pending')
+                        @if(!in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']) && $pendaftaran->status_pendaftaran != 'pending' && auth()->user()->role === 'pengurus')
                             <hr>
                             <button type="submit" name="status_pendaftaran" value="pending"
                                 class="btn btn-light border text-muted w-100 font-weight-bold py-2 rounded-pill">

@@ -186,37 +186,37 @@ class KontenSeeder extends Seeder
             [
                 'judul_foto' => 'Diklat Kepemimpinan Paskibra 2026',
                 'tanggal_pelaksanaan' => now()->subDays(10)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(10),
             ],
             [
                 'judul_foto' => 'Latihan Rutin Peraturan Baris Berbaris (PBB)',
                 'tanggal_pelaksanaan' => now()->subDays(15)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(15),
             ],
             [
                 'judul_foto' => 'Dokumentasi Juara 1 Lomba Baris Berbaris',
                 'tanggal_pelaksanaan' => now()->subDays(20)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(20),
             ],
             [
                 'judul_foto' => 'Pemusatan Latihan & Outbound Kebersamaan',
                 'tanggal_pelaksanaan' => now()->subDays(25)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(25),
             ],
             [
                 'judul_foto' => 'Upacara Pengukuhan Anggota Paskibra Ganesha',
                 'tanggal_pelaksanaan' => now()->subDays(30)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(30),
             ],
             [
                 'judul_foto' => 'Bakti Sosial & Donor Darah Keluarga Besar Paskibra',
                 'tanggal_pelaksanaan' => now()->subDays(35)->toDateString(),
-                'file_foto' => 'images/fotoawal.png', 
+                'file_foto' => 'images/fotoawal.webp', 
                 'tanggal_upload' => now()->subDays(35),
             ],
         ];

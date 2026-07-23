@@ -11,17 +11,42 @@
             <div class="card shadow-sm border-0 h-100" style="border-radius: 1rem;">
                 <div class="card-body text-center pt-5 pb-5 d-flex flex-column justify-content-between">
                     <div>
+                        <!-- Form Terpisah Khusus Auto-Upload Foto Profil -->
+                        <form id="quickAvatarForm" action="{{ route('pengaturan.update') }}" method="POST" enctype="multipart/form-data" class="d-none">
+                            @csrf
+                            <input type="file" id="quickAvatarInput" name="foto" accept="image/*" onchange="document.getElementById('quickAvatarForm').submit();">
+                        </form>
+
+                        <!-- Form Hapus Foto Profil -->
+                        <form id="hapusFotoForm" action="{{ route('pengaturan.hapusFoto') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+
                         <div class="mb-4 d-flex justify-content-center">
-                            @if($user->foto)
-                                <img src="{{ asset('storage/' . $user->foto) }}" alt="{{ $user->nama_lengkap }}"
-                                    class="rounded-circle shadow"
-                                    style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #e9ecef;">
-                            @else
-                                <div
-                                    style="width: 120px; height: 120px; border-radius: 50%; background-color: #f8f9fa; border: 4px solid #e9ecef; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; color: #1e3a8a;">
-                                    <i class="fas fa-user-circle"></i>
-                                </div>
-                            @endif
+                            <div class="position-relative d-inline-block">
+                                @if($user->foto)
+                                    <img src="{{ asset('storage/' . $user->foto) }}" alt="{{ $user->nama_lengkap }}"
+                                        class="rounded-circle shadow"
+                                        style="width: 120px; height: 120px; object-fit: cover; border: 4px solid #ef4444 !important; cursor: pointer;" onclick="document.getElementById('quickAvatarInput').click();" title="Klik untuk mengubah foto profil">
+                                    
+                                    <!-- Tombol Kamera (Ganti Foto) -->
+                                    <div class="position-absolute bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow" style="bottom: 2px; right: 2px; width: 34px; height: 34px; border: 2px solid white; cursor: pointer;" onclick="document.getElementById('quickAvatarInput').click();" title="Ganti Foto Profil">
+                                        <i class="fas fa-camera" style="font-size: 0.85rem;"></i>
+                                    </div>
+                                    <!-- Tombol Sampah (Hapus Foto) -->
+                                    <div class="position-absolute bg-danger text-white rounded-circle d-flex align-items-center justify-content-center shadow" style="bottom: 2px; left: 2px; width: 34px; height: 34px; border: 2px solid white; cursor: pointer;" onclick="if(confirm('Apakah Anda yakin ingin menghapus foto profil ini?')) document.getElementById('hapusFotoForm').submit();" title="Hapus Foto Profil">
+                                        <i class="fas fa-trash-alt" style="font-size: 0.85rem;"></i>
+                                    </div>
+                                @else
+                                    <div
+                                        style="width: 120px; height: 120px; border-radius: 50%; background-color: #ef4444; color: white; border: 4px solid #e9ecef; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: bold; cursor: pointer;" onclick="document.getElementById('quickAvatarInput').click();" title="Klik untuk memilih foto profil">
+                                        {{ strtoupper(substr($user->nama_lengkap, 0, 1)) }}
+                                    </div>
+                                    <div class="position-absolute bg-primary text-white rounded-circle d-flex align-items-center justify-content-center shadow" style="bottom: 2px; right: 2px; width: 34px; height: 34px; border: 2px solid white; cursor: pointer;" onclick="document.getElementById('quickAvatarInput').click();" title="Pilih Foto Profil">
+                                        <i class="fas fa-camera" style="font-size: 0.85rem;"></i>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                         <h4 class="font-weight-bold text-dark mb-2">{{ $user->nama_lengkap }}</h4>
                         <p class="text-muted mb-3">
@@ -102,11 +127,62 @@
                         <h5 class="font-weight-bold m-0 text-dark">
                             <i class="fas fa-id-badge text-primary mr-2"></i> Informasi Formulir Pendaftaran
                         </h5>
-                        <span class="badge badge-success px-3 py-2 rounded-pill font-weight-bold">
-                            <i class="fas fa-check-circle mr-1"></i> Terverifikasi & Diterima
-                        </span>
+                        @if($fp->status_pendaftaran === 'approved' || $fp->status_pendaftaran === 'verified')
+                            <span class="badge badge-success px-3 py-2 rounded-pill font-weight-bold">
+                                <i class="fas fa-check-circle mr-1"></i> Berkas Terverifikasi
+                            </span>
+                        @elseif($fp->status_pendaftaran === 'revision')
+                            <span class="badge badge-warning text-dark px-3 py-2 rounded-pill font-weight-bold" style="background-color: #fef3c7; color: #d97706;">
+                                <i class="fas fa-edit mr-1"></i> Perlu Revisi Berkas
+                            </span>
+                        @elseif($fp->status_pendaftaran === 'rejected')
+                            <span class="badge badge-danger px-3 py-2 rounded-pill font-weight-bold">
+                                <i class="fas fa-times-circle mr-1"></i> Berkas Ditolak
+                            </span>
+                        @else
+                            <span class="badge badge-warning text-dark px-3 py-2 rounded-pill font-weight-bold" style="background-color: #fef3c7; color: #d97706;">
+                                <i class="fas fa-clock mr-1"></i> Menunggu Verifikasi (Pending)
+                            </span>
+                        @endif
                     </div>
                     <div class="card-body p-4">
+
+                        @if($fp->status_pendaftaran === 'pending')
+                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fffbeb; border-left: 4px solid #f59e0b !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-clock text-warning mr-3" style="font-size: 1.8rem;"></i>
+                                    <div>
+                                        <h6 class="font-weight-bold text-dark mb-1">Pendaftaran Dalam Proses Review</h6>
+                                        <p class="text-muted small mb-0">Berkas formulir pendaftaran Anda telah diterima dan saat ini sedang berada dalam tahap pemeriksaan (review) oleh tim Pengurus.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif($fp->status_pendaftaran === 'revision')
+                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fff4e5; border-left: 4px solid #d97706 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-exclamation-circle text-warning mr-3" style="font-size: 1.8rem;"></i>
+                                    <div>
+                                        <h6 class="font-weight-bold text-dark mb-1">Perlu Revisi Berkas</h6>
+                                        <p class="text-muted small mb-1">Pengurus meminta Anda memperbarui data/berkas pendaftaran. Catatan Pengurus:</p>
+                                        <div class="bg-white p-2 rounded border text-dark small mb-2"><em>"{{ $fp->catatan_verifikasi ?: 'Mohon periksa kembali berkas pendaftaran Anda.' }}"</em></div>
+                                        <a href="{{ route('pendaftaran.edit') }}" class="btn btn-sm btn-warning text-white rounded-pill font-weight-bold"><i class="fas fa-edit mr-1"></i> Perbarui Formulir Sekarang</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif($fp->status_pendaftaran === 'rejected')
+                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fef2f2; border-left: 4px solid #ef4444 !important;">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-times-circle text-danger mr-3" style="font-size: 1.8rem;"></i>
+                                    <div>
+                                        <h6 class="font-weight-bold text-dark mb-1">Berkas Ditolak</h6>
+                                        <p class="text-muted small mb-0">Mohon maaf, berkas pendaftaran Anda belum dapat disetujui pada periode ini.</p>
+                                        @if($fp->catatan_verifikasi)
+                                            <div class="bg-white p-2 rounded border text-danger small mt-1"><em>Catatan: {{ $fp->catatan_verifikasi }}</em></div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
 
                         @if($fp->status_kelulusan === 'LOLOS' || $user->role === 'anggota')
                             <!-- Section 0: Status & Transkrip Nilai Kelulusan -->
@@ -349,7 +425,7 @@
                             <div class="d-flex align-items-center justify-content-between pb-2 mb-3"
                                 style="border-bottom: 1px dashed rgba(251, 191, 36, 0.5);">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('images/sman1ptk-logo.png') }}" style="height: 40px; width: auto;"
+                                    <img src="{{ asset('images/sman1ptk-logo.webp') }}" style="height: 40px; width: auto;"
                                         class="mr-2">
                                     <div>
                                         <h6 class="font-weight-bold mb-0 text-uppercase text-warning"
@@ -401,8 +477,8 @@
                                         <div class="mb-1 text-truncate"><i class="fas fa-school text-warning mr-1"
                                                 style="width: 14px;"></i>
                                             {{ $user->formulirPendaftaran->asal_sekolah ?? 'SMA Negeri 1 Pontianak' }}</div>
-                                        <div><i class="fas fa-calendar-check text-warning mr-1" style="width: 14px;"></i>
-                                            Angkatan: Tahun {{ $user->formulirPendaftaran->tahun_periode ?? date('Y') }}
+                                        <div><i class="fas fa-medal text-warning mr-1" style="width: 14px;"></i>
+                                            Angkatan: <strong>{{ \App\Helpers\RomanHelper::getAngkatanRomawi($user->formulirPendaftaran->tahun_periode ?? date('Y')) }}</strong>
                                         </div>
                                     </div>
                                 </div>

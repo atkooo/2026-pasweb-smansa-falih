@@ -15,35 +15,63 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. User Demo (Calon Anggota Utama)
-        $user1 = User::updateOrCreate(
-            ['nisn' => '1234567890'],
+        // Helper function for user upsert with soft deletes
+        $upsertUser = function ($nisn, $nama, $role) {
+            $user = User::withTrashed()->where('nisn', $nisn)->first();
+            if ($user) {
+                $user->update([
+                    'nama_lengkap' => $nama,
+                    'password' => Hash::make('password123'),
+                    'role' => $role,
+                    'deleted_at' => null,
+                ]);
+            } else {
+                $user = User::create([
+                    'nisn' => $nisn,
+                    'nama_lengkap' => $nama,
+                    'password' => Hash::make('password123'),
+                    'role' => $role,
+                ]);
+            }
+            return $user;
+        };
+
+        // 1. User Demo (Calon Anggota Utama - Falih Agung)
+        $user1 = $upsertUser('1234567890', 'Falih Agung', 'calon_anggota');
+
+        FormulirPendaftaran::updateOrCreate(
+            ['user_id' => $user1->id],
             [
-                'nama_lengkap' => 'Falih Agung',
-                'password' => Hash::make('password123'),
-                'role' => 'calon_anggota',
+                'nama_panggilan' => 'Falih',
+                'tempat_lahir' => 'Pontianak',
+                'tanggal_lahir' => '2008-11-10',
+                'jenis_kelamin' => 'Laki-Laki',
+                'agama' => 'Islam',
+                'no_hp' => '081299887766',
+                'alamat' => 'Jl. Merdeka No. 10, Pontianak',
+                'asal_sekolah' => 'SMP Negeri 1 Pontianak',
+                'tinggi_badan' => 172,
+                'berat_badan' => 60,
+                'riwayat_penyakit' => 'Tidak Ada',
+                'cita_cita' => 'TNI AU',
+                'ekskul_lain' => 'Pramuka',
+                'motivasi' => 'Ingin mendedikasikan diri dalam kedisiplinan Paskibra.',
+                'opsi_pilihan' => 'YA',
+                'motto_hidup' => 'Pantang Menyerah Sebelum Mencoba',
+                'upload_surat_izin' => 'surat_izin.pdf',
+                'upload_skd' => 'skd.pdf',
+                'upload_kk' => 'kk.pdf',
+                'tahun_periode' => date('Y'),
+                'status_pendaftaran' => 'pending',
+                'status_kelulusan' => 'PROSES',
             ]
         );
 
         // 2. User Demo (Pengurus)
-        User::updateOrCreate(
-            ['nisn' => '0987654321'],
-            [
-                'nama_lengkap' => 'Siti Aminah',
-                'password' => Hash::make('password123'),
-                'role' => 'pengurus',
-            ]
-        );
+        $upsertUser('0987654321', 'Siti Aminah', 'pengurus');
 
         // 3. User Demo (Anggota Resmi)
-        $userAnggota = User::updateOrCreate(
-            ['nisn' => '1122334455'],
-            [
-                'nama_lengkap' => 'Budi Santoso',
-                'password' => Hash::make('password123'),
-                'role' => 'anggota',
-            ]
-        );
+        $userAnggota = $upsertUser('1122334455', 'Budi Santoso', 'anggota');
 
         // Formulir & Hasil Seleksi untuk Anggota Resmi
         $fpAnggota = FormulirPendaftaran::updateOrCreate(
@@ -85,14 +113,8 @@ class UserSeeder extends Seeder
         );
 
         // 4. Tambahan Calon Anggota 2 (Lolos)
-        $user2 = User::updateOrCreate(
-            ['nisn' => '1234567891'],
-            [
-                'nama_lengkap' => 'Anisa Rahmawati',
-                'password' => Hash::make('password123'),
-                'role' => 'anggota',
-            ]
-        );
+        $user2 = $upsertUser('1234567891', 'Anisa Rahmawati', 'anggota');
+
         $fp2 = FormulirPendaftaran::updateOrCreate(
             ['user_id' => $user2->id],
             [
@@ -130,14 +152,8 @@ class UserSeeder extends Seeder
         );
 
         // 5. Tambahan Calon Anggota 3 (Tidak Lolos)
-        $user3 = User::updateOrCreate(
-            ['nisn' => '1234567892'],
-            [
-                'nama_lengkap' => 'Rian Hidayat',
-                'password' => Hash::make('password123'),
-                'role' => 'calon_anggota',
-            ]
-        );
+        $user3 = $upsertUser('1234567892', 'Rian Hidayat', 'calon_anggota');
+
         $fp3 = FormulirPendaftaran::updateOrCreate(
             ['user_id' => $user3->id],
             [
@@ -161,6 +177,7 @@ class UserSeeder extends Seeder
                 'upload_skd' => 'skd.pdf',
                 'upload_kk' => 'kk.pdf',
                 'tahun_periode' => date('Y'),
+                'status_pendaftaran' => 'rejected',
                 'status_kelulusan' => 'TIDAK LOLOS',
             ]
         );

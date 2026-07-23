@@ -74,24 +74,9 @@
                 <div class="card-body p-4">
                     <div class="row">
                         
-                        <!-- 1. Melihat Data Pendaftar -->
+                        <!-- 1. Melakukan Verifikasi Berkas -->
                         <div class="col-md-4 mb-4">
-                            <a href="#" class="text-decoration-none">
-                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
-                                    <div class="card-body text-center p-4">
-                                        <div style="width: 60px; height: 60px; background: rgba(59, 130, 246, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
-                                            <i class="fas fa-users text-primary" style="font-size: 1.5rem;"></i>
-                                        </div>
-                                        <h6 class="font-weight-bold text-dark">Data Pendaftar</h6>
-                                        <p class="text-muted small mb-0">Lihat & kelola semua calon anggota</p>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-
-                        <!-- 2. Melakukan Verifikasi Berkas -->
-                        <div class="col-md-4 mb-4">
-                            <a href="#" class="text-decoration-none">
+                            <a href="{{ route('admin.pendaftaran.index') }}" class="text-decoration-none">
                                 <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body text-center p-4">
                                         <div style="width: 60px; height: 60px; background: rgba(245, 158, 11, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
@@ -104,9 +89,9 @@
                             </a>
                         </div>
 
-                        <!-- 3. Menginput Hasil Seleksi -->
+                        <!-- 2. Menginput Hasil Seleksi -->
                         <div class="col-md-4 mb-4">
-                            <a href="#" class="text-decoration-none">
+                            <a href="{{ route('seleksi.index') }}" class="text-decoration-none">
                                 <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
                                     <div class="card-body text-center p-4">
                                         <div style="width: 60px; height: 60px; background: rgba(16, 185, 129, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
@@ -119,18 +104,31 @@
                             </a>
                         </div>
 
+                        <!-- 3. Buka/Tutup Pendaftaran -->
+                        <div class="col-md-4 mb-4">
+                            <a href="{{ route('admin.pengaturan-sistem.index') }}" class="text-decoration-none">
+                                <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
+                                    <div class="card-body text-center p-4">
+                                        <div style="width: 60px; height: 60px; background: rgba(239, 68, 68, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
+                                            <i class="fas fa-power-off text-danger" style="font-size: 1.5rem;"></i>
+                                        </div>
+                                        <h6 class="font-weight-bold text-dark">Buka / Tutup Pendaftaran</h6>
+                                        <p class="text-muted small mb-0">Atur status pendaftaran & tahun aktif</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
                         <!-- 4. Mengelola Pengumuman Hasil -->
                         <div class="col-md-4 mb-4">
-                            <a href="#" class="text-decoration-none">
+                            <a href="{{ route('pengumuman.index') }}" class="text-decoration-none">
                                 <div class="card h-100 border bg-light action-card" style="border-radius: 0.75rem; ">
-                                    <div class="card-body d-flex align-items-center p-4">
-                                        <div style="width: 50px; height: 50px; background: rgba(139, 92, 246, 0.1); border-radius: 50%;" class="d-flex align-items-center justify-content-center mr-3">
-                                            <i class="fas fa-bullhorn text-purple" style="color: #8b5cf6; font-size: 1.25rem;"></i>
+                                    <div class="card-body text-center p-4">
+                                        <div style="width: 60px; height: 60px; background: rgba(139, 92, 246, 0.1); border-radius: 50%; margin: 0 auto;" class="d-flex align-items-center justify-content-center mb-3">
+                                            <i class="fas fa-bullhorn text-purple" style="color: #8b5cf6; font-size: 1.5rem;"></i>
                                         </div>
-                                        <div>
-                                            <h6 class="font-weight-bold text-dark mb-1">Pengumuman Hasil</h6>
-                                            <p class="text-muted small mb-0">Buat & kelola pengumuman kelulusan akhir</p>
-                                        </div>
+                                        <h6 class="font-weight-bold text-dark">Pengumuman Hasil</h6>
+                                        <p class="text-muted small mb-0">Buat & kelola pengumuman kelulusan akhir</p>
                                     </div>
                                 </div>
                             </a>

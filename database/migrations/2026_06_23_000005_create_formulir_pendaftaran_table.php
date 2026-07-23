@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('upload_surat_izin');
             $table->string('upload_skd');
             $table->string('upload_kk');
-            $table->enum('status_pendaftaran', ['pending', 'verified', 'rejected'])->default('pending');
+            $table->string('status_pendaftaran')->default('pending');
             $table->timestamps();
         });
     }

@@ -72,6 +72,7 @@ Route::middleware(['auth', EnsureDataAnggotaLengkap::class])->group(function () 
     Route::get('/profil-pengguna', [PengaturanController::class, 'profil'])->name('profil-pengguna.index');
     Route::get('/pengaturan', [PengaturanController::class, 'index'])->name('pengaturan.index');
     Route::post('/pengaturan', [PengaturanController::class, 'update'])->name('pengaturan.update');
+    Route::post('/pengaturan/hapus-foto', [PengaturanController::class, 'hapusFoto'])->name('pengaturan.hapusFoto');
 });
 
 // ==========================================
@@ -106,15 +107,15 @@ Route::prefix('admin')->middleware('auth')->group(function () {
 
         Route::resource('kriteria', KriteriaController::class);
         Route::resource('profil', ProfilController::class);
-
-        // Pengaturan Sistem Pendaftaran
-        Route::get('pengaturan-sistem', [PengaturanSistemController::class, 'index'])->name('admin.pengaturan-sistem.index');
-        Route::post('pengaturan-sistem', [PengaturanSistemController::class, 'update'])->name('admin.pengaturan-sistem.update');
-        Route::post('pengaturan-sistem/toggle', [PengaturanSistemController::class, 'toggleStatus'])->name('admin.pengaturan-sistem.toggle');
     });
 
     // Admin & Pengurus
     Route::middleware('admin:admin,pengurus')->group(function () {
+        // Pengaturan Sistem Pendaftaran
+        Route::get('pengaturan-sistem', [PengaturanSistemController::class, 'index'])->name('admin.pengaturan-sistem.index');
+        Route::post('pengaturan-sistem', [PengaturanSistemController::class, 'update'])->name('admin.pengaturan-sistem.update');
+        Route::post('pengaturan-sistem/toggle', [PengaturanSistemController::class, 'toggleStatus'])->name('admin.pengaturan-sistem.toggle');
+
         // Pendaftaran Routes
         Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran.index');
 

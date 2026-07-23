@@ -59,30 +59,54 @@
                         <i class="fas fa-moon" id="theme-icon"></i>
                     </a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
-                        role="button" data-toggle="dropdown">
-                        @if(auth()->user()->foto)
-                            <img src="{{ asset('storage/' . auth()->user()->foto) }}"
-                                alt="{{ auth()->user()->nama_lengkap }}" class="rounded-circle mr-2"
-                                style="width: 25px; height: 25px; object-fit: cover;">
-                        @else
-                            <i class="fas fa-user-circle mr-1"></i>
-                        @endif
-                        {{ auth()->user()->nama_lengkap }}
+                <li class="nav-item dropdown px-2">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center py-1" href="#" id="navbarDropdown"
+                        role="button" data-toggle="dropdown" style="height: auto;">
+                        <div class="mr-2 position-relative">
+                            @if(auth()->user()->foto)
+                                <img src="{{ asset('storage/' . auth()->user()->foto) }}"
+                                    alt="{{ auth()->user()->nama_lengkap }}" class="rounded-circle shadow-sm"
+                                    style="width: 36px; height: 36px; object-fit: cover; border: 2px solid #ef4444;">
+                            @else
+                                <div class="rounded-circle bg-danger text-white d-flex align-items-center justify-content-center font-weight-bold shadow-sm"
+                                    style="width: 36px; height: 36px; font-size: 0.95rem;">
+                                    {{ strtoupper(substr(auth()->user()->nama_lengkap, 0, 1)) }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="d-none d-md-flex flex-column text-left mr-1" style="line-height: 1.2;">
+                            <span class="font-weight-bold text-dark text-uppercase" style="letter-spacing: 0.3px; font-size: 0.85rem;">
+                                {{ auth()->user()->nama_lengkap }}
+                            </span>
+                            <span class="text-muted" style="font-size: 0.72rem;">
+                                @if(auth()->user()->role === 'admin')
+                                    Administrator
+                                @elseif(auth()->user()->role === 'pengurus')
+                                    Pengurus
+                                @elseif(auth()->user()->role === 'anggota')
+                                    Anggota
+                                @else
+                                    Peserta
+                                @endif
+                            </span>
+                        </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('profil-pengguna.index') }}">
-                            <i class="fas fa-user"></i> Profil
+                    <div class="dropdown-menu dropdown-menu-right shadow border-0 mt-2" aria-labelledby="navbarDropdown" style="border-radius: 12px; min-width: 210px;">
+                        <div class="dropdown-header text-center border-bottom pb-2 mb-1">
+                            <span class="font-weight-bold text-dark d-block text-truncate">{{ auth()->user()->nama_lengkap }}</span>
+                            <small class="text-muted">{{ auth()->user()->nisn ?? auth()->user()->role }}</small>
+                        </div>
+                        <a class="dropdown-item py-2" href="{{ route('profil-pengguna.index') }}">
+                            <i class="fas fa-user text-primary mr-2"></i> Profil Saya
                         </a>
-                        <a class="dropdown-item" href="{{ route('pengaturan.index') }}">
-                            <i class="fas fa-cog"></i> Pengaturan
+                        <a class="dropdown-item py-2" href="{{ route('pengaturan.index') }}">
+                            <i class="fas fa-cog text-secondary mr-2"></i> Pengaturan Akun
                         </a>
                         <div class="dropdown-divider"></div>
                         <form action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="dropdown-item">
-                                <i class="fas fa-sign-out-alt"></i> Logout
+                            <button type="submit" class="dropdown-item py-2 text-danger font-weight-bold">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Keluar
                             </button>
                         </form>
                     </div>
@@ -95,7 +119,7 @@
             style="border-right: none; box-shadow: none !important;">
             <!-- Brand Logo -->
             <a href="{{ route('dashboard') }}" class="brand-link d-flex justify-content-center align-items-center">
-                <img src="{{ asset('images/sman1ptk-logo.png') }}" alt="SMAN 1 PTK"
+                <img src="{{ asset('images/sman1ptk-logo.webp') }}" alt="SMAN 1 PTK"
                     style="max-height: 45px; width: auto; object-fit: contain;">
                 <span class="brand-text">
                     <img src="{{ asset('images/logo.webp') }}" alt="BRAGAS"
@@ -119,9 +143,7 @@
                         </li>
 
                         @if(auth()->user()->role === 'admin')
-                            <!-- SISTEM & PROFIL -->
-                            <li
-                                class="nav-item {{ request()->routeIs('users.*', 'profil.*', 'admin.pengaturan-sistem.*') ? 'menu-is-opening menu-open' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('users.*', 'profil.*', 'admin.pengaturan-sistem.*') ? 'menu-is-opening menu-open' : '' }}">
                                 <a href="#"
                                     class="nav-link {{ request()->routeIs('users.*', 'profil.*', 'admin.pengaturan-sistem.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-cogs"></i>
@@ -177,8 +199,7 @@
                             </li>
 
                             <!-- PENERIMAAN ANGGOTA -->
-                            <li
-                                class="nav-item {{ request()->routeIs('kriteria.*', 'admin.pendaftaran.*', 'seleksi.*') ? 'menu-is-opening menu-open' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('kriteria.*', 'admin.pendaftaran.*', 'seleksi.*') ? 'menu-is-opening menu-open' : '' }}">
                                 <a href="#"
                                     class="nav-link {{ request()->routeIs('kriteria.*', 'admin.pendaftaran.*', 'seleksi.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-users-cog"></i>
@@ -213,8 +234,7 @@
                             </li>
 
                             <!-- KONTEN & INFORMASI -->
-                            <li
-                                class="nav-item {{ request()->routeIs('berita.*', 'pengumuman.*', 'jadwal.*', 'galeri.*') ? 'menu-is-opening menu-open' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('berita.*', 'pengumuman.*', 'jadwal.*', 'galeri.*') ? 'menu-is-opening menu-open' : '' }}">
                                 <a href="#"
                                     class="nav-link {{ request()->routeIs('berita.*', 'pengumuman.*', 'jadwal.*', 'galeri.*') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-newspaper"></i>
@@ -266,22 +286,18 @@
                         @endif
 
                         @if(auth()->user()->role === 'pengurus')
-                            <li
-                                class="nav-item {{ request()->routeIs('admin.pendaftaran.*', 'seleksi.*', 'pengumuman.*') ? 'menu-is-opening menu-open' : '' }}">
-                                <a href="#"
-                                    class="nav-link {{ request()->routeIs('admin.pendaftaran.*', 'seleksi.*', 'pengumuman.*') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-users"></i>
-                                    <p>
-                                        Penerimaan Anggota
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                            <li class="nav-item static-sidebar-group menu-is-opening menu-open">
+                                <a href="javascript:void(0)"
+                                    class="nav-link {{ request()->routeIs('admin.pendaftaran.*', 'seleksi.*', 'admin.pengaturan-sistem.*', 'pengumuman.*') ? 'active' : '' }}" style="cursor: default;">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>Penerimaan Anggota</p>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: block;">
                                     <li class="nav-item">
                                         <a href="{{ route('admin.pendaftaran.index') }}"
                                             class="nav-link {{ request()->routeIs('admin.pendaftaran.index') || request()->routeIs('admin.pendaftaran.show') ? 'active' : '' }}">
                                             <i class="fas fa-minus nav-icon"></i>
-                                            <p>Data Pendaftar</p>
+                                            <p>Verifikasi Berkas</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -289,6 +305,13 @@
                                             class="nav-link {{ request()->routeIs('seleksi.*') ? 'active' : '' }}">
                                             <i class="fas fa-minus nav-icon"></i>
                                             <p>Input Hasil Seleksi</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ route('admin.pengaturan-sistem.index') }}"
+                                            class="nav-link {{ request()->routeIs('admin.pengaturan-sistem.*') ? 'active' : '' }}">
+                                            <i class="fas fa-minus nav-icon"></i>
+                                            <p>Buka/Tutup Pendaftaran</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -334,17 +357,13 @@
                         @endif
 
                         @if(auth()->user()->role === 'calon_anggota')
-                            <li
-                                class="nav-item {{ request()->routeIs('pendaftaran.*', 'status-seleksi.*', 'pengumuman-seleksi.*') ? 'menu-is-opening menu-open' : '' }}">
-                                <a href="#"
-                                    class="nav-link {{ request()->routeIs('pendaftaran.*', 'status-seleksi.*', 'pengumuman-seleksi.*') ? 'active' : '' }}">
+                            <li class="nav-item static-sidebar-group menu-is-opening menu-open">
+                                <a href="javascript:void(0)"
+                                    class="nav-link {{ request()->routeIs('pendaftaran.*', 'status-seleksi.*', 'pengumuman-seleksi.*') ? 'active' : '' }}" style="cursor: default;">
                                     <i class="nav-icon fas fa-tasks"></i>
-                                    <p>
-                                        Tahapan Seleksi
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
+                                    <p>Tahapan Seleksi</p>
                                 </a>
-                                <ul class="nav nav-treeview">
+                                <ul class="nav nav-treeview" style="display: block;">
                                     <li class="nav-item">
                                         <a href="{{ route('pendaftaran.index') }}"
                                             class="nav-link {{ request()->routeIs('pendaftaran.*') ? 'active' : '' }}">

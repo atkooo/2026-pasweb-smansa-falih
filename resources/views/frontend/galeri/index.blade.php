@@ -80,19 +80,18 @@
     /* Card Styling */
     .gallery-card {
         border-radius: 24px !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition: box-shadow 0.3s ease;
         background-color: #fff;
         box-shadow: 0 10px 30px rgba(0,0,0,0.04) !important;
         overflow: hidden;
     }
     .gallery-card:hover {
-        transform: translateY(-12px);
-        box-shadow: 0 20px 40px rgba(211,47,47,0.12) !important;
+        box-shadow: 0 15px 35px rgba(211,47,47,0.08) !important;
     }
 
     /* Image Wrapper & Overlay */
     .card-img-wrapper {
-        height: 260px;
+        height: 220px;
         position: relative;
         overflow: hidden;
     }
@@ -100,10 +99,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s ease;
-    }
-    .gallery-card:hover .gallery-img-public {
-        transform: scale(1.08);
     }
     .img-overlay {
         position: absolute;

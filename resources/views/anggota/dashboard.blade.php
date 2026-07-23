@@ -270,7 +270,7 @@
                             <div class="d-flex align-items-center justify-content-between pb-2 mb-3"
                                 style="border-bottom: 1px dashed rgba(251, 191, 36, 0.5);">
                                 <div class="d-flex align-items-center">
-                                    <img src="{{ asset('images/sman1ptk-logo.png') }}" style="height: 40px; width: auto;"
+                                    <img src="{{ asset('images/sman1ptk-logo.webp') }}" style="height: 40px; width: auto;"
                                         class="mr-2">
                                     <div>
                                         <h6 class="font-weight-bold mb-0 text-uppercase text-warning"
@@ -323,9 +323,8 @@
                                                 style="width: 14px;"></i>
                                             {{ auth()->user()->formulirPendaftaran->asal_sekolah ?? 'SMA Negeri 1 Pontianak' }}
                                         </div>
-                                        <div><i class="fas fa-calendar-check text-warning mr-1" style="width: 14px;"></i>
-                                            Angkatan: Tahun
-                                            {{ auth()->user()->formulirPendaftaran->tahun_periode ?? date('Y') }}</div>
+                                        <div><i class="fas fa-medal text-warning mr-1" style="width: 14px;"></i>
+                                            Angkatan: <strong>{{ \App\Helpers\RomanHelper::getAngkatanRomawi(auth()->user()->formulirPendaftaran->tahun_periode ?? date('Y')) }}</strong></div>
                                     </div>
                                 </div>
                             </div>

@@ -54,6 +54,10 @@ class PengaturanSistemController extends Controller
 
     public function update(Request $request)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang mengganti tahun periode aktif.');
+        }
+
         $request->validate([
             'tahun_aktif' => 'required|digits:4|integer|min:2000|max:2100',
         ]);
@@ -69,6 +73,10 @@ class PengaturanSistemController extends Controller
 
     public function toggleStatus(Request $request)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang mengubah status buka/tutup pendaftaran.');
+        }
+
         $current = Informasi::where('jenis_info', 'pendaftaran_status')->first();
         $newStatus = ($current && $current->konten === 'buka') ? 'tutup' : 'buka';
 

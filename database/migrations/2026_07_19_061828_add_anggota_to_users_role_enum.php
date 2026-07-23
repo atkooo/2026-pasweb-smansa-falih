@@ -12,7 +12,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'pengurus', 'anggota', 'calon_anggota') NOT NULL DEFAULT 'calon_anggota'");
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE users MODIFY COLUMN role ENUM('admin', 'pengurus', 'anggota', 'calon_anggota') NOT NULL DEFAULT 'calon_anggota'");
+        }
     }
 
     /**

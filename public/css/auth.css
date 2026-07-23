@@ -37,7 +37,7 @@ body {
 }
 
 .auth-bg-login {
-    background: url('/images/fotoawal.png') center center / cover no-repeat;
+    background: url('/images/fotoawal.webp') center center / cover no-repeat;
 }
 
 .auth-bg-login::before {
@@ -52,7 +52,7 @@ body {
 }
 
 .auth-bg-register {
-    background: url('/images/fotosejarah1.png') center center / cover no-repeat;
+    background: url('/images/fotosejarah1.webp') center center / cover no-repeat;
 }
 
 .auth-bg-register::before {

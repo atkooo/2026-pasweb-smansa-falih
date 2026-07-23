@@ -18,7 +18,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $role = auth()->user()->role;
+        $user = auth()->user();
+        $role = $user->role;
 
         if ($role === 'admin') {
             // Metrics
@@ -57,7 +58,7 @@ class DashboardController extends Controller
             ));
         } elseif ($role === 'pengurus') {
             return view('pengurus.dashboard');
-        } elseif ($role === 'anggota') {
+        } elseif ($role === 'anggota' || ($user->formulirPendaftaran && $user->formulirPendaftaran->status_kelulusan === 'LOLOS')) {
             $jadwalMendatang = Jadwal::where('tanggal_kegiatan', '>=', Carbon::today())
                 ->orderBy('tanggal_kegiatan', 'asc')
                 ->take(3)
@@ -66,7 +67,7 @@ class DashboardController extends Controller
                 ->latest()
                 ->take(5)
                 ->get();
-            $formulir = auth()->user()->formulirPendaftaran ? auth()->user()->formulirPendaftaran->load('hasilSeleksi') : null;
+            $formulir = $user->formulirPendaftaran ? $user->formulirPendaftaran->load('hasilSeleksi') : null;
             $kriterias = \App\Models\Kriteria::orderBy('id', 'asc')->get();
 
             return view('anggota.dashboard', compact('jadwalMendatang', 'beritaTerbaru', 'formulir', 'kriterias'));

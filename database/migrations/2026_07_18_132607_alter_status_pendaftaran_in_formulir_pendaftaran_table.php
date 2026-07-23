@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('formulir_pendaftaran', function (Blueprint $table) {
-            // Using DB statement for simplicity in changing Enum to Varchar
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
             \Illuminate\Support\Facades\DB::statement("ALTER TABLE formulir_pendaftaran MODIFY status_pendaftaran VARCHAR(255) DEFAULT 'pending'");
-        });
+        }
     }
 
     /**
@@ -22,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('formulir_pendaftaran', function (Blueprint $table) {
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
             \Illuminate\Support\Facades\DB::statement("ALTER TABLE formulir_pendaftaran MODIFY status_pendaftaran ENUM('pending', 'verified', 'rejected') DEFAULT 'pending'");
-        });
+        }
     }
 };

@@ -49,6 +49,10 @@ class SeleksiController extends Controller
 
     public function store(StoreSeleksiRequest $request, $id)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang menginput nilai seleksi.');
+        }
+
         $this->seleksiService->storeScore($id, $request->validated());
 
         return redirect()->back()->with('success', 'Nilai seleksi berhasil ditambahkan.');
@@ -56,6 +60,10 @@ class SeleksiController extends Controller
 
     public function destroy($id)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang menghapus nilai seleksi.');
+        }
+
         $this->seleksiService->deleteScore($id);
 
         return redirect()->back()->with('success', 'Nilai seleksi berhasil dihapus.');
@@ -63,6 +71,10 @@ class SeleksiController extends Controller
 
     public function setKelulusan(Request $request, $id)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang menetapkan kelulusan akhir.');
+        }
+
         $request->validate([
             'status_kelulusan' => 'required|in:LOLOS,TIDAK LOLOS,Menunggu'
         ]);

@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fancybox CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"/>
     <style>
         body {
             background-color: #121212;
@@ -209,30 +211,48 @@
         <div class="main-image-container">
             <button class="nav-arrow prev" onclick="changeImage(-1)"><i class="fas fa-chevron-left"></i></button>
             
-            <img src="{{ asset('storage/' . $photos[0]->file_foto) }}" id="main-image" class="main-image" alt="Gallery Image">
+            <a href="{{ asset('storage/' . $photos[0]->file_foto) }}" id="main-image-link" data-fancybox="public-gallery" data-caption="{{ $judul }}">
+                <img src="{{ asset('storage/' . $photos[0]->file_foto) }}" id="main-image" class="main-image" alt="Gallery Image" style="cursor: zoom-in;" title="Klik untuk perbesar full screen">
+            </a>
             
             <button class="nav-arrow next" onclick="changeImage(1)"><i class="fas fa-chevron-right"></i></button>
         </div>
 
         <div class="image-info">
             <h5 class="mb-1 fw-bold">{{ $judul }}</h5>
-            <p class="text-white-50 mb-0" id="image-counter">1 / {{ count($photos) }}</p>
+            <div class="d-flex align-items-center justify-content-center gap-3 text-white-50 small mt-1 flex-wrap">
+                <span><i class="far fa-calendar-alt text-danger me-1"></i> {{ $photos[0]->tanggal_pelaksanaan ? \Carbon\Carbon::parse($photos[0]->tanggal_pelaksanaan)->translatedFormat('d F Y') : '-' }}</span>
+                <span>•</span>
+                <span id="image-counter">Dokumentasi 1 dari {{ count($photos) }}</span>
+                <span>•</span>
+                <span class="text-white-50" style="cursor: pointer;" onclick="document.getElementById('main-image-link').click()"><i class="fas fa-search-plus me-1 text-info"></i> Perbesar Foto</span>
+            </div>
         </div>
     </div>
 
     <!-- Sidebar Thumbnails -->
     <div class="sidebar" id="thumbnail-sidebar">
         @foreach($photos as $index => $photo)
-            <div class="thumbnail-wrap {{ $index == 0 ? 'active' : '' }}" data-index="{{ $index }}" onclick="selectImage({{ $index }}, '{{ asset('storage/' . $photo->file_foto) }}')">
+            <div class="thumbnail-wrap {{ $index == 0 ? 'active' : '' }}" data-index="{{ $index }}" onclick="selectImage({{ $index }})">
                 <img src="{{ asset('storage/' . $photo->file_foto) }}" alt="Thumbnail {{ $index + 1 }}">
             </div>
         @endforeach
     </div>
 </div>
 
+<!-- Fancybox JS -->
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
 <script>
     const photos = @json($photos->map(function($p) { return asset('storage/' . $p->file_foto); }));
     let currentIndex = 0;
+
+    Fancybox.bind('[data-fancybox="public-gallery"]', {
+        Hash: false,
+        Thumbs: {
+            autoStart: true,
+        },
+    });
 
     function selectImage(index) {
         currentIndex = index;
@@ -255,14 +275,17 @@
     function updateView() {
         // Update Main Image
         const mainImg = document.getElementById('main-image');
+        const mainLink = document.getElementById('main-image-link');
+
         mainImg.style.opacity = 0.5;
         setTimeout(() => {
             mainImg.src = photos[currentIndex];
+            if (mainLink) mainLink.href = photos[currentIndex];
             mainImg.style.opacity = 1;
         }, 150);
         
         // Update Counter
-        document.getElementById('image-counter').innerText = `${currentIndex + 1} / ${photos.length}`;
+        document.getElementById('image-counter').innerText = `Dokumentasi ${currentIndex + 1} dari ${photos.length}`;
 
         // Update Thumbnails Active State
         document.querySelectorAll('.thumbnail-wrap').forEach((thumb, idx) => {

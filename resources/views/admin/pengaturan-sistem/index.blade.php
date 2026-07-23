@@ -10,6 +10,19 @@
             aktif.</p>
     </div>
 
+    @if(auth()->user()->role !== 'pengurus')
+        <div class="alert alert-info border-0 shadow-sm mb-4"
+            style="border-radius: 0.75rem; background: rgba(59, 130, 246, 0.08); border-left: 5px solid #3b82f6 !important;">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-eye text-primary mr-3" style="font-size: 1.6rem;"></i>
+                <div>
+                    <h6 class="font-weight-bold text-dark mb-1">Mode Lihat (Admin Only)</h6>
+                    <p class="mb-0 text-muted small">Pembukaan/penutupan pendaftaran serta pengaturan tahun periode aktif hanya dapat dikelola oleh role <strong>Pengurus</strong>.</p>
+                </div>
+            </div>
+        </div>
+    @endif
+
     <div class="row">
 
         {{-- ============================================================ --}}
@@ -53,12 +66,14 @@
 
                     {{-- Toggle Button --}}
                     <form action="{{ route('admin.pengaturan-sistem.toggle') }}" method="POST" id="form-toggle-status"
-                        class="confirm-form">
+                        class="{{ auth()->user()->role === 'pengurus' ? 'confirm-form' : '' }}">
                         @csrf
-                        <button type="submit" id="btn-toggle-status" class="btn btn-block font-weight-bold py-2" style="border-radius: 0.6rem; font-size: 0.95rem;
+                        <button type="submit" id="btn-toggle-status" class="btn btn-block font-weight-bold py-2 {{ auth()->user()->role !== 'pengurus' ? 'disabled opacity-50' : '' }}" {{ auth()->user()->role !== 'pengurus' ? 'disabled' : '' }} style="border-radius: 0.6rem; font-size: 0.95rem;
                                 background-color: {{ $statusPendaftaran === 'buka' ? '#ef4444' : '#10b981' }};
                                 color: #fff; border: none; transition: all 0.2s;">
-                            @if($statusPendaftaran === 'buka')
+                            @if(auth()->user()->role !== 'pengurus')
+                                <i class="fas fa-eye mr-2"></i> Mode Lihat (Khusus Pengurus)
+                            @elseif($statusPendaftaran === 'buka')
                                 <i class="fas fa-lock mr-2"></i> Tutup Pendaftaran Sekarang
                             @else
                                 <i class="fas fa-lock-open mr-2"></i> Buka Pendaftaran Sekarang
@@ -103,7 +118,7 @@
                     </div>
 
                     {{-- Form Ganti Tahun --}}
-                    <form action="{{ route('admin.pengaturan-sistem.update') }}" method="POST" class="confirm-form"
+                    <form action="{{ route('admin.pengaturan-sistem.update') }}" method="POST" class="{{ auth()->user()->role === 'pengurus' ? 'confirm-form' : '' }}"
                         data-confirm-title="Konfirmasi Ganti Tahun Aktif"
                         data-confirm-text="Anda akan mengubah tahun periode aktif. Data dari tahun sebelumnya akan otomatis menjadi arsip."
                         data-confirm-icon="warning">
@@ -114,10 +129,10 @@
                             <div class="input-group">
                                 <input type="number" name="tahun_aktif" id="input-tahun-aktif"
                                     class="form-control @error('tahun_aktif') is-invalid @enderror"
-                                    value="{{ old('tahun_aktif', $tahunAktif) }}" min="2000" max="2100" required
+                                    value="{{ old('tahun_aktif', $tahunAktif) }}" min="2000" max="2100" required {{ auth()->user()->role !== 'pengurus' ? 'disabled' : '' }}
                                     style="border-radius: 0.5rem 0 0 0.5rem; font-size: 1rem; font-weight: 600;">
                                 <div class="input-group-append">
-                                    <button type="submit" class="btn btn-primary font-weight-bold"
+                                    <button type="submit" class="btn btn-primary font-weight-bold" {{ auth()->user()->role !== 'pengurus' ? 'disabled' : '' }}
                                         style="border-radius: 0 0.5rem 0.5rem 0;">
                                         <i class="fas fa-save mr-1"></i> Simpan
                                     </button>

@@ -18,7 +18,21 @@
 
     @php
         $isLocked = in_array($pendaftaran->status_kelulusan, ['LOLOS', 'TIDAK LOLOS']);
+        $isPengurus = auth()->user()->role === 'pengurus';
     @endphp
+
+    @if(!$isPengurus)
+        <div class="alert alert-info border-0 shadow-sm mb-4"
+            style="border-radius: 0.75rem; background: rgba(59, 130, 246, 0.08); border-left: 5px solid #3b82f6 !important;">
+            <div class="d-flex align-items-center">
+                <i class="fas fa-eye text-primary mr-3" style="font-size: 1.6rem;"></i>
+                <div>
+                    <h6 class="font-weight-bold text-dark mb-1">Mode Lihat (Admin Only)</h6>
+                    <p class="mb-0 text-muted small">Input nilai seleksi dan penetapan kelulusan akhir hanya dapat dilakukan oleh role <strong>Pengurus</strong>.</p>
+                </div>
+            </div>
+        </div>
+    @endif
 
     @if($isLocked)
         <div class="alert alert-warning border-0 shadow-sm mb-4"
@@ -58,7 +72,7 @@
                         @csrf
                         <div class="form-group">
                             <label class="font-weight-600 text-muted small text-uppercase">Jenis Seleksi (Kriteria)</label>
-                            <select name="jenis_seleksi" class="form-control" required {{ $isLocked ? 'disabled' : '' }}
+                            <select name="jenis_seleksi" class="form-control" required {{ ($isLocked || !$isPengurus) ? 'disabled' : '' }}
                                 style="border-radius: 8px;">
                                 <option value="">-- Pilih Kriteria --</option>
                                 @foreach($kriterias as $k)
@@ -68,7 +82,7 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-600 text-muted small text-uppercase">Nilai</label>
-                            <input type="number" name="nilai" class="form-control" required {{ $isLocked ? 'disabled' : '' }} style="border-radius: 8px;" placeholder="0 - 100" min="0" max="100" step="0.01">
+                            <input type="number" name="nilai" class="form-control" required {{ ($isLocked || !$isPengurus) ? 'disabled' : '' }} style="border-radius: 8px;" placeholder="0 - 100" min="0" max="100" step="0.01">
                         </div>
                         <div class="form-group mb-2">
                             <label class="font-weight-600 text-muted small text-uppercase">Status Kelulusan</label>
@@ -81,12 +95,15 @@
                         </div>
                         <div class="form-group">
                             <label class="font-weight-600 text-muted small text-uppercase">Keterangan (Opsional)</label>
-                            <textarea name="keterangan" class="form-control" {{ $isLocked ? 'disabled' : '' }}
+                            <textarea name="keterangan" class="form-control" {{ ($isLocked || !$isPengurus) ? 'disabled' : '' }}
                                 style="border-radius: 8px;" rows="3" placeholder="Catatan khusus..."></textarea>
                         </div>
                         @if($isLocked)
                             <button type="button" disabled class="btn btn-secondary btn-block font-weight-bold"
                                 style="border-radius: 8px;"><i class="fas fa-lock mr-2"></i> Form Terkunci</button>
+                        @elseif(!$isPengurus)
+                            <button type="button" disabled class="btn btn-secondary btn-block font-weight-bold"
+                                style="border-radius: 8px;"><i class="fas fa-eye mr-2"></i> Mode Lihat (Admin)</button>
                         @else
                             <button type="submit" class="btn btn-primary btn-block"
                                 style="border-radius: 8px; font-weight: 600;">Simpan Nilai</button>
@@ -133,10 +150,10 @@
                                             @endif
                                         </td>
                                         <td class="px-4 py-3 align-middle text-right">
-                                            @if($isLocked)
+                                            @if($isLocked || !$isPengurus)
                                                 <button disabled class="btn btn-sm btn-light text-muted rounded-circle"
-                                                    title="Nilai Terkunci">
-                                                    <i class="fas fa-lock"></i>
+                                                    title="{{ !$isPengurus ? 'Mode Lihat (Admin)' : 'Nilai Terkunci' }}">
+                                                    <i class="fas {{ !$isPengurus ? 'fa-eye' : 'fa-lock' }}"></i>
                                                 </button>
                                             @else
                                                 <form action="{{ route('seleksi.destroy', $hasil->id) }}" method="POST"
@@ -174,19 +191,26 @@
                         PENETAPAN KELULUSAN AKHIR</h6>
                 </div>
                 <div class="card-body">
-                    @if($isLocked)
+                    @if($isLocked || !$isPengurus)
                         <div class="row align-items-center">
                             <div class="col-md-8 mb-3 mb-md-0">
-                                <p class="text-muted mb-2">Status kelulusan akhir peserta telah ditetapkan dan dikunci. Nilai
-                                    dan status tidak dapat diubah kembali.</p>
+                                <p class="text-muted mb-2">
+                                    @if($isLocked)
+                                        Status kelulusan akhir peserta telah ditetapkan dan dikunci. Nilai dan status tidak dapat diubah kembali.
+                                    @else
+                                        Status kelulusan akhir hanya dapat ditentukan dan disimpan oleh <strong>Pengurus</strong>.
+                                    @endif
+                                </p>
                                 <div class="d-flex align-items-center">
-                                    <label class="mr-3 font-weight-bold mb-0">Status Akhir:</label>
+                                    <label class="mr-3 font-weight-bold mb-0">Status saat ini:</label>
                                     @if($pendaftaran->status_kelulusan === 'LOLOS')
                                         <span class="badge badge-success px-3 py-2" style="font-size: 0.9rem;"><i
                                                 class="fas fa-check-circle mr-1"></i> LOLOS</span>
-                                    @else
+                                    @elseif($pendaftaran->status_kelulusan === 'TIDAK LOLOS')
                                         <span class="badge badge-danger px-3 py-2" style="font-size: 0.9rem;"><i
                                                 class="fas fa-times-circle mr-1"></i> TIDAK LOLOS</span>
+                                    @else
+                                        <span class="badge badge-secondary px-3 py-2" style="font-size: 0.9rem;">MENUNGGU</span>
                                     @endif
                                 </div>
                             </div>
@@ -194,12 +218,14 @@
                                 <div class="input-group">
                                     <select disabled class="form-control font-weight-bold bg-light"
                                         style="border-radius: 8px 0 0 8px;">
-                                        <option selected>{{ $pendaftaran->status_kelulusan }}</option>
+                                        <option selected>{{ $pendaftaran->status_kelulusan ?? 'Menunggu' }}</option>
                                     </select>
                                     <div class="input-group-append">
                                         <button class="btn btn-secondary font-weight-bold" disabled type="button"
-                                            style="border-radius: 0 8px 8px 0;"><i class="fas fa-lock mr-1"></i>
-                                            Terkunci</button>
+                                            style="border-radius: 0 8px 8px 0;">
+                                            <i class="fas {{ !$isPengurus ? 'fa-eye' : 'fa-lock' }} mr-1"></i>
+                                            {{ !$isPengurus ? 'Mode Lihat' : 'Terkunci' }}
+                                        </button>
                                     </div>
                                 </div>
                             </div>

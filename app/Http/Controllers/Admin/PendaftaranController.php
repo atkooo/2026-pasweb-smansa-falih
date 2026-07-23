@@ -69,6 +69,10 @@ class PendaftaranController extends Controller
 
     public function updateStatus(UpdateStatusPendaftaranRequest $request, $id)
     {
+        if (auth()->user()->role !== 'pengurus') {
+            return redirect()->back()->with('error', 'Aksi tidak diizinkan. Hanya Pengurus yang berwenang melakukan verifikasi berkas pendaftaran.');
+        }
+
         $pendaftaran = FormulirPendaftaran::with('user')->findOrFail($id);
 
         if (in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected'])) {
