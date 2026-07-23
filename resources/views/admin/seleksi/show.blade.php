@@ -24,7 +24,7 @@
     @if(!$isPengurus)
         <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 8px 24px rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12);">
             <div class="d-flex align-items-start">
-                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
+                <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
                     <i class="fas fa-eye text-white" style="font-size:1.1rem;"></i>
                 </div>
                 <div>
@@ -39,7 +39,7 @@
     @if($isLocked)
         <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); box-shadow: 0 8px 24px rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.15);">
             <div class="d-flex align-items-start">
-                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
+                <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
                     <i class="fas fa-lock text-white" style="font-size:1rem;"></i>
                 </div>
                 <div>

@@ -60,7 +60,7 @@
                     @if($formulir->status_kelulusan === 'lulus')
                         <div class="p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); box-shadow: 0 8px 24px rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.15);">
                             <div class="d-flex align-items-start">
-                                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 20px rgba(16,185,129,0.40);">
+                                <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 20px rgba(16,185,129,0.40);">
                                     <i class="fas fa-trophy text-warning" style="font-size:1.5rem;"></i>
                                 </div>
                                 <div>
@@ -73,7 +73,7 @@
                     @elseif($formulir->status_kelulusan === 'tidak_lulus')
                         <div class="p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); box-shadow: 0 8px 24px rgba(107,114,128,0.08); border: 1px solid rgba(107,114,128,0.15);">
                             <div class="d-flex align-items-start">
-                                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#6b7280,#4b5563);box-shadow:0 6px 20px rgba(107,114,128,0.25);">
+                                <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#6b7280,#4b5563);box-shadow:0 6px 20px rgba(107,114,128,0.25);">
                                     <i class="fas fa-info text-white" style="font-size:1.2rem;"></i>
                                 </div>
                                 <div>
@@ -117,7 +117,7 @@
                                             <i class="fas fa-info-circle" style="font-size: 1.25rem;"></i>
                                         </div>
                                     </div>
-                                    <div class="flex-grow-1">
+                                    <div class="grow">
                                         <div class="d-flex justify-content-between align-items-center mb-1">
                                             <h6 class="font-weight-bold text-dark mb-0">{{ $info->jenis_info }}</h6>
                                             <span class="badge badge-light text-muted border"><i class="far fa-calendar-alt mr-1"></i> {{ \Carbon\Carbon::parse($info->tanggal_update)->format('d M Y') }}</span>

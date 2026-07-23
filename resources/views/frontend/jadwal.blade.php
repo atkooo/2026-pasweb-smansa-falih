@@ -76,10 +76,10 @@
                     @foreach($jadwals as $jadwal)
                         <div class="timeline-item d-flex align-items-stretch gap-3 gap-md-4 mb-4 position-relative">
                             <!-- Dot on the line -->
-                            <div class="timeline-dot flex-shrink-0"></div>
+                            <div class="timeline-dot shrink-0"></div>
 
                             <!-- Card Content -->
-                            <div class="card flex-grow-1 border-0 schedule-card ms-2">
+                            <div class="card grow border-0 schedule-card ms-2">
                                 <div class="card-body p-4">
                                     <h5 class="fw-bold text-dark mb-2" style="font-size: 1.1rem; line-height: 1.5;">
                                         {{ $jadwal->nama_kegiatan }}

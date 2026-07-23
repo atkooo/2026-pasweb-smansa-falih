@@ -142,7 +142,7 @@
                     @if(auth()->user()->role !== 'pengurus')
                         <div class="mb-4 p-3" style="border-radius: 0.875rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 6px 18px rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12);">
                             <div class="d-flex align-items-center">
-                                <div class="mr-3 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 12px rgba(59,130,246,0.30);">
+                                <div class="mr-3 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 12px rgba(59,130,246,0.30);">
                                     <i class="fas fa-eye text-white" style="font-size:0.95rem;"></i>
                                 </div>
                                 <div>
@@ -158,7 +158,7 @@
                         @php $isApproved = $pendaftaran->status_pendaftaran == 'approved'; @endphp
                         <div class="mb-4 p-3" style="border-radius: 0.875rem; background: linear-gradient(135deg, {{ $isApproved ? '#f0fdf4, #dcfce7' : '#fef2f2, #fee2e2' }} 100%); box-shadow: 0 6px 18px rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.10); border: 1px solid rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.15);">
                             <div class="d-flex align-items-center">
-                                <div class="mr-3 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,{{ $isApproved ? '#10b981,#059669' : '#ef4444,#dc2626' }});box-shadow:0 4px 12px rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.30);">
+                                <div class="mr-3 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,{{ $isApproved ? '#10b981,#059669' : '#ef4444,#dc2626' }});box-shadow:0 4px 12px rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.30);">
                                     <i class="fas fa-lock text-white" style="font-size:0.9rem;"></i>
                                 </div>
                                 <div>

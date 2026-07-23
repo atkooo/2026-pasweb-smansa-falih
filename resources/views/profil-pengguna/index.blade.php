@@ -150,7 +150,7 @@
                         @if($fp->status_pendaftaran === 'pending')
                             <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); box-shadow: 0 8px 24px rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.15);">
                                 <div class="d-flex align-items-start">
-                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
+                                    <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
                                         <i class="fas fa-hourglass-half text-white" style="font-size:1.1rem;"></i>
                                     </div>
                                     <div>
@@ -163,7 +163,7 @@
                         @elseif($fp->status_pendaftaran === 'revision')
                             <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); box-shadow: 0 8px 24px rgba(217,119,6,0.10); border: 1px solid rgba(217,119,6,0.15);">
                                 <div class="d-flex align-items-start">
-                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 6px 16px rgba(249,115,22,0.35);">
+                                    <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 6px 16px rgba(249,115,22,0.35);">
                                         <i class="fas fa-pen text-white" style="font-size:1.1rem;"></i>
                                     </div>
                                     <div>
@@ -178,7 +178,7 @@
                         @elseif($fp->status_pendaftaran === 'rejected')
                             <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); box-shadow: 0 8px 24px rgba(239,68,68,0.10); border: 1px solid rgba(239,68,68,0.15);">
                                 <div class="d-flex align-items-start">
-                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 6px 16px rgba(239,68,68,0.35);">
+                                    <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 6px 16px rgba(239,68,68,0.35);">
                                         <i class="fas fa-times text-white" style="font-size:1.2rem;"></i>
                                     </div>
                                     <div>

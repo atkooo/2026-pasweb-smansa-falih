@@ -13,7 +13,7 @@
     @if(auth()->user()->role !== 'pengurus')
         <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 8px 24px rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12);">
             <div class="d-flex align-items-start">
-                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
+                <div class="mr-4 shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
                     <i class="fas fa-eye text-white" style="font-size:1.1rem;"></i>
                 </div>
                 <div>
