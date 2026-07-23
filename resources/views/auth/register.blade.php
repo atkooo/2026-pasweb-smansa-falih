@@ -6,29 +6,36 @@
     <div class="auth-wrapper">
         <div class="auth-card">
 
-            <!-- Image Side -->
-            <div class="auth-image-side auth-bg-register">
+            <!-- Side Banner (Colored Gradient Background) -->
+            <div class="auth-image-side auth-bg-register position-relative">
+                <div style="position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%;"></div>
+                <div style="position: absolute; bottom: -60px; left: -60px; width: 260px; height: 260px; background: radial-gradient(circle, rgba(0,0,0,0.25) 0%, transparent 70%); border-radius: 50%;"></div>
+
                 <div class="auth-image-content">
-                    <span class="role-badge role-badge-white mb-2 d-inline-block">PENERIMAAN ANGGOTA</span>
-                    <h3 class="fw-bold mb-2">Langkah Awal Anda!</h3>
-                    <p class="mb-0 text-light" style="font-size: 0.95rem; opacity: 0.9;">
-                        Bergabunglah bersama keluarga besar Paskibra SMA Negeri 1 Pontianak dan ukir sejarah prestasi Anda.
+                    <span class="role-badge role-badge-white mb-3 d-inline-block shadow-sm">PENERIMAAN ANGGOTA</span>
+                    <h3 class="fw-bold mb-3 text-white">Langkah Awal Anda!</h3>
+                    <p class="mb-4 text-white" style="font-size: 0.95rem; opacity: 0.9; line-height: 1.7; font-weight: 300;">
+                        Bergabunglah bersama keluarga besar Paskibra SMA Negeri 1 Pontianak dan ukir sejarah prestasi serta kepemimpinan Anda.
                     </p>
+                    <div class="pt-3 border-top border-white-10 d-flex align-items-center gap-2" style="font-size: 0.85rem; color: rgba(255,255,255,0.8);">
+                        <i class="fas fa-shield-alt text-white"></i>
+                        <span>Paskibra SMA Negeri 1 Pontianak</span>
+                    </div>
                 </div>
             </div>
 
             <!-- Form Side -->
             <div class="auth-form-side">
                 <div class="text-center mb-2">
-                    <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 45px; margin-bottom: 0.3rem;">
+                    <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 42px; margin-bottom: 0.3rem;">
                     <h2 class="auth-title">Daftar Akun</h2>
-                    <p class="auth-subtitle">Lengkapi formulir di bawah untuk mendaftar</p>
+                    <p class="auth-subtitle mb-0">Lengkapi formulir di bawah untuk mendaftar</p>
                 </div>
 
                 @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show" style="border-radius: 10px;" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show mb-2" style="border-radius: 10px; font-size: 0.82rem; padding: 0.5rem 1rem;" role="alert">
                         <i class="fas fa-exclamation-circle me-2"></i>
-                        <ul class="mb-0 px-3">
+                        <ul class="mb-0 px-3 small">
                             @foreach($errors->all() as $error)
                                 <li>{{ $error }}</li>
                             @endforeach
@@ -42,9 +49,10 @@
                         @if($errors->any())
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Pendaftaran gagal',
+                                title: 'Pendaftaran Gagal',
                                 text: 'Silakan periksa kembali form yang Anda kirimkan.',
-                                confirmButtonText: 'Tutup'
+                                confirmButtonText: 'Tutup',
+                                confirmButtonColor: '#d10000'
                             });
                         @endif
                     });
@@ -55,13 +63,13 @@
 
                     <!-- Nama Lengkap -->
                     <div class="mb-2">
-                        <label for="nama_lengkap" class="form-label fw-bold mb-1"
-                            style="font-size: 0.8rem; color: #444;">Nama Lengkap</label>
+                        <label for="nama_lengkap" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">Nama Lengkap</label>
                         <div class="position-relative form-group">
                             <i class="fas fa-user input-icon"></i>
                             <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
                                 class="form-control form-control-custom @error('nama_lengkap') is-invalid @enderror"
-                                placeholder="Contoh: Budi Santoso" required>
+                                placeholder="Nama lengkap"
+                                required>
                             @error('nama_lengkap')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -70,13 +78,14 @@
 
                     <!-- NISN -->
                     <div class="mb-2">
-                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.8rem; color: #444;">NISN <span
-                                class="text-muted fw-normal">(10 digit)</span></label>
+                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">NISN <span class="text-muted fw-normal">(10 digit)</span></label>
                         <div class="position-relative form-group">
                             <i class="fas fa-barcode input-icon"></i>
                             <input type="text" id="nisn" name="nisn" value="{{ old('nisn') }}"
                                 class="form-control form-control-custom @error('nisn') is-invalid @enderror"
-                                placeholder="Contoh: 1234567890" required>
+                                placeholder="NISN"
+                                maxlength="10"
+                                required>
                             @error('nisn')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -86,15 +95,15 @@
                     <div class="row g-2">
                         <!-- Password -->
                         <div class="col-md-6 mb-2">
-                            <label for="password" class="form-label fw-bold mb-1"
-                                style="font-size: 0.8rem; color: #444;">Password</label>
+                            <label for="password" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">Password</label>
                             <div class="position-relative form-group">
                                 <i class="fas fa-lock input-icon"></i>
                                 <input type="password" id="password" name="password"
                                     class="form-control form-control-custom @error('password') is-invalid @enderror"
-                                    placeholder="Min. 8 karakter" required>
+                                    placeholder="Password"
+                                    required>
                                 <i class="fas fa-eye toggle-password"
-                                    style="position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
+                                    style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
                                     onclick="togglePassword('password', this)"></i>
                                 @error('password')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -104,15 +113,15 @@
 
                         <!-- Confirm Password -->
                         <div class="col-md-6 mb-2">
-                            <label for="password_confirmation" class="form-label fw-bold mb-1"
-                                style="font-size: 0.8rem; color: #444;">Ulangi Password</label>
+                            <label for="password_confirmation" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">Ulangi Password</label>
                             <div class="position-relative form-group">
                                 <i class="fas fa-check-circle input-icon"></i>
                                 <input type="password" id="password_confirmation" name="password_confirmation"
                                     class="form-control form-control-custom @error('password_confirmation') is-invalid @enderror"
-                                    placeholder="Ulangi password" required>
+                                    placeholder="Ulangi password"
+                                    required>
                                 <i class="fas fa-eye toggle-password"
-                                    style="position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
+                                    style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
                                     onclick="togglePassword('password_confirmation', this)"></i>
                                 @error('password_confirmation')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -121,10 +130,9 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 mt-1 p-2 rounded" style="background-color: #fff5f5; border: 1px dashed #ffc9c9;">
-                        <p class="mb-0 text-muted" style="font-size: 0.7rem; line-height: 1.3;">
-                            <i class="fas fa-info-circle text-danger me-1"></i> Dengan mendaftar, Anda menyetujui seluruh
-                            ketentuan seleksi Paskibra Ganesha.
+                    <div class="mb-2 p-2 rounded" style="background-color: #fff5f5; border: 1px dashed #ffc9c9;">
+                        <p class="mb-0 text-muted" style="font-size: 0.73rem; line-height: 1.4;">
+                            <i class="fas fa-info-circle text-danger me-1"></i> Dengan mendaftar, Anda menyetujui seluruh ketentuan seleksi Paskibra Ganesha.
                         </p>
                     </div>
 
@@ -133,12 +141,12 @@
                     </button>
 
                     <div class="text-center mt-2">
-                        <p class="text-muted mb-1" style="font-size: 0.8rem;">
-                            Sudah punya akun? <a href="{{ route('login') }}"
-                                class="text-danger fw-bold text-decoration-none">Masuk di sini</a>
+                        <p class="text-muted mb-1" style="font-size: 0.83rem;">
+                            Sudah punya akun? <a href="{{ route('login') }}" class="text-danger fw-bold text-decoration-none">Masuk di sini</a>
                         </p>
-                        <a href="{{ url('/') }}" class="text-secondary text-decoration-none fw"
-                            style="font-size: 0.85rem;"><i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda</a>
+                        <a href="{{ url('/') }}" class="text-secondary text-decoration-none fw-semibold" style="font-size: 0.83rem;">
+                            <i class="fas fa-arrow-left me-1"></i> Kembali ke Beranda
+                        </a>
                     </div>
                 </form>
 

@@ -80,20 +80,26 @@
                     <h3 class="font-weight-bold text-dark mb-3">Selamat Datang di Portal Calon Anggota</h3>
                     @if($formulir = auth()->user()->formulirPendaftaran)
                         @if($formulir->status_pendaftaran === 'approved')
-                            <div class="alert alert-success border-0 p-3 mb-3 text-left d-inline-block w-100" style="border-radius: 12px; background: #ecfdf5; border-left: 4px solid #10b981 !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-check-circle text-success mr-3" style="font-size: 1.8rem;"></i>
-                                    <div>
+                            <div class="w-100 mb-3 text-left p-4 rounded-lg" style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); box-shadow: 0 8px 24px rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:56px;height:56px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 16px rgba(16,185,129,0.35);">
+                                        <i class="fas fa-check text-white" style="font-size:1.3rem;"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#10b981,#059669);font-size:0.72rem;letter-spacing:1px;padding:4px 12px;">✓ DISETUJUI</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Selamat! Berkas Pendaftaran Anda Telah Disetujui</h6>
                                         <p class="text-muted small mb-0">Berkas Anda telah diverifikasi oleh tim Pengurus. Silakan pantau informasi seleksi lebih lanjut.</p>
                                     </div>
                                 </div>
                             </div>
                         @elseif($formulir->status_pendaftaran === 'revision')
-                            <div class="alert alert-warning border-0 p-3 mb-3 text-left d-inline-block w-100" style="border-radius: 12px; background: #fff4e5; border-left: 4px solid #f59e0b !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-exclamation-triangle text-warning mr-3" style="font-size: 1.8rem;"></i>
-                                    <div>
+                            <div class="w-100 mb-3 text-left p-4 rounded-lg" style="background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); box-shadow: 0 8px 24px rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:56px;height:56px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
+                                        <i class="fas fa-pen text-white" style="font-size:1.1rem;"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:0.72rem;letter-spacing:1px;padding:4px 12px;">✎ PERLU REVISI</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Perlu Revisi Berkas Pendaftaran</h6>
                                         <p class="text-muted small mb-1">Catatan Pengurus: <em>"{{ $formulir->catatan_verifikasi ?: 'Mohon periksa kembali kelengkapan formulir Anda.' }}"</em></p>
                                         <a href="{{ route('pendaftaran.edit') }}" class="btn btn-sm btn-warning text-white rounded-pill font-weight-bold mt-1"><i class="fas fa-edit mr-1"></i> Update Berkas</a>
@@ -101,10 +107,13 @@
                                 </div>
                             </div>
                         @else
-                            <div class="alert alert-info border-0 p-3 mb-3 text-left d-inline-block w-100" style="border-radius: 12px; background: #eff6ff; border-left: 4px solid #3b82f6 !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-clock text-primary mr-3" style="font-size: 1.8rem;"></i>
-                                    <div>
+                            <div class="w-100 mb-3 text-left p-4 rounded-lg" style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 8px 24px rgba(59,130,246,0.10); border: 1px solid rgba(59,130,246,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:56px;height:56px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
+                                        <i class="fas fa-hourglass-half text-white" style="font-size:1.1rem;"></i>
+                                    </div>
+                                    <div class="text-left">
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#3b82f6,#2563eb);font-size:0.72rem;letter-spacing:1px;padding:4px 12px;">⏳ DALAM REVIEW</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Formulir Dalam Tahap Pemeriksaan (Review)</h6>
                                         <p class="text-muted small mb-0">Formulir pendaftaran Anda sudah diterima dan saat ini dalam proses pemeriksaan berkas oleh tim Pengurus.</p>
                                     </div>

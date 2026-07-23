@@ -11,11 +11,13 @@
     </div>
 
     @if(auth()->user()->role !== 'pengurus')
-        <div class="alert alert-info border-0 shadow-sm mb-4"
-            style="border-radius: 0.75rem; background: rgba(59, 130, 246, 0.08); border-left: 5px solid #3b82f6 !important;">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-eye text-primary mr-3" style="font-size: 1.6rem;"></i>
+        <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 8px 24px rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12);">
+            <div class="d-flex align-items-start">
+                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 6px 16px rgba(59,130,246,0.30);">
+                    <i class="fas fa-eye text-white" style="font-size:1.1rem;"></i>
+                </div>
                 <div>
+                    <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#3b82f6,#2563eb);font-size:0.7rem;letter-spacing:1px;padding:4px 12px;">👁 MODE LIHAT</span>
                     <h6 class="font-weight-bold text-dark mb-1">Mode Lihat (Admin Only)</h6>
                     <p class="mb-0 text-muted small">Pembukaan/penutupan pendaftaran serta pengaturan tahun periode aktif hanya dapat dikelola oleh role <strong>Pengurus</strong>.</p>
                 </div>

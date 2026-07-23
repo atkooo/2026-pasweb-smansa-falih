@@ -140,20 +140,32 @@
                 </div>
                 <div class="card-body p-4">
                     @if(auth()->user()->role !== 'pengurus')
-                        <div class="alert alert-info border-0 shadow-sm mb-4"
-                            style="border-radius: 0.5rem; background: rgba(59, 130, 246, 0.08); border-left: 4px solid #3b82f6 !important;">
-                            <i class="fas fa-eye text-primary mr-2"></i>
-                            <strong>Mode Lihat (Admin)</strong><br>
-                            <small class="text-muted">Proses verifikasi & persetujuan berkas pendaftaran hanya dapat dilakukan oleh role <strong>Pengurus</strong>.</small>
+                        <div class="mb-4 p-3" style="border-radius: 0.875rem; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); box-shadow: 0 6px 18px rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.12);">
+                            <div class="d-flex align-items-center">
+                                <div class="mr-3 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,#3b82f6,#2563eb);box-shadow:0 4px 12px rgba(59,130,246,0.30);">
+                                    <i class="fas fa-eye text-white" style="font-size:0.95rem;"></i>
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill mb-1 text-white" style="background:linear-gradient(135deg,#3b82f6,#2563eb);font-size:0.65rem;letter-spacing:1px;padding:3px 10px;">👁 MODE LIHAT</span><br>
+                                    <strong class="text-dark" style="font-size:0.9rem;">Mode Lihat (Admin)</strong>
+                                    <small class="text-muted d-block">Proses verifikasi & persetujuan berkas pendaftaran hanya dapat dilakukan oleh role <strong>Pengurus</strong>.</small>
+                                </div>
+                            </div>
                         </div>
                     @endif
 
                     @if(in_array($pendaftaran->status_pendaftaran, ['approved', 'rejected']))
-                        <div class="alert alert-{{ $pendaftaran->status_pendaftaran == 'approved' ? 'success' : 'danger' }} mb-4 p-3 rounded-lg"
-                            style="font-size: 0.9rem;">
-                            <i class="fas fa-lock mr-2"></i> Pendaftaran ini telah
-                            <strong>{{ $pendaftaran->status_pendaftaran == 'approved' ? 'Disetujui' : 'Ditolak' }}</strong> dan
-                            statusnya sudah dikunci.
+                        @php $isApproved = $pendaftaran->status_pendaftaran == 'approved'; @endphp
+                        <div class="mb-4 p-3" style="border-radius: 0.875rem; background: linear-gradient(135deg, {{ $isApproved ? '#f0fdf4, #dcfce7' : '#fef2f2, #fee2e2' }} 100%); box-shadow: 0 6px 18px rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.10); border: 1px solid rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.15);">
+                            <div class="d-flex align-items-center">
+                                <div class="mr-3 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:44px;height:44px;background:linear-gradient(135deg,{{ $isApproved ? '#10b981,#059669' : '#ef4444,#dc2626' }});box-shadow:0 4px 12px rgba({{ $isApproved ? '16,185,129' : '239,68,68' }},0.30);">
+                                    <i class="fas fa-lock text-white" style="font-size:0.9rem;"></i>
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill mb-1 text-white" style="background:linear-gradient(135deg,{{ $isApproved ? '#10b981,#059669' : '#ef4444,#dc2626' }});font-size:0.65rem;letter-spacing:1px;padding:3px 10px;">🔒 DIKUNCI</span><br>
+                                    <span class="text-dark font-weight-bold" style="font-size:0.9rem;">Pendaftaran ini telah <strong>{{ $isApproved ? 'Disetujui' : 'Ditolak' }}</strong> dan statusnya sudah dikunci.</span>
+                                </div>
+                            </div>
                         </div>
                     @else
                         <p class="text-muted small mb-4">Pilih tindakan untuk berkas formulir calon anggota ini. Tindakan akan

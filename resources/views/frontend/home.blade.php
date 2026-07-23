@@ -78,7 +78,7 @@
     <div style="position: absolute; bottom: -50px; left: -50px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(209,0,0,0.03) 0%, transparent 70%); border-radius: 50%;"></div>
 
     <div class="container position-relative z-1" style="max-width: 1140px;">
-        <div class="row align-items-center g-4">
+        <div class="row align-items-stretch g-4">
             <div class="col-lg-7 col-md-12">
                 <div class="h-100 p-4 p-md-5 bg-white d-flex flex-column sejarah-card">
                     <div class="mb-3 text-center text-md-start">
@@ -97,8 +97,8 @@
                 </div>
             </div>
             <div class="col-lg-5 col-md-12">
-                <div class="h-100 bg-white p-2 sejarah-img-wrapper">
-                    <img src="{{ asset('images/fotosejarah.webp') }}" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover shadow-sm" style="border-radius: 1rem; min-height: 280px; max-height: 380px;">
+                <div class="h-100 bg-white p-2 p-md-3 d-flex flex-column sejarah-img-wrapper">
+                    <img src="{{ asset('images/fotosejarah.webp') }}" alt="Paskibra SMA N 1 Pontianak" class="img-fluid w-100 h-100 object-fit-cover shadow-sm" style="border-radius: 1rem; min-height: 280px;">
                 </div>
             </div>
         </div>

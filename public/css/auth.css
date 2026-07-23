@@ -11,7 +11,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1rem;
+    padding: 1.5rem 1rem;
 }
 
 .auth-card {
@@ -20,10 +20,9 @@ body {
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
     overflow: hidden;
     width: 100%;
-    max-width: 900px;
+    max-width: 1060px;
     display: flex;
     flex-direction: row;
-    max-height: 90vh;
 }
 
 .auth-image-side {
@@ -31,39 +30,16 @@ body {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 2rem;
+    justify-content: center;
+    padding: 3rem 2.5rem;
     color: white;
+    background: linear-gradient(135deg, #d10000 0%, #8b0000 100%);
+    overflow: hidden;
 }
 
-.auth-bg-login {
-    background: url('/images/fotoawal.webp') center center / cover no-repeat;
-}
-
-.auth-bg-login::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(209, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
-    z-index: 1;
-}
-
+.auth-bg-login,
 .auth-bg-register {
-    background: url('/images/fotosejarah1.webp') center center / cover no-repeat;
-}
-
-.auth-bg-register::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(209, 0, 0, 0.85));
-    z-index: 1;
+    background: linear-gradient(135deg, #c40000 0%, #7a0000 100%);
 }
 
 .auth-image-content {
@@ -73,29 +49,29 @@ body {
 
 .auth-form-side {
     width: 55%;
-    padding: 2.5rem 3rem;
+    padding: 2rem 3.5rem;
     background-color: #ffffff;
     overflow-y: auto;
 }
 
 .auth-title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 800;
     color: #1a1a1a;
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.15rem;
 }
 
 .auth-subtitle {
     color: #6c757d;
-    margin-bottom: 1.5rem;
-    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    font-size: 0.88rem;
 }
 
 .form-control-custom {
     border: 2px solid #eee;
     border-radius: 10px;
-    padding: 0.6rem 1rem 0.6rem 2.8rem;
-    font-size: 0.95rem;
+    padding: 0.5rem 2.8rem 0.5rem 2.8rem;
+    font-size: 0.9rem;
     transition: all 0.3s ease;
     background-color: #fafbfc;
 }
@@ -123,7 +99,7 @@ body {
     background-color: #d10000;
     border: none;
     border-radius: 12px;
-    padding: 0.8rem;
+    padding: 0.65rem;
     font-weight: 700;
     letter-spacing: 1px;
     transition: all 0.3s ease;

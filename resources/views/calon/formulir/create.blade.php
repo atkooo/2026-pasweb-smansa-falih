@@ -141,7 +141,7 @@
                     </div>
                     
                     <h6 class="font-weight-bold text-primary mt-5 mb-3 border-bottom pb-2"><i class="fas fa-file-upload mr-2"></i> Unggah Berkas Persyaratan</h6>
-                    <div style="background: #fff3cd; border-left: 4px solid #f59e0b; border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+                    <div style="background: #fff3cd; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 0.5rem; padding: 0.75rem 1rem; margin-bottom: 1rem;">
                         <span style="color: #92400e; font-size: 0.875rem;">
                             <i class="fas fa-exclamation-triangle mr-2" style="color: #d97706;"></i>
                             <strong style="color: #78350f;">Perhatian:</strong> Ukuran maksimal setiap file adalah <strong style="color: #78350f;">2MB</strong>. Format yang diterima: <strong style="color: #78350f;">PDF, JPG, JPEG, PNG</strong>.

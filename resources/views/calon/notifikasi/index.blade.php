@@ -58,19 +58,29 @@
                     @endif
 
                     @if($formulir->status_kelulusan === 'lulus')
-                        <div class="alert alert-success border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: #ecfdf5; color: #065f46; border-left: 4px solid #10b981 !important;">
-                            <i class="fas fa-trophy mt-1 mr-3 text-warning" style="font-size: 1.8rem;"></i>
-                            <div>
-                                <h6 class="font-weight-bold mb-1">Pengumuman Kelulusan: SELAMAT ANDA LULUS!</h6>
-                                <p class="mb-0 small">Berdasarkan hasil akumulasi penilaian seleksi, Anda dinyatakan <strong>LULUS SELEKSI PASKIBRA</strong>. Selamat bergabung menjadi anggota resmi Paskibra!</p>
+                        <div class="p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); box-shadow: 0 8px 24px rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.15);">
+                            <div class="d-flex align-items-start">
+                                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 20px rgba(16,185,129,0.40);">
+                                    <i class="fas fa-trophy text-warning" style="font-size:1.5rem;"></i>
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#10b981,#059669);font-size:0.72rem;letter-spacing:1px;padding:4px 12px;">🏆 LULUS SELEKSI</span>
+                                    <h6 class="font-weight-bold text-dark mb-1">Pengumuman Kelulusan: SELAMAT ANDA LULUS!</h6>
+                                    <p class="mb-0 small text-muted">Berdasarkan hasil akumulasi penilaian seleksi, Anda dinyatakan <strong>LULUS SELEKSI PASKIBRA</strong>. Selamat bergabung menjadi anggota resmi Paskibra!</p>
+                                </div>
                             </div>
                         </div>
                     @elseif($formulir->status_kelulusan === 'tidak_lulus')
-                        <div class="alert alert-secondary border-0 shadow-sm d-flex align-items-start p-4" style="border-radius: 0.5rem; background: #f3f4f6; color: #374151;">
-                            <i class="fas fa-info-circle mt-1 mr-3 text-secondary" style="font-size: 1.5rem;"></i>
-                            <div>
-                                <h6 class="font-weight-bold mb-1">Pengumuman Kelulusan Final</h6>
-                                <p class="mb-0 small">Berdasarkan hasil penilaian seleksi akhir, Anda dinyatakan belum lulus pada kesempatan periode ini. Terima kasih atas partisipasi dan perjuangan Anda!</p>
+                        <div class="p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%); box-shadow: 0 8px 24px rgba(107,114,128,0.08); border: 1px solid rgba(107,114,128,0.15);">
+                            <div class="d-flex align-items-start">
+                                <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:60px;height:60px;background:linear-gradient(135deg,#6b7280,#4b5563);box-shadow:0 6px 20px rgba(107,114,128,0.25);">
+                                    <i class="fas fa-info text-white" style="font-size:1.2rem;"></i>
+                                </div>
+                                <div>
+                                    <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#6b7280,#4b5563);font-size:0.72rem;letter-spacing:1px;padding:4px 12px;">📋 PENGUMUMAN FINAL</span>
+                                    <h6 class="font-weight-bold text-dark mb-1">Pengumuman Kelulusan Final</h6>
+                                    <p class="mb-0 small text-muted">Berdasarkan hasil penilaian seleksi akhir, Anda dinyatakan belum lulus pada kesempatan periode ini. Terima kasih atas partisipasi dan perjuangan Anda!</p>
+                                </div>
                             </div>
                         </div>
                     @endif

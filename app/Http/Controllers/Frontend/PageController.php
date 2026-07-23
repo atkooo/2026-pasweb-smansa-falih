@@ -3,30 +3,38 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Informasi;
+use App\Services\ProfilService;
 
 class PageController extends Controller
 {
+    protected $profilService;
+
+    public function __construct(ProfilService $profilService)
+    {
+        $this->profilService = $profilService;
+    }
+
     public function home()
     {
-        $informasi = Informasi::all()->pluck('konten', 'jenis_info')->toArray();
+        $informasi = $this->profilService->getAllInformasi();
         return view('frontend.home', compact('informasi'));
     }
 
     public function sejarah()
     {
-        $informasi = Informasi::all()->pluck('konten', 'jenis_info')->toArray();
+        $informasi = $this->profilService->getAllInformasi();
         return view('frontend.sejarah', compact('informasi'));
     }
 
     public function visiMisi()
     {
-        $informasi = Informasi::all()->pluck('konten', 'jenis_info')->toArray();
+        $informasi = $this->profilService->getAllInformasi();
         return view('frontend.visi-misi', compact('informasi'));
     }
 
     public function strukturOrganisasi()
     {
-        return view('frontend.struktur-organisasi');
+        $informasi = $this->profilService->getAllInformasi();
+        return view('frontend.struktur-organisasi', compact('informasi'));
     }
 }

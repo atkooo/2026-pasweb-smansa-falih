@@ -148,20 +148,26 @@
                     <div class="card-body p-4">
 
                         @if($fp->status_pendaftaran === 'pending')
-                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fffbeb; border-left: 4px solid #f59e0b !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-clock text-warning mr-3" style="font-size: 1.8rem;"></i>
+                            <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); box-shadow: 0 8px 24px rgba(245,158,11,0.10); border: 1px solid rgba(245,158,11,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 16px rgba(245,158,11,0.35);">
+                                        <i class="fas fa-hourglass-half text-white" style="font-size:1.1rem;"></i>
+                                    </div>
                                     <div>
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#f59e0b,#d97706);font-size:0.7rem;letter-spacing:1px;padding:4px 12px;">⏳ DALAM REVIEW</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Pendaftaran Dalam Proses Review</h6>
                                         <p class="text-muted small mb-0">Berkas formulir pendaftaran Anda telah diterima dan saat ini sedang berada dalam tahap pemeriksaan (review) oleh tim Pengurus.</p>
                                     </div>
                                 </div>
                             </div>
                         @elseif($fp->status_pendaftaran === 'revision')
-                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fff4e5; border-left: 4px solid #d97706 !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-exclamation-circle text-warning mr-3" style="font-size: 1.8rem;"></i>
+                            <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); box-shadow: 0 8px 24px rgba(217,119,6,0.10); border: 1px solid rgba(217,119,6,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 6px 16px rgba(249,115,22,0.35);">
+                                        <i class="fas fa-pen text-white" style="font-size:1.1rem;"></i>
+                                    </div>
                                     <div>
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#f97316,#ea580c);font-size:0.7rem;letter-spacing:1px;padding:4px 12px;">✎ PERLU REVISI</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Perlu Revisi Berkas</h6>
                                         <p class="text-muted small mb-1">Pengurus meminta Anda memperbarui data/berkas pendaftaran. Catatan Pengurus:</p>
                                         <div class="bg-white p-2 rounded border text-dark small mb-2"><em>"{{ $fp->catatan_verifikasi ?: 'Mohon periksa kembali berkas pendaftaran Anda.' }}"</em></div>
@@ -170,10 +176,13 @@
                                 </div>
                             </div>
                         @elseif($fp->status_pendaftaran === 'rejected')
-                            <div class="alert border-0 shadow-sm mb-4 p-3" style="border-radius: 0.75rem; background-color: #fef2f2; border-left: 4px solid #ef4444 !important;">
-                                <div class="d-flex align-items-center">
-                                    <i class="fas fa-times-circle text-danger mr-3" style="font-size: 1.8rem;"></i>
+                            <div class="mb-4 p-4" style="border-radius: 1rem; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); box-shadow: 0 8px 24px rgba(239,68,68,0.10); border: 1px solid rgba(239,68,68,0.15);">
+                                <div class="d-flex align-items-start">
+                                    <div class="mr-4 flex-shrink-0 d-flex align-items-center justify-content-center rounded-circle" style="width:52px;height:52px;background:linear-gradient(135deg,#ef4444,#dc2626);box-shadow:0 6px 16px rgba(239,68,68,0.35);">
+                                        <i class="fas fa-times text-white" style="font-size:1.2rem;"></i>
+                                    </div>
                                     <div>
+                                        <span class="badge badge-pill mb-2 text-white" style="background:linear-gradient(135deg,#ef4444,#dc2626);font-size:0.7rem;letter-spacing:1px;padding:4px 12px;">✕ DITOLAK</span>
                                         <h6 class="font-weight-bold text-dark mb-1">Berkas Ditolak</h6>
                                         <p class="text-muted small mb-0">Mohon maaf, berkas pendaftaran Anda belum dapat disetujui pada periode ini.</p>
                                         @if($fp->catatan_verifikasi)

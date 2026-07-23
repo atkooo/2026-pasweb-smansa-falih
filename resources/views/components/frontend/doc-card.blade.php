@@ -9,7 +9,7 @@
             {!! $title !!}
         </h6>
         <div class="doc-line"></div>
-        <a href="{{ $link }}" class="text-decoration-none fw-bold text-primary" style="font-size: 0.9rem; letter-spacing: 0.5px;">
+        <a href="{{ $link }}" class="text-decoration-none fw-bold text-primary mt-auto" style="font-size: 0.9rem; letter-spacing: 0.5px;">
             {{ $linkText }} <i class="fas fa-download ms-1 small"></i>
         </a>
     </div>

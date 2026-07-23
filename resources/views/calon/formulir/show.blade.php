@@ -22,7 +22,7 @@
 </div>
 
 @if($pendaftaran->status_pendaftaran == 'revision')
-<div class="alert alert-warning shadow-sm border-0 mb-4" style="border-radius: 0.75rem; border-left: 5px solid #f59e0b !important;">
+<div class="alert alert-warning shadow-sm border-0 mb-4" style="border-radius: 0.75rem; border: 1px solid rgba(245, 158, 11, 0.3) !important;">
     <h5 class="font-weight-bold mb-2"><i class="fas fa-exclamation-triangle mr-2"></i> Perhatian: Berkas Perlu Direvisi</h5>
     <p class="mb-3">Panitia telah memeriksa berkas Anda dan meminta Anda untuk melakukan revisi dengan catatan berikut:</p>
     <div class="p-3 bg-white rounded mb-3 text-dark">

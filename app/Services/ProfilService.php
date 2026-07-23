@@ -11,7 +11,12 @@ class ProfilService
      */
     public function getAllInformasi()
     {
-        return Informasi::all()->pluck('konten', 'jenis_info')->toArray();
+        return Informasi::all()->pluck('konten', 'jenis_info')->map(function ($value) {
+            if (is_string($value) && (str_starts_with($value, 'uploads/') || str_starts_with($value, 'documents/')) && !str_starts_with($value, 'storage/')) {
+                return 'storage/' . $value;
+            }
+            return $value;
+        })->toArray();
     }
 
     /**

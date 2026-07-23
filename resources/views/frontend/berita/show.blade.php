@@ -3,40 +3,42 @@
 @section('title', $berita->judul . ' - Paskibra Ganesha')
 
 @section('content')
-<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-5' }}" style="{{ auth()->check() ? '' : 'margin-top: 80px;' }}">
+<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-3' }}">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb bg-transparent p-0">
-                    <li class="breadcrumb-item"><a href="{{ route('berita') }}" style="color: #ef4444; text-decoration: none;">Berita</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($berita->judul, 30) }}</li>
+                    <li class="breadcrumb-item"><a href="{{ route('berita') }}" class="fw-semibold text-decoration-none" style="color: #d10000;">Berita</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ Str::limit($berita->judul, 35) }}</li>
                 </ol>
             </nav>
 
             <div class="mb-4">
-                <span class="badge mb-3" style="background-color: rgba(239, 68, 68, 0.1); color: #ef4444; border-radius: 50rem; font-weight: 600; padding: 0.5rem 1rem;">
+                <span class="badge mb-3 shadow-sm" style="background-color: rgba(209, 0, 0, 0.1); color: #d10000; border-radius: 50rem; font-weight: 700; padding: 0.5rem 1.2rem; font-size: 0.8rem;">
                     {{ $berita->kategori }}
                 </span>
-                <h1 class="font-weight-bold" style="color: #111827; letter-spacing: -1px; line-height: 1.3;">{{ $berita->judul }}</h1>
-                <div class="d-flex align-items-center mt-3 text-muted">
-                    <div class="mr-4"><i class="far fa-calendar-alt mr-2"></i> {{ $berita->created_at->format('d F Y, H:i') }}</div>
-                    <div><i class="far fa-user mr-2"></i> Admin Paskibra</div>
+                <h1 class="fw-bold text-dark mb-3" style="letter-spacing: -0.5px; line-height: 1.3;">{{ $berita->judul }}</h1>
+                <div class="d-flex align-items-center flex-wrap gap-3 text-muted" style="font-size: 0.9rem;">
+                    <div><i class="far fa-calendar-alt me-1 text-danger"></i> {{ $berita->created_at->format('d F Y, H:i') }} WIB</div>
+                    <div><i class="far fa-user me-1 text-danger"></i> Admin Paskibra</div>
                 </div>
             </div>
 
             @if($berita->gambar_sampul)
-                <div class="mb-5" style="border-radius: 1rem; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
-                    <img src="{{ asset('storage/' . $berita->gambar_sampul) }}" alt="{{ $berita->judul }}" class="img-fluid w-100">
+                <div class="mb-5 shadow-sm" style="border-radius: 1.25rem; overflow: hidden;">
+                    <img src="{{ asset('storage/' . $berita->gambar_sampul) }}" alt="{{ $berita->judul }}" class="img-fluid w-100 object-fit-cover" style="max-height: 480px;">
                 </div>
             @endif
 
-            <div class="article-content" style="font-size: 1.1rem; line-height: 1.8; color: #4b5563;">
-                {!! $berita->isi !!}
+            <div class="card border-0 p-4 p-md-5 mb-5 shadow-sm" style="border-radius: 1.25rem; background: #ffffff;">
+                <div class="article-content" style="font-size: 1.05rem; line-height: 1.85; color: #374151;">
+                    {!! $berita->isi !!}
+                </div>
             </div>
 
-            <div class="mt-5 pt-4 border-top">
-                <a href="{{ route('berita') }}" class="btn btn-light font-weight-bold" style="border-radius: 50rem; padding: 0.5rem 1.5rem;">
-                    <i class="fas fa-arrow-left mr-2"></i> Kembali ke Indeks Berita
+            <div class="mt-4 pt-3 border-top">
+                <a href="{{ route('berita') }}" class="btn btn-outline-danger rounded-pill px-4 py-2 fw-semibold shadow-sm d-inline-flex align-items-center gap-2">
+                    <i class="fas fa-arrow-left me-1"></i> Kembali ke Indeks Berita
                 </a>
             </div>
         </div>
@@ -47,14 +49,14 @@
     .article-content img {
         max-width: 100%;
         height: auto;
-        border-radius: 0.5rem;
+        border-radius: 0.8rem;
         margin: 1.5rem 0;
     }
     .article-content p {
         margin-bottom: 1.5rem;
     }
     .article-content a {
-        color: #ef4444;
+        color: #d10000;
         text-decoration: underline;
     }
 </style>
