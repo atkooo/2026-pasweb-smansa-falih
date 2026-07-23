@@ -29,7 +29,7 @@
                 <div class="text-center mb-4">
                     <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 55px; margin-bottom: 0.5rem;">
                     <h2 class="auth-title">Masuk Akun</h2>
-                    <p class="auth-subtitle mb-0">Masukkan NISN / NIP dan password Anda</p>
+                    <p class="auth-subtitle mb-0">Masukkan NISN dan password Anda</p>
                 </div>
 
                 @if($errors->any())
@@ -50,7 +50,7 @@
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Login Gagal',
-                                text: 'Silakan periksa kembali NISN/NIP dan password Anda.',
+                                text: 'Silakan periksa kembali NISN dan password Anda.',
                                 confirmButtonText: 'Tutup',
                                 confirmButtonColor: '#d10000'
                             });
@@ -63,12 +63,12 @@
 
                     <!-- NISN Input -->
                     <div class="mb-3">
-                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.85rem; color: #444;">NISN / NIP</label>
+                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.85rem; color: #444;">NISN</label>
                         <div class="position-relative form-group">
                             <i class="fas fa-id-card input-icon"></i>
                             <input type="text" id="nisn" name="nisn" value="{{ old('nisn') }}"
                                 class="form-control form-control-custom @error('nisn') is-invalid @enderror"
-                                placeholder="NISN atau NIP"
+                                placeholder="NISN"
                                 required>
                             @error('nisn')
                                 <div class="invalid-feedback">{{ $message }}</div>
