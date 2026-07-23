@@ -131,7 +131,7 @@
 
     <div class="container px-4 px-md-5" style="max-width: 1100px;">
         @php
-            $informasi = \App\Models\Informasi::pluck('konten', 'jenis_info')->toArray();
+            $informasi = $informasi ?? app(\App\Services\ProfilService::class)->getAllInformasi();
         @endphp
 
         @if(isset($informasi['gambar_struktur']))

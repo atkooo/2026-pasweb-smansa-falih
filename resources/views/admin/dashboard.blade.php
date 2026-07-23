@@ -55,7 +55,34 @@
         </div>
     </div>
 
-    <div class="row mt-4">
+    <!-- Banner Portal Nilai Ekskul SMAN 1 -->
+    <div class="card mb-4 border-0 shadow-sm overflow-hidden" style="border-radius: 1rem; background: linear-gradient(135deg, #1e293b 0%, #1e3a8a 100%); color: white;">
+        <div class="card-body p-4">
+            <div class="row align-items-center">
+                <div class="col-lg-8 col-md-12 mb-3 mb-lg-0">
+                    <div class="d-flex align-items-start">
+                        <div class="rounded-3 text-warning d-flex align-items-center justify-content-center shadow-sm mr-3 shrink-0" style="width: 54px; height: 54px; min-width: 54px; font-size: 1.5rem; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 12px;">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <span class="badge badge-warning text-dark font-weight-bold mb-2 px-3 py-1.5 rounded-pill" style="font-size: 0.75rem; letter-spacing: 0.5px;">WEB RESMI E-RAPOR SEKOLAH</span>
+                            <h4 class="font-weight-bold mb-1 text-white" style="font-size: 1.25rem;">Input & Kelola Nilai Ekskul SMAN 1</h4>
+                            <p class="mb-0 text-white-50 small" style="max-width: 600px; line-height: 1.6;">
+                                Akses langsung ke portal resmi SMAN 1 Pontianak untuk menginput nilai e-Rapor dan rekapan nilai ekstrakurikuler Paskibra.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 text-lg-right text-left">
+                    <a href="https://eskul.sman1ptk.sch.id/?action=login" target="_blank" rel="noopener noreferrer" class="btn btn-warning font-weight-bold text-dark px-4 py-2.5 rounded-pill shadow-sm" style="font-size: 0.88rem;">
+                        Input Nilai Ekskul <i class="fas fa-arrow-right ml-1.5"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <!-- Chart Section -->
         <div class="col-lg-8 col-md-12 mb-4">
             <div class="card h-100 shadow-sm border-0" style="border-radius: 1rem;">
@@ -77,6 +104,10 @@
                     <h3 class="m-0 card-title-modern">Akses Cepat</h3>
                 </div>
                 <div class="card-body d-flex flex-column pt-3">
+                    <a href="https://eskul.sman1ptk.sch.id/?action=login" target="_blank" rel="noopener noreferrer" class="btn-soft text-decoration-none mb-2" style="background-color: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe;">
+                        <span><i class="fas fa-graduation-cap text-primary mr-2"></i> Input Nilai Ekskul SMAN 1</span>
+                        <i class="fas fa-chevron-right text-muted"></i>
+                    </a>
                     <a href="{{ route('users.index') }}" class="btn-soft btn-soft-primary text-decoration-none">
                         <span><i class="fas fa-user-plus mr-2"></i> Kelola Pengguna</span>
                         <i class="fas fa-chevron-right text-muted"></i>

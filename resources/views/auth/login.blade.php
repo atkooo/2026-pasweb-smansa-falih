@@ -29,50 +29,31 @@
                 <div class="text-center mb-4">
                     <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 55px; margin-bottom: 0.5rem;">
                     <h2 class="auth-title">Masuk Akun</h2>
-                    <p class="auth-subtitle mb-0">Masukkan NISN dan password Anda</p>
+                    <p class="auth-subtitle mb-0">Masukkan NISN / NIP dan password Anda</p>
                 </div>
 
-                @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show mb-3" style="border-radius: 10px;" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <ul class="mb-0 px-3 small">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                @if(session('error') || $errors->any())
+                    <div class="auth-alert-danger d-flex align-items-center justify-content-between mb-3 shadow-xs alert alert-dismissible fade show" role="alert">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fas fa-exclamation-triangle text-danger fs-6 shrink-0"></i>
+                            <span>{{ session('error') ?? $errors->first() }}</span>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" style="padding: 1rem;"></button>
                     </div>
                 @endif
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        @if($errors->any())
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Login Gagal',
-                                text: 'Silakan periksa kembali NISN dan password Anda.',
-                                confirmButtonText: 'Tutup',
-                                confirmButtonColor: '#d10000'
-                            });
-                        @endif
-                    });
-                </script>
 
                 <form action="{{ route('login.post') }}" method="POST">
                     @csrf
 
-                    <!-- NISN Input -->
+                    <!-- NISN / NIP Input -->
                     <div class="mb-3">
-                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.85rem; color: #444;">NISN</label>
+                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.85rem; color: #444;">NISN / NIP</label>
                         <div class="position-relative form-group">
                             <i class="fas fa-id-card input-icon"></i>
                             <input type="text" id="nisn" name="nisn" value="{{ old('nisn') }}"
                                 class="form-control form-control-custom @error('nisn') is-invalid @enderror"
-                                placeholder="NISN"
+                                placeholder="NISN / NIP"
                                 required>
-                            @error('nisn')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 
@@ -88,9 +69,6 @@
                             <i class="fas fa-eye toggle-password"
                                 style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
                                 onclick="togglePassword('password', this)"></i>
-                            @error('password')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
                         </div>
                     </div>
 

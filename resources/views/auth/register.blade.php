@@ -32,31 +32,15 @@
                     <p class="auth-subtitle mb-0">Lengkapi formulir di bawah untuk mendaftar</p>
                 </div>
 
-                @if($errors->any())
-                    <div class="alert alert-danger alert-dismissible fade show mb-2" style="border-radius: 10px; font-size: 0.82rem; padding: 0.5rem 1rem;" role="alert">
-                        <i class="fas fa-exclamation-circle me-2"></i>
-                        <ul class="mb-0 px-3 small">
-                            @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                @if(session('error') || $errors->any())
+                    <div class="auth-alert-danger d-flex align-items-center justify-content-between mb-3 shadow-xs alert alert-dismissible fade show" role="alert">
+                        <div class="d-flex align-items-center gap-2">
+                            <i class="fas fa-exclamation-triangle text-danger fs-6 shrink-0"></i>
+                            <span>{{ session('error') ?? $errors->first() }}</span>
+                        </div>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" style="padding: 1rem;"></button>
                     </div>
                 @endif
-
-                <script>
-                    document.addEventListener('DOMContentLoaded', function () {
-                        @if($errors->any())
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Pendaftaran Gagal',
-                                text: 'Silakan periksa kembali form yang Anda kirimkan.',
-                                confirmButtonText: 'Tutup',
-                                confirmButtonColor: '#d10000'
-                            });
-                        @endif
-                    });
-                </script>
 
                 <form action="{{ route('register.post') }}" method="POST">
                     @csrf
@@ -71,23 +55,22 @@
                                 placeholder="Nama lengkap"
                                 required>
                             @error('nama_lengkap')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback-custom">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
 
-                    <!-- NISN -->
+                    <!-- NISN / NIP -->
                     <div class="mb-2">
-                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">NISN <span class="text-muted fw-normal">(10 digit)</span></label>
+                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">NISN / NIP</label>
                         <div class="position-relative form-group">
                             <i class="fas fa-barcode input-icon"></i>
                             <input type="text" id="nisn" name="nisn" value="{{ old('nisn') }}"
                                 class="form-control form-control-custom @error('nisn') is-invalid @enderror"
-                                placeholder="NISN"
-                                maxlength="10"
+                                placeholder="NISN / NIP"
                                 required>
                             @error('nisn')
-                                <div class="invalid-feedback">{{ $message }}</div>
+                                <div class="invalid-feedback-custom">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -106,7 +89,7 @@
                                     style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
                                     onclick="togglePassword('password', this)"></i>
                                 @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback-custom">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>
@@ -124,7 +107,7 @@
                                     style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); cursor: pointer; color: #a0a0a0; transition: color 0.3s ease; z-index: 10;"
                                     onclick="togglePassword('password_confirmation', this)"></i>
                                 @error('password_confirmation')
-                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    <div class="invalid-feedback-custom">{{ $message }}</div>
                                 @enderror
                             </div>
                         </div>

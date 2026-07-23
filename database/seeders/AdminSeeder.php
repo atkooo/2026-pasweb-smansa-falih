@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        // Admin default dengan contoh NISN/ID sederhana
+        // Admin default
         User::updateOrCreate(
             ['nisn' => '9932199312038122'],
             [
