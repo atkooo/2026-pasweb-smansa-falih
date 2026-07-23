@@ -49,14 +49,11 @@ class SeleksiService
             $temp_nilai = [];
 
             foreach ($kriterias as $k) {
-                // Get the score for this specific criteria
                 $hasil = $p->hasilSeleksi->where('jenis_seleksi', $k->nama)->first();
                 $nilai = floatval($hasil->nilai ?? 0);
                 
-                // Store in array for view rendering
                 $temp_nilai[$k->id] = $nilai;
 
-                // Calculate final score using weight
                 $nilai_akhir += ($nilai * ($k->bobot / 100));
             }
             

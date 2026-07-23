@@ -6,7 +6,6 @@
     <div class="auth-wrapper">
         <div class="auth-card">
 
-            <!-- Side Banner (Colored Gradient Background) -->
             <div class="auth-image-side auth-bg-login position-relative">
                 <div style="position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%;"></div>
                 <div style="position: absolute; bottom: -60px; left: -60px; width: 260px; height: 260px; background: radial-gradient(circle, rgba(0,0,0,0.25) 0%, transparent 70%); border-radius: 50%;"></div>
@@ -24,7 +23,6 @@
                 </div>
             </div>
 
-            <!-- Form Side -->
             <div class="auth-form-side">
                 <div class="text-center mb-4">
                     <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 55px; margin-bottom: 0.5rem;">

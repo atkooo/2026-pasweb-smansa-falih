@@ -1,4 +1,3 @@
-<!-- Footer -->
 <footer>
     <div class="container-lg">
         <div class="row mb-4">

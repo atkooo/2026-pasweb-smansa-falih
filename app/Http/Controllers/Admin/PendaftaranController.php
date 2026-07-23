@@ -12,7 +12,7 @@ class PendaftaranController extends Controller
 {
     public function index(Request $request)
     {
-        // Get active year from Informasi
+        // Ambil tahun aktif dari Informasi
         $informasi = Informasi::whereIn('jenis_info', ['pendaftaran_tahun_aktif'])->pluck('konten', 'jenis_info');
         $tahunAktif = $informasi['pendaftaran_tahun_aktif'] ?? date('Y');
 
@@ -51,7 +51,6 @@ class PendaftaranController extends Controller
             ->orderBy('tahun_periode', 'desc')
             ->pluck('tahun_periode');
         
-        // Add current active year if it's not in the list yet
         if (!$availableTahun->contains($tahunAktif)) {
             $availableTahun->push($tahunAktif);
             $availableTahun = $availableTahun->sortDesc();

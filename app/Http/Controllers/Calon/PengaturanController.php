@@ -44,7 +44,6 @@ class PengaturanController extends Controller
             $user->nisn = $request->nisn;
         }
 
-        // Auto upload photo if present
         if ($request->hasFile('foto')) {
             if ($user->foto && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->foto)) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($user->foto);
@@ -52,7 +51,6 @@ class PengaturanController extends Controller
             $user->foto = \App\Helpers\ImageHelper::convertToWebp($request->file('foto'), 'profil_photos');
             $user->save();
 
-            // If only photo was uploaded (no password fields touched)
             if (!$request->filled('password_baru')) {
                 return redirect()->back()->with('success', 'Foto profil berhasil diperbarui.');
             }

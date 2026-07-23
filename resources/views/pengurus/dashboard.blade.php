@@ -3,7 +3,7 @@
 @section('title', 'Pengurus Dashboard - Paskibra Ganesha')
 
 @section('content')
-    <!-- PENGURUS DASHBOARD -->
+    <!-- DASHBOARD PENGURUS -->
     <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
         <div>
             <h4 class="font-weight-bold dashboard-title" >Halo, {{ explode(' ', auth()->user()->nama_lengkap)[0] }}!</h4>
@@ -65,7 +65,6 @@
     </div>
 
     <div class="row mt-4">
-        <!-- Dashboard Features -->
         <div class="col-12 mb-4">
             <div class="card shadow-sm border-0" style="border-radius: 0.75rem;">
                 <div class="card-header bg-white border-bottom pt-4 pb-3">

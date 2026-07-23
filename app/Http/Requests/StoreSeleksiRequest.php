@@ -12,7 +12,7 @@ class StoreSeleksiRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Use policy or middleware in real scenario
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class StoreSeleksiRequest extends FormRequest
     {
         return [
             'jenis_seleksi' => 'required|string|max:255',
-            'nilai' => 'required|numeric|min:0|max:100', // Better to restrict numeric and range
+            'nilai' => 'required|numeric|min:0|max:100',
             'keterangan' => 'nullable|string',
         ];
     }

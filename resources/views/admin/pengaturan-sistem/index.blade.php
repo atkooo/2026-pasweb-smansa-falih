@@ -1,7 +1,6 @@
 @extends('layouts.admin')
 
 @section('title', 'Pengaturan Sistem Pendaftaran - Paskibra Ganesha')
-@section('page-title', 'Pengaturan Sistem Pendaftaran')
 
 @section('content')
     <div class="mb-4 mt-2">

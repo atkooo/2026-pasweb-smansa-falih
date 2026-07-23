@@ -9,7 +9,6 @@
             <div class="card shadow-sm border-0" style="border-radius: 1rem; overflow: hidden;">
                 <div class="card-body p-4 p-md-5">
                     <div class="row align-items-center">
-                        <!-- Left Side: Profile Info -->
                         <div class="col-md-8 d-flex align-items-center mb-4 mb-md-0">
                             <!-- Avatar -->
                             <div class="position-relative mr-4 mr-md-5">
@@ -58,7 +57,6 @@
                             </div>
                         </div>
 
-                        <!-- Right Side: Badge / Logo -->
                         <div class="col-md-4 text-center d-flex flex-column justify-content-center align-items-center" style="border-left: 1px solid #f0f0f0;">
                             <img src="{{ asset('images/logo.webp') }}" alt="Logo Paskibra" style="width: 160px; height: auto;" class="mb-3">
                             <h6 class="font-weight-bold text-secondary" style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">

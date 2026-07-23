@@ -6,7 +6,6 @@
     <div class="auth-wrapper">
         <div class="auth-card">
 
-            <!-- Side Banner (Colored Gradient Background) -->
             <div class="auth-image-side auth-bg-register position-relative">
                 <div style="position: absolute; top: -50px; right: -50px; width: 220px; height: 220px; background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%); border-radius: 50%;"></div>
                 <div style="position: absolute; bottom: -60px; left: -60px; width: 260px; height: 260px; background: radial-gradient(circle, rgba(0,0,0,0.25) 0%, transparent 70%); border-radius: 50%;"></div>
@@ -24,7 +23,6 @@
                 </div>
             </div>
 
-            <!-- Form Side -->
             <div class="auth-form-side">
                 <div class="text-center mb-2">
                     <img src="{{ asset('images/logo.webp') }}" alt="Logo" style="width: 42px; margin-bottom: 0.3rem;">
@@ -60,14 +58,14 @@
                         </div>
                     </div>
 
-                    <!-- NISN / NIP -->
+                    <!-- NISN -->
                     <div class="mb-2">
-                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">NISN / NIP</label>
+                        <label for="nisn" class="form-label fw-bold mb-1" style="font-size: 0.82rem; color: #444;">NISN</label>
                         <div class="position-relative form-group">
                             <i class="fas fa-barcode input-icon"></i>
                             <input type="text" id="nisn" name="nisn" value="{{ old('nisn') }}"
                                 class="form-control form-control-custom @error('nisn') is-invalid @enderror"
-                                placeholder="NISN / NIP"
+                                placeholder="NISN"
                                 required>
                             @error('nisn')
                                 <div class="invalid-feedback-custom">{{ $message }}</div>

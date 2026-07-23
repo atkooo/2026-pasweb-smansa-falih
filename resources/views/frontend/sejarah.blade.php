@@ -30,9 +30,7 @@
 <!-- CSS Breakout to escape container-lg -->
 <div style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-top: -1.5rem; background-color: #f8f9fa;">
 
-    <!-- Top Section (Card) -->
     <div class="px-3 px-md-4 mx-auto" style="max-width: 1040px; padding-top: 3rem;">
-        <!-- Main White Card -->
         <div class="card border-0 p-4 p-md-5 mb-5" style="border-radius: 1rem; background-color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
             <div class="mb-4">
                 <span class="d-inline-block text-white fw-bold px-3 py-1 mb-2 shadow-sm" style="background-color: #d10000; font-size: 0.85rem; letter-spacing: 2px; border-radius: 30px;">SEJARAH</span>

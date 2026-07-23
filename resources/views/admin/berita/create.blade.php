@@ -30,7 +30,6 @@
 <form action="{{ route('berita.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="row">
-        <!-- Main Content Column -->
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem;">
                 <div class="card-body p-4">

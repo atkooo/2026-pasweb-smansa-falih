@@ -22,19 +22,16 @@ class DashboardController extends Controller
         $role = $user->role;
 
         if ($role === 'admin') {
-            // Metrics
             $totalPengguna = User::count();
             $totalCalon = User::where('role', 'calon_anggota')->count();
             $totalPengurus = User::where('role', 'pengurus')->count();
             $totalPendaftar = FormulirPendaftaran::count();
 
-            // Timeline: Latest 5 Pendaftaran
             $pendaftarTerbaru = FormulirPendaftaran::with('user')->latest()->take(5)->get();
 
-            // Latest schedules (tanggal_kegiatan sudah dihapus, ambil terbaru)
+            // Jadwal terbaru
             $jadwalMendatang = Jadwal::latest()->take(3)->get();
 
-            // Chart Data: Pendaftar per hari (Last 7 days)
             $labels = [];
             $data = [];
             for ($i = 6; $i >= 0; $i--) {
@@ -56,7 +53,6 @@ class DashboardController extends Controller
         } elseif ($role === 'pengurus') {
             return view('pengurus.dashboard');
         } elseif ($role === 'anggota' || ($user->formulirPendaftaran && $user->formulirPendaftaran->status_kelulusan === 'LOLOS')) {
-            // Latest schedules
             $jadwalMendatang = Jadwal::latest()->take(3)->get();
             $beritaTerbaru = Berita::where('status', 'diterbitkan')
                 ->latest()

@@ -123,7 +123,6 @@
 </style>
 
 <div style="background-color: #f8f9fa; min-height: 100vh; padding-top: 4rem; padding-bottom: 6rem; margin-top: -1.5rem;">
-    <!-- Top Title Section -->
     <div class="text-center mb-5">
         <h2 class="fw-bold mb-2" style="font-size: 2.5rem; letter-spacing: 1px; color: #212529;">STRUKTUR ORGANISASI</h2>
         <h3 class="fw-bold" style="color: #d10000; font-size: 1.5rem; letter-spacing: 0.5px;">PASKIBRA SMA NEGERI 1 PONTIANAK</h3>

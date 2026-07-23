@@ -1,14 +1,13 @@
 @extends('layouts.admin')
 
 @section('title', 'Pengumuman Seleksi - Paskibra')
-@section('page-title', 'Pengumuman Seleksi')
 
 @section('content')
 <div class="row">
     <div class="col-12">
-        <div class="mb-4">
-            <h5 class="font-weight-bold text-dark">Daftar Pengumuman</h5>
-            <p class="text-muted">Pantau terus halaman ini untuk mengetahui informasi terbaru seputar seleksi Paskibra.</p>
+        <div class="mb-4 mt-2">
+            <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Pengumuman Seleksi</h3>
+            <p class="text-muted" style="font-size: 0.95rem;">Pantau terus halaman ini untuk mengetahui informasi terbaru seputar seleksi Paskibra.</p>
         </div>
 
         @forelse($pengumumans as $p)

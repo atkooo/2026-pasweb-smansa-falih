@@ -116,20 +116,20 @@ Route::prefix('admin')->middleware('auth')->group(function () {
         Route::post('pengaturan-sistem', [PengaturanSistemController::class, 'update'])->name('admin.pengaturan-sistem.update');
         Route::post('pengaturan-sistem/toggle', [PengaturanSistemController::class, 'toggleStatus'])->name('admin.pengaturan-sistem.toggle');
 
-        // Pendaftaran Routes
+        // Rute Pendaftaran
         Route::get('pendaftaran', [PendaftaranController::class, 'index'])->name('admin.pendaftaran.index');
 
         Route::get('pendaftaran/{id}', [PendaftaranController::class, 'show'])->name('admin.pendaftaran.show');
         Route::patch('pendaftaran/{id}/status', [PendaftaranController::class, 'updateStatus'])->name('admin.pendaftaran.updateStatus');
 
-        // Seleksi Routes
+        // Rute Seleksi
         Route::get('seleksi', [SeleksiController::class, 'index'])->name('seleksi.index');
         Route::get('seleksi/{id}', [SeleksiController::class, 'show'])->name('seleksi.show');
         Route::post('seleksi/{id}', [SeleksiController::class, 'store'])->name('seleksi.store');
         Route::post('seleksi/{id}/kelulusan', [SeleksiController::class, 'setKelulusan'])->name('seleksi.kelulusan');
         Route::delete('seleksi/hasil/{id}', [SeleksiController::class, 'destroy'])->name('seleksi.destroy');
 
-        // Pengumuman Routes
+        // Rute Pengumuman
         Route::resource('pengumuman', AdminPengumumanController::class);
     });
 });

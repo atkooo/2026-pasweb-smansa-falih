@@ -52,7 +52,6 @@
 <!-- CSS Breakout to escape container-lg -->
 <div style="margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); margin-top: -1.5rem; background-color: #f8f9fa;">
 
-    <!-- Top Title Section -->
     <div class="text-center bg-white" style="padding: 2.5rem 0 1.5rem;">
         <h2 class="fw-bold mb-2" style="font-size: 2.5rem; letter-spacing: 1px; color: #212529;">VISI & MISI</h2>
         <h3 class="fw-bold" style="color: #d10000; font-size: 1.8rem; letter-spacing: 0.5px;">PASKIBRA SMA NEGERI 1 PONTIANAK</h3>

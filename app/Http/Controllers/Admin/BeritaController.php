@@ -81,7 +81,6 @@ class BeritaController extends Controller
         $data['slug'] = Str::slug($request->judul) . '-' . time();
 
         if ($request->hasFile('gambar_sampul')) {
-            // Delete old image
             if ($berita->gambar_sampul && Storage::disk('public')->exists($berita->gambar_sampul)) {
                 Storage::disk('public')->delete($berita->gambar_sampul);
             }

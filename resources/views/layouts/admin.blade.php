@@ -42,18 +42,14 @@
         }
     </script>
     <div class="wrapper">
-        <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-            <!-- Left navbar links -->
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
             </ul>
 
-            <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Theme Toggle -->
                 <li class="nav-item">
                     <a class="nav-link" href="#" role="button" onclick="toggleTheme(event)">
                         <i class="fas fa-moon" id="theme-icon"></i>
@@ -114,10 +110,8 @@
             </ul>
         </nav>
 
-        <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-light-danger elevation-0"
             style="border-right: none; box-shadow: none !important;">
-            <!-- Brand Logo -->
             <a href="{{ route('dashboard') }}" class="brand-link d-flex justify-content-center align-items-center">
                 <img src="{{ asset('images/sman1ptk-logo.webp') }}" alt="SMAN 1 PTK"
                     style="max-height: 45px; width: auto; object-fit: contain;">
@@ -127,10 +121,7 @@
                 </span>
             </a>
 
-            <!-- Sidebar -->
             <div class="sidebar mt-3">
-
-                <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                         data-accordion="false">
@@ -412,9 +403,7 @@
             </div>
         </aside>
 
-        <!-- Content Wrapper -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
             @hasSection('page-title')
                 <div class="content-header">
                     <div class="container-fluid">
@@ -427,7 +416,6 @@
                 </div>
             @endif
 
-            <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
                     @yield('content')
@@ -435,7 +423,6 @@
             </section>
         </div>
 
-        <!-- Footer -->
         <footer class="main-footer">
             <div class="float-right d-none d-sm-inline">
                 <b>Version</b> 1.0.0

@@ -252,17 +252,17 @@
                 <div class="modal-body p-4 bg-light text-center">
 
                     <div id="ktaPrintArea" class="d-flex flex-column align-items-center">
-                        <!-- KTA Depan (Front Card) -->
+                        <!-- KTA Depan -->
                         <div class="kta-card shadow-lg text-left position-relative mb-3"
                             style="width: 480px; max-width: 100%; height: 280px; border-radius: 18px; background: linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #1e3a8a 100%); color: white; padding: 22px; box-shadow: 0 15px 35px rgba(0,0,0,0.35) !important; border: 2px solid #fbbf24; overflow: hidden;">
 
-                            <!-- Watermark Pattern -->
+                            <!-- Pola Watermark -->
                             <div class="position-absolute"
                                 style="right: -40px; bottom: -40px; opacity: 0.12; pointer-events: none;">
                                 <img src="{{ asset('images/logo.webp') }}" style="width: 280px; height: auto;">
                             </div>
 
-                            <!-- KTA Header -->
+                            <!-- Header KTA -->
                             <div class="d-flex align-items-center justify-content-between pb-2 mb-3"
                                 style="border-bottom: 1px dashed rgba(251, 191, 36, 0.5);">
                                 <div class="d-flex align-items-center">
@@ -279,7 +279,7 @@
                                 <img src="{{ asset('images/logo.webp') }}" style="height: 40px; width: auto;">
                             </div>
 
-                            <!-- KTA Body -->
+                            <!-- Isi KTA -->
                             <div class="row align-items-center mt-2">
                                 <div class="col-4 text-center">
                                     <div class="position-relative d-inline-block">

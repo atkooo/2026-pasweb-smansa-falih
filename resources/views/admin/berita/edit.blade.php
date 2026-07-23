@@ -31,7 +31,6 @@
     @csrf
     @method('PUT')
     <div class="row">
-        <!-- Main Content Column -->
         <div class="col-lg-8">
             <div class="card shadow-sm border-0 mb-4" style="border-radius: 1rem;">
                 <div class="card-body p-4">

@@ -17,7 +17,7 @@ class FormulirController extends Controller
             return view('calon.formulir.show', compact('pendaftaran'));
         }
 
-        // Check if registration is open
+        // Cek status pendaftaran
         $statusInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_status')->first();
         if ($statusInfo && $statusInfo->konten === 'tutup') {
             return redirect()->route('dashboard')->with('error', 'Mohon maaf, pendaftaran calon anggota baru saat ini sedang ditutup.');
@@ -30,7 +30,7 @@ class FormulirController extends Controller
     {
         $user = auth()->user();
 
-        // Check if registration is open
+        // Cek status pendaftaran
         $statusInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_status')->first();
         if ($statusInfo && $statusInfo->konten === 'tutup') {
             return redirect()->route('dashboard')->with('error', 'Mohon maaf, pendaftaran telah ditutup.');
@@ -75,7 +75,7 @@ class FormulirController extends Controller
         $skd = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_skd'), 'berkas/skd');
         $kk = \App\Helpers\ImageHelper::convertToWebp($request->file('upload_kk'), 'berkas/kk');
 
-        // Get tahun_aktif
+        // Ambil tahun aktif
         $tahunInfo = \App\Models\Informasi::where('jenis_info', 'pendaftaran_tahun_aktif')->first();
         $tahunAktif = $tahunInfo ? $tahunInfo->konten : date('Y');
 

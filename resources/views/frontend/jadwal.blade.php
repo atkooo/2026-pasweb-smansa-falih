@@ -11,9 +11,7 @@
         </p>
     </div>
 
-        <!-- Main Card: Latihan Rutin Mingguan -->
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 main-jadwal-card">
-            <!-- Top Status Bar -->
             <div class="card-header bg-white border-bottom py-3 px-4 d-flex flex-wrap align-items-center justify-content-between gap-2">
                 <div class="d-flex align-items-center gap-2">
                     <span class="badge px-3 py-2 rounded-pill text-white fw-bold shadow-xs" style="background: linear-gradient(135deg, #d10000 0%, #ef4444 100%); font-size: 0.78rem; letter-spacing: 0.5px;">
@@ -43,7 +41,6 @@
                         </div>
                     </div>
 
-                    <!-- Right Accent Box: Hari & Jam -->
                     <div class="col-lg-4">
                         <div class="p-3 text-center rounded-4 border bg-light shadow-xs position-relative" style="border-color: rgba(209, 0, 0, 0.15) !important;">
                             <div class="text-uppercase fw-bold text-muted small mb-1" style="letter-spacing: 1px;">HARI LATIHAN</div>

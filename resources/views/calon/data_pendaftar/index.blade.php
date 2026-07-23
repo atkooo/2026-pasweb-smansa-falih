@@ -2,9 +2,12 @@
 
 @section('title', 'Data Pendaftar - Paskibra')
 
-@section('page-title', 'Data Peserta Seleksi')
-
 @section('content')
+<div class="mb-4 mt-2">
+    <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Data Peserta Seleksi</h3>
+    <p class="text-muted" style="font-size: 0.95rem;">Daftar rekan peserta yang terdaftar pada penerimaan angkatan ini.</p>
+</div>
+
 <div class="row">
     <div class="col-12">
         <div class="card shadow-sm border-0" style="border-radius: 1rem;">

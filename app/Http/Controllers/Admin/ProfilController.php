@@ -32,13 +32,8 @@ class ProfilController extends Controller
      */
     public function store(StoreProfilRequest $request)
     {
-        // Text fields are present in request, service handles checking them
         $this->profilService->updateTextFields($request->all());
-        
-        // Image fields are processed
         $this->profilService->updateImageFields($request);
-
-        // Document fields are processed
         $this->profilService->updateDocumentFields($request);
 
         return redirect()->route('profil.index', ['tab' => $request->input('tab', 'beranda')])->with('success', 'Profil website berhasil diperbarui.');

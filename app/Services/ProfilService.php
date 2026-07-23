@@ -73,12 +73,10 @@ class ProfilService
             if ($request->hasFile($field)) {
                 $file = $request->file($field);
 
-                // Determine naming prefix based on field
                 $prefix = str_replace('gambar_', '', $field);
                 $prefix = str_replace('_foto', '', $prefix);
 
                 $savedPath = \App\Helpers\ImageHelper::convertToWebp($file, 'uploads/profil', 'public');
-                // Move or normalize path format if saved via ImageHelper
                 $relativePath = 'uploads/profil/' . basename($savedPath);
 
                 Informasi::updateOrCreate(

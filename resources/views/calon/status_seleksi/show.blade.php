@@ -2,8 +2,6 @@
 
 @section('title', 'Detail Seleksi - Paskibra')
 
-@section('page-title', 'Hasil Seleksi')
-
 @section('content')
 <!-- Red Banner -->
 <div class="card border-0 mb-4 shadow-sm" style="background-color: #cc0000; border-radius: 1rem;">
@@ -16,7 +14,6 @@
             </div>
         </div>
         
-        <!-- User Info -->
         <div>
             <h3 class="font-weight-bold text-white mb-1" style="letter-spacing: 0.5px; text-transform: uppercase;">
                 {{ auth()->user()->nama_lengkap }}
@@ -29,7 +26,6 @@
     </div>
 </div>
 
-<!-- Content Card -->
 <div class="card shadow-sm border-0" style="border-radius: 1rem;">
     <div class="card-body p-4 p-md-5">
         

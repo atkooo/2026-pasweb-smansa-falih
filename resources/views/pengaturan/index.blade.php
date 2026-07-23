@@ -2,9 +2,12 @@
 
 @section('title', 'Pengaturan Akun - Paskibra Ganesha')
 
-@section('page-title', 'Pengaturan Akun')
-
 @section('content')
+<div class="mb-4 mt-2">
+    <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Pengaturan Akun</h3>
+    <p class="text-muted" style="font-size: 0.95rem;">Kelola profil, foto, dan kata sandi akun Anda.</p>
+</div>
+
 <div class="row justify-content-center">
     <div class="col-md-8">
         <div class="card shadow-sm border-0" style="border-radius: 1rem;">
