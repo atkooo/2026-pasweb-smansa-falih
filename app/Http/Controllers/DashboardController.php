@@ -31,11 +31,8 @@ class DashboardController extends Controller
             // Timeline: Latest 5 Pendaftaran
             $pendaftarTerbaru = FormulirPendaftaran::with('user')->latest()->take(5)->get();
 
-            // Timeline: Upcoming schedules
-            $jadwalMendatang = Jadwal::where('tanggal_kegiatan', '>=', Carbon::today())
-                ->orderBy('tanggal_kegiatan', 'asc')
-                ->take(3)
-                ->get();
+            // Latest schedules (tanggal_kegiatan sudah dihapus, ambil terbaru)
+            $jadwalMendatang = Jadwal::latest()->take(3)->get();
 
             // Chart Data: Pendaftar per hari (Last 7 days)
             $labels = [];
@@ -59,10 +56,8 @@ class DashboardController extends Controller
         } elseif ($role === 'pengurus') {
             return view('pengurus.dashboard');
         } elseif ($role === 'anggota' || ($user->formulirPendaftaran && $user->formulirPendaftaran->status_kelulusan === 'LOLOS')) {
-            $jadwalMendatang = Jadwal::where('tanggal_kegiatan', '>=', Carbon::today())
-                ->orderBy('tanggal_kegiatan', 'asc')
-                ->take(3)
-                ->get();
+            // Latest schedules
+            $jadwalMendatang = Jadwal::latest()->take(3)->get();
             $beritaTerbaru = Berita::where('status', 'diterbitkan')
                 ->latest()
                 ->take(5)

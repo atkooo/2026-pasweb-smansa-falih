@@ -1,11 +1,11 @@
-@extends(auth()->check() ? 'layouts.admin' : 'layouts.app')
+@extends('layouts.app')
 
 @section('title', 'Berita & Informasi - Paskibra Ganesha')
 
 @section('content')
-<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-3' }}">
-    <div class="{{ auth()->check() ? 'mb-4' : 'text-center mb-5 mx-auto' }}" style="{{ auth()->check() ? '' : 'max-width: 800px;' }}">
-        <h2 class="font-weight-bold mb-3 {{ auth()->check() ? 'text-dark' : 'section-title' }}">BERITA & INFORMASI</h2>
+<div class="container py-3">
+    <div class="text-center mb-5 mx-auto" style="max-width: 800px;">
+        <h2 class="font-weight-bold mb-3 section-title">BERITA & INFORMASI</h2>
         <p class="text-muted" style="font-size: 1.05rem; line-height: 1.7; font-weight: 400;">
             Kabar terbaru, pengumuman resmi, dan dokumentasi kegiatan seputar Paskibra Ganesha SMA Negeri 1 Pontianak.
         </p>

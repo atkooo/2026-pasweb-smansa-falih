@@ -183,18 +183,14 @@
                         @forelse($jadwalMendatang as $jadwal)
                             <li class="list-group-item px-0 border-bottom-0 mb-3">
                                 <div class="d-flex align-items-start">
-                                    <div class="bg-light rounded p-3 text-center mr-3" style="min-width: 70px;">
-                                        <span class="d-block font-weight-bold text-primary"
-                                            style="font-size: 1.2rem;">{{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->format('d') }}</span>
-                                        <span
-                                            class="d-block text-muted small">{{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->translatedFormat('M') }}</span>
+                                    <div class="bg-light rounded p-3 text-center mr-3" style="min-width: 50px;">
+                                        <i class="fas fa-calendar-check text-primary" style="font-size: 1.3rem;"></i>
                                     </div>
                                     <div>
                                         <h6 class="font-weight-bold text-dark mb-1">{{ $jadwal->nama_kegiatan }}</h6>
-                                        <p class="text-muted small mb-1"><i class="far fa-clock mr-1"></i>
-                                            {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} WIB</p>
-                                        <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i>
-                                            {{ $jadwal->tempat }}</p>
+                                        @if($jadwal->deskripsi)
+                                            <p class="text-muted small mb-0">{{ Str::limit($jadwal->deskripsi, 80) }}</p>
+                                        @endif
                                     </div>
                                 </div>
                             </li>

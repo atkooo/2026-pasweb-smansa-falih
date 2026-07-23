@@ -168,9 +168,7 @@
                                 <td>{{ $item->created_at ? $item->created_at->format('d M Y') : '-' }}</td>
                             @elseif($kategori == 'jadwal')
                                 <td class="font-weight-600 text-dark">{{ $item->nama_kegiatan }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->tanggal_kegiatan)->translatedFormat('d M Y') }}</td>
-                                <td>{{ \Carbon\Carbon::parse($item->waktu)->format('H:i') }} WIB</td>
-                                <td>{{ $item->tempat }}</td>
+                                <td colspan="3">{{ $item->deskripsi ?? '-' }}</td>
                             @endif
                         </tr>
                     @empty

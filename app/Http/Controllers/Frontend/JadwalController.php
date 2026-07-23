@@ -12,13 +12,13 @@ class JadwalController extends Controller
     // === PUBLIC METHODS ===
     public function publicIndex()
     {
-        $jadwals = Jadwal::orderBy('tanggal_kegiatan', 'asc')->orderBy('waktu', 'asc')->get();
+        $jadwals = Jadwal::orderBy('created_at', 'asc')->get();
         return view('frontend.jadwal', compact('jadwals'));
     }
 
     public function index()
     {
-        $jadwals = Jadwal::orderBy('tanggal_kegiatan', 'desc')->paginate(10);
+        $jadwals = Jadwal::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.jadwal.index', compact('jadwals'));
     }
 
@@ -26,12 +26,10 @@ class JadwalController extends Controller
     {
         $request->validate([
             'nama_kegiatan' => 'required|string|max:255',
-            'tanggal_kegiatan' => 'required|date',
-            'waktu' => 'required',
-            'tempat' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string',
         ]);
 
-        Jadwal::create($request->all());
+        Jadwal::create($request->only(['nama_kegiatan', 'deskripsi']));
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal kegiatan berhasil ditambahkan');
     }
@@ -42,12 +40,10 @@ class JadwalController extends Controller
 
         $request->validate([
             'nama_kegiatan' => 'required|string|max:255',
-            'tanggal_kegiatan' => 'required|date',
-            'waktu' => 'required',
-            'tempat' => 'required|string|max:255',
+            'deskripsi'     => 'nullable|string',
         ]);
 
-        $jadwal->update($request->all());
+        $jadwal->update($request->only(['nama_kegiatan', 'deskripsi']));
 
         return redirect()->route('jadwal.index')->with('success', 'Jadwal kegiatan berhasil diperbarui');
     }
@@ -60,4 +56,3 @@ class JadwalController extends Controller
         return redirect()->route('jadwal.index')->with('success', 'Jadwal kegiatan berhasil dihapus');
     }
 }
-

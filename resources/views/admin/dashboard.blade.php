@@ -129,9 +129,10 @@
                     <ul class="timeline-modern mt-2">
                         @forelse($jadwalMendatang as $jadwal)
                             <li>
-                                <span class="time"><i class="far fa-calendar mr-2"></i> {{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->translatedFormat('d M Y') }} - {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }}</span>
                                 <span class="desc text-dark font-weight-bold">{{ $jadwal->nama_kegiatan }}</span>
-                                <span class="d-block text-muted small mt-1"><i class="fas fa-map-marker-alt mr-1"></i> {{ $jadwal->tempat }}</span>
+                                @if($jadwal->deskripsi)
+                                    <span class="d-block text-muted small mt-1">{{ Str::limit($jadwal->deskripsi, 60) }}</span>
+                                @endif
                             </li>
                         @empty
                             <li class="text-muted">Tidak ada jadwal kegiatan dalam waktu dekat.</li>

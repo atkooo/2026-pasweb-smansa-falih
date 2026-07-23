@@ -1,9 +1,9 @@
-@extends(auth()->check() ? 'layouts.admin' : 'layouts.app')
+@extends('layouts.app')
 
 @section('title', $berita->judul . ' - Paskibra Ganesha')
 
 @section('content')
-<div class="{{ auth()->check() ? 'mt-2 mb-4' : 'container py-3' }}">
+<div class="container py-3">
     <div class="row justify-content-center">
         <div class="col-lg-8">
             <nav aria-label="breadcrumb" class="mb-4">

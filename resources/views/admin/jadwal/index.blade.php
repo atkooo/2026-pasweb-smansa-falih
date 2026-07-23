@@ -6,7 +6,7 @@
     <div class="mb-4 mt-2 d-flex justify-content-between align-items-center">
         <div>
             <h3 class="font-weight-bold text-dark mb-1" style="letter-spacing: -0.5px;">Jadwal Kegiatan</h3>
-            <p class="text-muted" style="font-size: 0.95rem;">Kelola kalender dan jadwal kegiatan Paskibra.</p>
+            <p class="text-muted" style="font-size: 0.95rem;">Kelola daftar agenda dan kegiatan Paskibra.</p>
         </div>
         <button type="button" class="btn btn-primary shadow-sm px-4" data-toggle="modal" data-target="#addJadwalModal"
             style="border-radius: 10px; font-weight: 600;">
@@ -14,7 +14,15 @@
         </button>
     </div>
 
-
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show border-0 shadow-sm mb-4" role="alert"
+            style="border-radius: 0.5rem;">
+            <i class="fas fa-check-circle mr-2"></i> {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     @if($errors->any())
         <div class="alert alert-danger alert-dismissible fade show border-0 shadow-sm mb-4" role="alert"
@@ -40,11 +48,9 @@
                             <th class="border-top-0 border-bottom-0 text-muted px-4"
                                 style="font-size: 0.85rem; font-weight: 600; width: 5%;">NO</th>
                             <th class="border-top-0 border-bottom-0 text-muted"
-                                style="font-size: 0.85rem; font-weight: 600; width: 35%;">NAMA KEGIATAN</th>
+                                style="font-size: 0.85rem; font-weight: 600; width: 30%;">NAMA KEGIATAN</th>
                             <th class="border-top-0 border-bottom-0 text-muted"
-                                style="font-size: 0.85rem; font-weight: 600; width: 20%;">TANGGAL & WAKTU</th>
-                            <th class="border-top-0 border-bottom-0 text-muted"
-                                style="font-size: 0.85rem; font-weight: 600; width: 25%;">TEMPAT</th>
+                                style="font-size: 0.85rem; font-weight: 600; width: 50%;">DESKRIPSI</th>
                             <th class="border-top-0 border-bottom-0 text-muted text-center"
                                 style="font-size: 0.85rem; font-weight: 600; width: 15%;">AKSI</th>
                         </tr>
@@ -55,25 +61,17 @@
                                 <td class="px-4 text-muted font-weight-bold">{{ $jadwals->firstItem() + $index }}</td>
                                 <td>
                                     <div class="d-flex align-items-center py-2">
-                                        <div class="rounded-circle mr-3 bg-primary-soft d-flex align-items-center justify-content-center text-primary"
-                                            style="width: 45px; height: 45px; background-color: #e0e7ff;">
-                                            <i class="fas fa-calendar-day"></i>
+                                        <div class="rounded-circle mr-3 d-flex align-items-center justify-content-center"
+                                            style="width: 42px; height: 42px; min-width: 42px; background-color: rgba(209,0,0,0.08);">
+                                            <i class="fas fa-calendar-check" style="color: #d10000;"></i>
                                         </div>
-                                        <div>
-                                            <h6 class="mb-0 font-weight-bold text-dark">{{ $jadwal->nama_kegiatan }}</h6>
-                                        </div>
+                                        <h6 class="mb-0 font-weight-bold text-dark">{{ $jadwal->nama_kegiatan }}</h6>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="text-dark font-weight-bold" style="font-size: 0.95rem;">
-                                        {{ \Carbon\Carbon::parse($jadwal->tanggal_kegiatan)->translatedFormat('l, d M Y') }}
-                                    </div>
-                                    <small class="text-muted"><i class="far fa-clock mr-1"></i>
-                                        {{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }} WIB</small>
-                                </td>
-                                <td>
-                                    <div class="text-muted"><i class="fas fa-map-marker-alt text-danger mr-1"></i>
-                                        {{ Str::limit($jadwal->tempat, 40) }}</div>
+                                    <p class="text-muted mb-0" style="font-size: 0.92rem; line-height: 1.5;">
+                                        {{ $jadwal->deskripsi ? Str::limit($jadwal->deskripsi, 100) : '<em class="text-muted">-</em>' }}
+                                    </p>
                                 </td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-sm btn-light text-primary mr-1" data-toggle="modal"
@@ -116,34 +114,11 @@
                                                         style="border-radius: 0.5rem;" placeholder="Misal: Latihan Rutin PBB">
                                                 </div>
 
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mb-4">
-                                                            <label
-                                                                class="font-weight-600 text-muted small text-uppercase">Tanggal
-                                                                <span class="text-danger">*</span></label>
-                                                            <input type="date" name="tanggal_kegiatan" class="form-control"
-                                                                value="{{ $jadwal->tanggal_kegiatan }}" required
-                                                                style="border-radius: 0.5rem;">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group mb-4">
-                                                            <label class="font-weight-600 text-muted small text-uppercase">Waktu
-                                                                <span class="text-danger">*</span></label>
-                                                            <input type="time" name="waktu" class="form-control"
-                                                                value="{{ \Carbon\Carbon::parse($jadwal->waktu)->format('H:i') }}"
-                                                                required style="border-radius: 0.5rem;">
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-group mb-0">
-                                                    <label class="font-weight-600 text-muted small text-uppercase">Tempat
-                                                        Pelaksanaan <span class="text-danger">*</span></label>
-                                                    <input type="text" name="tempat" class="form-control"
-                                                        value="{{ $jadwal->tempat }}" required style="border-radius: 0.5rem;"
-                                                        placeholder="Misal: Lapangan Utama SMA">
+                                                    <label class="font-weight-600 text-muted small text-uppercase">Deskripsi</label>
+                                                    <textarea name="deskripsi" class="form-control" rows="3"
+                                                        style="border-radius: 0.5rem;"
+                                                        placeholder="Keterangan singkat tentang kegiatan ini...">{{ $jadwal->deskripsi }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="modal-footer border-0 bg-light py-3"
@@ -160,7 +135,7 @@
                             </div>
                         @empty
                             <tr>
-                                <td colspan="5" class="text-center py-5">
+                                <td colspan="4" class="text-center py-5">
                                     <div class="text-muted mb-3"><i class="far fa-calendar-times fa-3x"
                                             style="opacity: 0.4;"></i></div>
                                     <h6 class="font-weight-bold text-dark">Belum ada jadwal kegiatan</h6>
@@ -203,30 +178,11 @@
                                 style="border-radius: 0.5rem;" placeholder="Misal: Latihan Rutin PBB">
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label class="font-weight-600 text-muted small text-uppercase">Tanggal <span
-                                            class="text-danger">*</span></label>
-                                    <input type="date" name="tanggal_kegiatan" class="form-control" required
-                                        style="border-radius: 0.5rem;">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label class="font-weight-600 text-muted small text-uppercase">Waktu <span
-                                            class="text-danger">*</span></label>
-                                    <input type="time" name="waktu" class="form-control" required
-                                        style="border-radius: 0.5rem;">
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group mb-0">
-                            <label class="font-weight-600 text-muted small text-uppercase">Tempat Pelaksanaan <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" name="tempat" class="form-control" required style="border-radius: 0.5rem;"
-                                placeholder="Misal: Lapangan Utama SMA">
+                            <label class="font-weight-600 text-muted small text-uppercase">Deskripsi</label>
+                            <textarea name="deskripsi" class="form-control" rows="3"
+                                style="border-radius: 0.5rem;"
+                                placeholder="Keterangan singkat tentang kegiatan ini..."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer border-0 bg-light py-3" style="border-radius: 0 0 1rem 1rem;">
